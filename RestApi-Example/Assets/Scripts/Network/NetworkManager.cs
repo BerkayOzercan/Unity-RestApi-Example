@@ -1,20 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
-using Scripts.Network;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class NetworkManager : MonoBehaviour
 {
-    private void Start()
-    {
-        StartCoroutine(GetData());
-        StartCoroutine(PostData());
-    }
 
-    public IEnumerator GetData()
+    public IEnumerator GetData(string dataType)
     {
-        UnityWebRequest data = UnityWebRequest.Get("http://localhost:5092/player");
+        UnityWebRequest data = UnityWebRequest.Get("http://localhost:5092/player" + dataType);
         yield return data.SendWebRequest();
 
         if (data.result != UnityWebRequest.Result.Success)
@@ -32,7 +25,7 @@ public class NetworkManager : MonoBehaviour
     {
         string uri = "http://localhost:5092/player";
         WWWForm form = new WWWForm();
-        form.AddField("title", "test data");
+        form.AddField("http://localhost:5092/player", "test data");
 
         using (UnityWebRequest request = UnityWebRequest.Post(uri, form))
         {
