@@ -5,6 +5,9 @@ namespace Assets.GameSystem.Scripts
 {
     public class GameManager : Singleton<GameManager>
     {
+        [SerializeField]
+        public GameObject MenuCanvas = null;
+
         public float Score { get; set; }
         private IGameState currentState;
         private Dictionary<GameStates, IGameState> states;
@@ -15,7 +18,7 @@ namespace Assets.GameSystem.Scripts
 
             states = new Dictionary<GameStates, IGameState>
             {
-                { GameStates.Menu, new MenuState() },
+                { GameStates.Menu, new MenuState(this) },
                 { GameStates.Playing, new PlayingState() },
                 { GameStates.Paused, new PausedState() },
                 { GameStates.GameOver, new GameOverState() }
@@ -29,6 +32,10 @@ namespace Assets.GameSystem.Scripts
             currentState?.OnUpdate();
         }
 
+        /// <summary>
+        /// Change game state
+        /// </summary>
+        /// <param name="newState"></param>
         public void ChangeState(GameStates newState)
         {
             if (currentState != null)
@@ -38,10 +45,30 @@ namespace Assets.GameSystem.Scripts
             currentState.OnEnter();
         }
 
+        /// <summary>
+        /// Add point for current score
+        /// </summary>
+        /// <param name="score"></param>
         public void AddScore(float score)
         {
             Score += score;
             Debug.Log($"Score: {Score}");
+        }
+
+        /// <summary>
+        /// Set play game
+        /// </summary>
+        public void PlayGame()
+        {
+            ChangeState(GameStates.Playing);
+        }
+
+        /// <summary>
+        /// Quitting Game
+        /// </summary>
+        public void QuitGame()
+        {
+            Application.Quit();
         }
     }
 }

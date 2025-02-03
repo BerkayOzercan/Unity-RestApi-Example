@@ -7,6 +7,8 @@ namespace Assets.GameSystem.Scripts
         void OnEnter();
         void OnUpdate();
         void OnExit();
+        void Pause();
+        void ResumeGame();
     }
 }
 
