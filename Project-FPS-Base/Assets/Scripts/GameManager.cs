@@ -1,10 +1,11 @@
 using UnityEngine;
 
+
 public class GameManager : Singleton<GameManager>
 {
-    public int Score { get; set; }
+    public float Score { get; set; }
 
-    public void AddScore(int score)
+    public void AddScore(float score)
     {
         Score += score;
         Debug.Log($"Score: {Score}");

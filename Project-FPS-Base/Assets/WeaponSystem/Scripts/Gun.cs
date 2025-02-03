@@ -22,6 +22,13 @@ namespace Assets.WeaponSystem.Scripts
 			Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
 			RaycastHit hit;
 			Physics.Raycast(ray, out hit);
+
+			if (hit.point == Vector3.zero)
+			{
+				Vector3 limitedPosition = ray.origin + ray.direction * 20f;
+				return limitedPosition;
+			}
+
 			return hit.point;
 		}
 
