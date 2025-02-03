@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
@@ -5,13 +6,8 @@ public class Target : MonoBehaviour
 {
     [SerializeField]
     private float _point = 1f;
-
+    [SerializeField]
     private Health _health = null;
-
-    private void Awake()
-    {
-        _health = GetComponent<Health>();
-    }
 
     private void IsDie(bool isDie)
     {
@@ -26,5 +22,10 @@ public class Target : MonoBehaviour
     private void OnEnable()
     {
         _health.IsDie += IsDie;
+    }
+
+    private void OnDisable()
+    {
+        _health.IsDie -= IsDie;
     }
 }
