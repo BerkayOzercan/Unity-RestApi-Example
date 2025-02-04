@@ -16,8 +16,6 @@ namespace Assets.GameSystem.Scripts
         private readonly GameManager _gameManager;
         public MenuState(GameManager gameManager)
         {
-            Debug.Log("Menu State Enter");
-
             _gameManager = gameManager;
         }
 
@@ -57,8 +55,6 @@ namespace Assets.GameSystem.Scripts
 
         public void OnEnter()
         {
-            Debug.Log("Playing State Enter");
-
             ResumeGame();
         }
         public void OnUpdate()
@@ -104,7 +100,6 @@ namespace Assets.GameSystem.Scripts
 
         public void OnEnter()
         {
-            Debug.Log("Paused State Enter");
             Pause();
         }
         public void OnUpdate()
