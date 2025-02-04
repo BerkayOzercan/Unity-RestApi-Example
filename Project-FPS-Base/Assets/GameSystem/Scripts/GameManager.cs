@@ -7,6 +7,7 @@ namespace Assets.GameSystem.Scripts
     {
         [Header("Canvases")]
         [SerializeField]
+        public GameObject GameCanvas = null;
         public GameObject MenuCanvas = null;
         [SerializeField]
         public GameObject CrossHairCanvas = null;
@@ -26,6 +27,9 @@ namespace Assets.GameSystem.Scripts
                 { GameStates.Paused, new PausedState() },
                 { GameStates.GameOver, new GameOverState() }
             };
+
+            if (GameCanvas.activeSelf == false)
+                GameCanvas.SetActive(true);
 
             ChangeState(GameStates.Menu);
         }
