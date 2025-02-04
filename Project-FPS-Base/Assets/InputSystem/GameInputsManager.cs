@@ -1,3 +1,4 @@
+using Assets.GameSystem.Scripts;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -5,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace Assets.InputSystem
 {
-	public class StarterAssetsInputs : MonoBehaviour
+	public class GameInputsManager : Singleton<GameInputsManager>
 	{
 		[Header("Character Input Values")]
 		public Vector2 Move;
@@ -13,6 +14,7 @@ namespace Assets.InputSystem
 		public bool Jump;
 		public bool Sprint;
 		public bool Fire;
+		public bool Escape;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -49,6 +51,11 @@ namespace Assets.InputSystem
 		{
 			FireInput(value.isPressed);
 		}
+
+		public void OnEscape(InputValue value)
+		{
+			EscapeInput(value.isPressed);
+		}
 #endif
 
 
@@ -77,7 +84,10 @@ namespace Assets.InputSystem
 			Fire = isFire;
 		}
 
-
+		public void EscapeInput(bool isEsc)
+		{
+			Escape = isEsc;
+		}
 	}
 
 }

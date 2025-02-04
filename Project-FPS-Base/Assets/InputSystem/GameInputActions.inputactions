@@ -1,5 +1,5 @@
 {
-    "name": "StarterAssets",
+    "name": "GameInputActions",
     "maps": [
         {
             "name": "Player",
@@ -45,6 +45,15 @@
                     "name": "Fire",
                     "type": "Button",
                     "id": "3821325c-f175-4423-99b9-8cdcb61a10d0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "51204631-cfd5-4204-a48a-f7f3c284f230",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -236,6 +245,17 @@
                     "processors": "",
                     "groups": ";KeyboardMouse",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "923a4049-7b6d-4ff3-9c03-bd26b603a369",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

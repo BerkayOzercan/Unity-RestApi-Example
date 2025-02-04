@@ -1,3 +1,4 @@
+using Assets.InputSystem;
 using UnityEngine;
 
 namespace Assets.GameSystem.Scripts
@@ -15,6 +16,8 @@ namespace Assets.GameSystem.Scripts
         private readonly GameManager _gameManager;
         public MenuState(GameManager gameManager)
         {
+            Debug.Log("Menu State Enter");
+
             _gameManager = gameManager;
         }
 
@@ -45,16 +48,25 @@ namespace Assets.GameSystem.Scripts
     public class PlayingState : IGameState
     {
         private readonly GameManager _gameManager;
-        public PlayingState(GameManager gameManager)
+        private readonly GameInputsManager _gameInputManager;
+        public PlayingState(GameManager gameManager, GameInputsManager gameInputsManager)
         {
             _gameManager = gameManager;
+            _gameInputManager = gameInputsManager;
         }
 
         public void OnEnter()
         {
+            Debug.Log("Playing State Enter");
+
             ResumeGame();
         }
-        public void OnUpdate() { /* Handle game logic */ }
+        public void OnUpdate()
+        {
+            if (_gameInputManager.Escape)
+                _gameManager.PauseGame();
+        }
+
         public void OnExit()
         {
             Pause();
@@ -70,6 +82,7 @@ namespace Assets.GameSystem.Scripts
         {
             Time.timeScale = 1f;
             SetCursorState(true);
+            _gameInputManager.Escape = false;
             _gameManager.CrossHairCanvas.SetActive(true);
         }
 
@@ -81,22 +94,40 @@ namespace Assets.GameSystem.Scripts
 
     public class PausedState : IGameState
     {
+        private readonly GameManager _gameManager;
+        private readonly GameInputsManager _gameInputManager;
+        public PausedState(GameManager gameManager, GameInputsManager gameInputsManager)
+        {
+            _gameManager = gameManager;
+            _gameInputManager = gameInputsManager;
+        }
+
         public void OnEnter()
         {
+            Debug.Log("Paused State Enter");
             Pause();
         }
-        public void OnUpdate() { /* Handle pause menu */ }
+        public void OnUpdate()
+        {
+            if (_gameInputManager.Escape)
+            {
+                _gameManager.ChangeState(GameStates.Playing);
+            }
+        }
         public void OnExit()
         {
             ResumeGame();
         }
         public void Pause()
         {
+            _gameInputManager.Escape = false;
+            _gameManager.pauseCanvas.SetActive(true);
             Time.timeScale = 0f;
         }
 
         public void ResumeGame()
         {
+            _gameManager.pauseCanvas.SetActive(false);
             Time.timeScale = 1f;
         }
     }

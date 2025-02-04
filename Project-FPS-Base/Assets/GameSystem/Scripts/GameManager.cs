@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Assets.InputSystem;
 using UnityEngine;
 
 namespace Assets.GameSystem.Scripts
@@ -9,7 +10,7 @@ namespace Assets.GameSystem.Scripts
         [SerializeField]
         public GameObject GameCanvas = null;
         public GameObject MenuCanvas = null;
-        [SerializeField]
+        public GameObject pauseCanvas = null;
         public GameObject CrossHairCanvas = null;
 
         public float Score { get; set; }
@@ -23,8 +24,8 @@ namespace Assets.GameSystem.Scripts
             states = new Dictionary<GameStates, IGameState>
             {
                 { GameStates.Menu, new MenuState(this) },
-                { GameStates.Playing, new PlayingState(this) },
-                { GameStates.Paused, new PausedState() },
+                { GameStates.Playing, new PlayingState(this, GameInputsManager.Instance) },
+                { GameStates.Paused, new PausedState(this, GameInputsManager.Instance) },
                 { GameStates.GameOver, new GameOverState() }
             };
 
@@ -63,11 +64,35 @@ namespace Assets.GameSystem.Scripts
         }
 
         /// <summary>
+        /// Get main menu
+        /// </summary>
+        public void MainMenu()
+        {
+            ChangeState(GameStates.Menu);
+        }
+
+        /// <summary>
         /// Set play game
         /// </summary>
         public void PlayGame()
         {
             ChangeState(GameStates.Playing);
+        }
+
+        /// <summary>
+        /// Restart  current level
+        /// </summary>
+        public void RestartGame()
+        {
+            //Restart level from level manager
+        }
+
+        /// <summary>
+        /// Set pause game
+        /// </summary>
+        public void PauseGame()
+        {
+            ChangeState(GameStates.Paused);
         }
 
         /// <summary>

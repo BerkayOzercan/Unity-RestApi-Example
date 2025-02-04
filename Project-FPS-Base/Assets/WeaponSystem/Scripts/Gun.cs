@@ -7,7 +7,7 @@ namespace Assets.WeaponSystem.Scripts
 	{
 		[SerializeField] private Projectile _projectile = null;
 		[SerializeField] private Transform _projectileSpawnPoint = null;
-		[SerializeField] private StarterAssetsInputs _inputs = null;
+		[SerializeField] private GameInputsManager _inputs = null;
 
 		private float _fireRate = 0.25f;
 		private float _nextFireTime = 0f;
