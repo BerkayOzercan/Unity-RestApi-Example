@@ -1097,6 +1097,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585178706}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1996017376 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3119477071183787999, guid: e1a355eec73ac5c4fa246097664d3c0a, type: 3}
+  m_PrefabInstance: {fileID: 8758395260905109758}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &60889539378096550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1170,6 +1175,10 @@ PrefabInstance:
       propertyPath: MenuCanvas
       value: 
       objectReference: {fileID: 1207461931}
+    - target: {fileID: 1558213147895552576, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
+      propertyPath: CrossHairCanvas
+      value: 
+      objectReference: {fileID: 1996017376}
     - target: {fileID: 4173206973305416156, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.59425
@@ -1435,6 +1444,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1084171797415028640, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084171797415028640, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084171797415028640, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7910565}
+    - target: {fileID: 1084171797415028640, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084171797415028640, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084171797415028640, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Assets.GameSystem.Scripts.GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1084171797415028640, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997001828315599659, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0010986328
+      objectReference: {fileID: 0}
     - target: {fileID: 5101188891002298523, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1563,6 +1604,10 @@ PrefabInstance:
     - target: {fileID: 3119477071183787999, guid: e1a355eec73ac5c4fa246097664d3c0a, type: 3}
       propertyPath: m_Name
       value: CrossHairCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3119477071183787999, guid: e1a355eec73ac5c4fa246097664d3c0a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4712764588580092918, guid: e1a355eec73ac5c4fa246097664d3c0a, type: 3}
       propertyPath: m_Pivot.x

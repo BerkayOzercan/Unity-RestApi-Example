@@ -5,8 +5,11 @@ namespace Assets.GameSystem.Scripts
 {
     public class GameManager : Singleton<GameManager>
     {
+        [Header("Canvases")]
         [SerializeField]
         public GameObject MenuCanvas = null;
+        [SerializeField]
+        public GameObject CrossHairCanvas = null;
 
         public float Score { get; set; }
         private IGameState currentState;
@@ -19,7 +22,7 @@ namespace Assets.GameSystem.Scripts
             states = new Dictionary<GameStates, IGameState>
             {
                 { GameStates.Menu, new MenuState(this) },
-                { GameStates.Playing, new PlayingState() },
+                { GameStates.Playing, new PlayingState(this) },
                 { GameStates.Paused, new PausedState() },
                 { GameStates.GameOver, new GameOverState() }
             };
