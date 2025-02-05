@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Project_RestApi.GameData;
+using Project_RestApi.Models;
 
 namespace Project_RestApi.Controllers
 {
@@ -7,5 +10,17 @@ namespace Project_RestApi.Controllers
     [ApiController]
     public class PlayerController : ControllerBase
     {
+        private readonly GameDataContext _context;
+        public PlayerController(GameDataContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet]
+        public List<Player> GetAll()
+        {
+            var players = _context.Players.ToList();
+            return players;
+        }
     }
 }
