@@ -53,7 +53,26 @@ namespace Project_RestApi.Controllers
             _context.Players.Add(newPlayer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetById), new { id = newPlayer.id }, newPlayer);
+            return CreatedAtAction(nameof(GetById), new { id = newPlayer.Id }, newPlayer);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, Player updatedPlayer)
+        {
+            if (id != updatedPlayer.Id) return BadRequest();
+
+            var player = await _context.Players.FindAsync(id);
+
+            if (player == null) return NotFound();
+
+            player.Name = updatedPlayer.Name;
+            player.Rank = updatedPlayer.Rank;
+            player.Score = updatedPlayer.Score;
+            player.EMail = updatedPlayer.EMail;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(player);
         }
     }
 }
