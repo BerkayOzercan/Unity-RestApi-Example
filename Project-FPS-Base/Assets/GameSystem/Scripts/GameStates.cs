@@ -8,6 +8,7 @@ namespace Assets.GameSystem.Scripts
         Menu,
         Playing,
         Paused,
+        GameWin,
         GameOver
     }
 
@@ -138,6 +139,30 @@ namespace Assets.GameSystem.Scripts
         {
             _canvasManager.PauseCanvas.SetActive(false);
             Time.timeScale = 1f;
+        }
+    }
+
+    public class GameWinState : IGameState
+    {
+        public void OnEnter()
+        {
+            Debug.Log("Game Win State!");
+        }
+
+        public void OnExit()
+        {
+        }
+
+        public void OnUpdate()
+        {
+        }
+
+        public void Pause()
+        {
+        }
+
+        public void ResumeGame()
+        {
         }
     }
 

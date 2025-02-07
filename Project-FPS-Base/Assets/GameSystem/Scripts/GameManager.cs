@@ -29,6 +29,7 @@ namespace Assets.GameSystem.Scripts
                 { GameStates.Menu, new MenuState(_canvasManager) },
                 { GameStates.Playing, new PlayingState(this, _gameInputsManager, _scoreManager, _canvasManager) },
                 { GameStates.Paused, new PausedState(this, _gameInputsManager, _canvasManager) },
+                {GameStates.GameWin, new GameWinState()},
                 { GameStates.GameOver, new GameOverState() }
             };
 
@@ -86,6 +87,14 @@ namespace Assets.GameSystem.Scripts
         public void PauseGame()
         {
             ChangeState(GameStates.Paused);
+        }
+
+        /// <summary>
+        /// Set game win
+        /// </summary>
+        public void GameWin()
+        {
+            ChangeState(GameStates.GameWin);
         }
 
         /// <summary>
