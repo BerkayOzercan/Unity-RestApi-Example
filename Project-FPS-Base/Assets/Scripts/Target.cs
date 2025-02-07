@@ -1,4 +1,3 @@
-using System.Collections;
 using Assets.GameSystem.Scripts;
 using UnityEngine;
 
@@ -14,7 +13,7 @@ public class Target : MonoBehaviour
     {
         if (isDie)
         {
-            GameManager.Instance.AddScore(_point);
+            ScoreManager.Instance.AddScore(_point);
 
             Destroy(gameObject);
         }

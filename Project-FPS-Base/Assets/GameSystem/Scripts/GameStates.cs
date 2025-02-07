@@ -47,10 +47,13 @@ namespace Assets.GameSystem.Scripts
     {
         private readonly GameManager _gameManager;
         private readonly GameInputsManager _gameInputManager;
-        public PlayingState(GameManager gameManager, GameInputsManager gameInputsManager)
+        private readonly ScoreManager _scoreManager;
+
+        public PlayingState(GameManager gameManager, GameInputsManager gameInputsManager, ScoreManager scoreManager)
         {
             _gameManager = gameManager;
             _gameInputManager = gameInputsManager;
+            _scoreManager = scoreManager;
         }
 
         public void OnEnter()
@@ -74,7 +77,7 @@ namespace Assets.GameSystem.Scripts
             SetCursorState(false);
             _gameManager.CrossHairCanvas.SetActive(false);
             _gameManager.GameCanvas.SetActive(false);
-
+            _scoreManager.StopTimer();
         }
 
         public void ResumeGame()
@@ -84,6 +87,7 @@ namespace Assets.GameSystem.Scripts
             _gameInputManager.Escape = false;
             _gameManager.CrossHairCanvas.SetActive(true);
             _gameManager.GameCanvas.SetActive(true);
+            _scoreManager.StartTimer();
         }
 
         private void SetCursorState(bool newState)

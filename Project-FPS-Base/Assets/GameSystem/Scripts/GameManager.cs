@@ -8,7 +8,6 @@ namespace Assets.GameSystem.Scripts
     public class GameManager : Singleton<GameManager>
     {
         [Header("Canvases")]
-        [SerializeField]
         public GameObject ParentCanvas = null;
         public GameObject MenuCanvas = null;
         public GameObject PauseCanvas = null;
@@ -18,8 +17,9 @@ namespace Assets.GameSystem.Scripts
         [Header("Managers")]
         [SerializeField]
         private GameInputsManager _gameInputsManager;
+        private ScoreManager _scoreManager = null;
 
-        public float Score { get; set; }
+
         private IGameState currentState;
         private Dictionary<GameStates, IGameState> states;
 
@@ -27,10 +27,12 @@ namespace Assets.GameSystem.Scripts
         {
             base.Awake();
 
+            _scoreManager = GetComponent<ScoreManager>();
+
             states = new Dictionary<GameStates, IGameState>
             {
                 { GameStates.Menu, new MenuState(this) },
-                { GameStates.Playing, new PlayingState(this, _gameInputsManager) },
+                { GameStates.Playing, new PlayingState(this, _gameInputsManager, _scoreManager) },
                 { GameStates.Paused, new PausedState(this, _gameInputsManager) },
                 { GameStates.GameOver, new GameOverState() }
             };
@@ -57,16 +59,6 @@ namespace Assets.GameSystem.Scripts
 
             currentState = states[newState];
             currentState.OnEnter();
-        }
-
-        /// <summary>
-        /// Add point for current score
-        /// </summary>
-        /// <param name="score"></param>
-        public void AddScore(float score)
-        {
-            Score += score;
-            Debug.Log($"Score: {Score}");
         }
 
         /// <summary>
@@ -99,6 +91,14 @@ namespace Assets.GameSystem.Scripts
         public void PauseGame()
         {
             ChangeState(GameStates.Paused);
+        }
+
+        /// <summary>
+        /// Set Game Over
+        /// </summary>
+        public void GameOver()
+        {
+
         }
 
         /// <summary>
