@@ -82147,6 +82147,10 @@ PrefabInstance:
       propertyPath: CrossHairCanvas
       value: 
       objectReference: {fileID: 1996017376}
+    - target: {fileID: 1558213147895552576, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
+      propertyPath: _gameInputsManager
+      value: 
+      objectReference: {fileID: 1551321869}
     - target: {fileID: 4173206973305416156, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.59425

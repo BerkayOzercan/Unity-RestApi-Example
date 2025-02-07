@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Assets.InputSystem;
 using UnityEngine;
 
@@ -13,6 +14,10 @@ namespace Assets.GameSystem.Scripts
         public GameObject pauseCanvas = null;
         public GameObject CrossHairCanvas = null;
 
+        [Header("Managers")]
+        [SerializeField]
+        private GameInputsManager _gameInputsManager;
+
         public float Score { get; set; }
         private IGameState currentState;
         private Dictionary<GameStates, IGameState> states;
@@ -24,8 +29,8 @@ namespace Assets.GameSystem.Scripts
             states = new Dictionary<GameStates, IGameState>
             {
                 { GameStates.Menu, new MenuState(this) },
-                { GameStates.Playing, new PlayingState(this, GameInputsManager.Instance) },
-                { GameStates.Paused, new PausedState(this, GameInputsManager.Instance) },
+                { GameStates.Playing, new PlayingState(this, _gameInputsManager) },
+                { GameStates.Paused, new PausedState(this, _gameInputsManager) },
                 { GameStates.GameOver, new GameOverState() }
             };
 

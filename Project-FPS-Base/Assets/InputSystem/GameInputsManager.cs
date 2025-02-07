@@ -14,7 +14,7 @@ namespace Assets.InputSystem
 		public bool Jump;
 		public bool Sprint;
 		public bool Fire;
-		public bool Escape;
+		public bool Escape { get; set; }
 
 		[Header("Movement Settings")]
 		public bool analogMovement;

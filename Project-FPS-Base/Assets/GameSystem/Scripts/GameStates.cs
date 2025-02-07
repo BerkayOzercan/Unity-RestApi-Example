@@ -55,6 +55,7 @@ namespace Assets.GameSystem.Scripts
 
         public void OnEnter()
         {
+            Debug.Log("Playing State");
             ResumeGame();
         }
         public void OnUpdate()
@@ -100,10 +101,12 @@ namespace Assets.GameSystem.Scripts
 
         public void OnEnter()
         {
+            Debug.Log("PauseState");
             Pause();
         }
         public void OnUpdate()
         {
+            if (_gameInputManager == null) return;
             if (_gameInputManager.Escape)
             {
                 _gameManager.ChangeState(GameStates.Playing);
