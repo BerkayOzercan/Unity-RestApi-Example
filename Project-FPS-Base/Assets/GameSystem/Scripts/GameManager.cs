@@ -9,9 +9,10 @@ namespace Assets.GameSystem.Scripts
     {
         [Header("Canvases")]
         [SerializeField]
-        public GameObject GameCanvas = null;
+        public GameObject ParentCanvas = null;
         public GameObject MenuCanvas = null;
-        public GameObject pauseCanvas = null;
+        public GameObject PauseCanvas = null;
+        public GameObject GameCanvas = null;
         public GameObject CrossHairCanvas = null;
 
         [Header("Managers")]
@@ -34,8 +35,8 @@ namespace Assets.GameSystem.Scripts
                 { GameStates.GameOver, new GameOverState() }
             };
 
-            if (GameCanvas.activeSelf == false)
-                GameCanvas.SetActive(true);
+            if (ParentCanvas.activeSelf == false)
+                ParentCanvas.SetActive(true);
 
             ChangeState(GameStates.Menu);
         }

@@ -73,6 +73,8 @@ namespace Assets.GameSystem.Scripts
             Time.timeScale = 0f;
             SetCursorState(false);
             _gameManager.CrossHairCanvas.SetActive(false);
+            _gameManager.GameCanvas.SetActive(false);
+
         }
 
         public void ResumeGame()
@@ -81,6 +83,7 @@ namespace Assets.GameSystem.Scripts
             SetCursorState(true);
             _gameInputManager.Escape = false;
             _gameManager.CrossHairCanvas.SetActive(true);
+            _gameManager.GameCanvas.SetActive(true);
         }
 
         private void SetCursorState(bool newState)
@@ -119,13 +122,13 @@ namespace Assets.GameSystem.Scripts
         public void Pause()
         {
             _gameInputManager.Escape = false;
-            _gameManager.pauseCanvas.SetActive(true);
+            _gameManager.PauseCanvas.SetActive(true);
             Time.timeScale = 0f;
         }
 
         public void ResumeGame()
         {
-            _gameManager.pauseCanvas.SetActive(false);
+            _gameManager.PauseCanvas.SetActive(false);
             Time.timeScale = 1f;
         }
     }

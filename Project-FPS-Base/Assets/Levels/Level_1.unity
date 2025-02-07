@@ -130,6 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f8f9ac98bd66040affdd628600790e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &113870969 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1850050255951346647, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
+  m_PrefabInstance: {fileID: 8721581044859344203}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &154987201
 GameObject:
   m_ObjectHideFlags: 0
@@ -91699,7 +91704,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1948189365}
+  m_Mesh: {fileID: 2132761923}
 --- !u!33 &1147908336
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -94318,15 +94323,23 @@ PrefabInstance:
     - target: {fileID: 1558213147895552576, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
       propertyPath: GameCanvas
       value: 
-      objectReference: {fileID: 1419459314}
+      objectReference: {fileID: 113870969}
     - target: {fileID: 1558213147895552576, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
       propertyPath: MenuCanvas
       value: 
       objectReference: {fileID: 1207461931}
     - target: {fileID: 1558213147895552576, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
+      propertyPath: PauseCanvas
+      value: 
+      objectReference: {fileID: 8721581044859344204}
+    - target: {fileID: 1558213147895552576, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
       propertyPath: pauseCanvas
       value: 
       objectReference: {fileID: 8721581044859344204}
+    - target: {fileID: 1558213147895552576, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
+      propertyPath: ParentCanvas
+      value: 
+      objectReference: {fileID: 1419459314}
     - target: {fileID: 1558213147895552576, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
       propertyPath: CrossHairCanvas
       value: 
@@ -94814,7 +94827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7386432898046328426, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
       propertyPath: m_Name
-      value: GameCanvas
+      value: MainCanvas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

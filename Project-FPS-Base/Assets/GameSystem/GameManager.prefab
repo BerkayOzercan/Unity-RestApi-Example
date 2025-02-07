@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f8f9ac98bd66040affdd628600790e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameCanvas: {fileID: 0}
+  ParentCanvas: {fileID: 0}
   MenuCanvas: {fileID: 0}
-  pauseCanvas: {fileID: 0}
+  PauseCanvas: {fileID: 0}
+  GameCanvas: {fileID: 0}
   CrossHairCanvas: {fileID: 0}
+  _gameInputsManager: {fileID: 0}
 --- !u!114 &585822594190500148
 MonoBehaviour:
   m_ObjectHideFlags: 0
