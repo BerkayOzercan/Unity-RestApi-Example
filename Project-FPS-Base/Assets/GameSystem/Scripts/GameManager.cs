@@ -7,8 +7,6 @@ namespace Assets.GameSystem.Scripts
 {
     public class GameManager : Singleton<GameManager>
     {
-
-
         [Header("Managers")]
         [SerializeField]
         private GameInputsManager _gameInputsManager;

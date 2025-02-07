@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 
 namespace Assets.GameSystem.Scripts
@@ -34,7 +34,6 @@ namespace Assets.GameSystem.Scripts
         public void AddScore(float score)
         {
             LevelScore += score;
-            Debug.Log($"Score: {LevelScore}");
         }
 
         private void CountTime()
@@ -43,7 +42,7 @@ namespace Assets.GameSystem.Scripts
             {
                 Time += UnityEngine.Time.deltaTime;
 
-                _canvasManager.SetCounterText(Time.ToString());
+                _canvasManager.SetCounterText(Math.Round(Time, 1).ToString());
             }
         }
 
