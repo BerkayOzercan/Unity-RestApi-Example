@@ -7,17 +7,13 @@ namespace Assets.GameSystem.Scripts
 {
     public class GameManager : Singleton<GameManager>
     {
-        [Header("Canvases")]
-        public GameObject ParentCanvas = null;
-        public GameObject MenuCanvas = null;
-        public GameObject PauseCanvas = null;
-        public GameObject GameCanvas = null;
-        public GameObject CrossHairCanvas = null;
+
 
         [Header("Managers")]
         [SerializeField]
         private GameInputsManager _gameInputsManager;
         private ScoreManager _scoreManager = null;
+        private CanvasManager _canvasManager = null;
 
 
         private IGameState currentState;
@@ -28,17 +24,18 @@ namespace Assets.GameSystem.Scripts
             base.Awake();
 
             _scoreManager = GetComponent<ScoreManager>();
+            _canvasManager = GetComponent<CanvasManager>();
 
             states = new Dictionary<GameStates, IGameState>
             {
-                { GameStates.Menu, new MenuState(this) },
-                { GameStates.Playing, new PlayingState(this, _gameInputsManager, _scoreManager) },
-                { GameStates.Paused, new PausedState(this, _gameInputsManager) },
+                { GameStates.Menu, new MenuState(_canvasManager) },
+                { GameStates.Playing, new PlayingState(this, _gameInputsManager, _scoreManager, _canvasManager) },
+                { GameStates.Paused, new PausedState(this, _gameInputsManager, _canvasManager) },
                 { GameStates.GameOver, new GameOverState() }
             };
 
-            if (ParentCanvas.activeSelf == false)
-                ParentCanvas.SetActive(true);
+            if (_canvasManager.ParentCanvas.activeSelf == false)
+                _canvasManager.ParentCanvas.SetActive(true);
 
             ChangeState(GameStates.Menu);
         }

@@ -124,7 +124,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1558213147895552576, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
   m_PrefabInstance: {fileID: 4833556569504845687}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 130907770}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70f8f9ac98bd66040affdd628600790e, type: 3}
@@ -135,6 +135,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1850050255951346647, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
   m_PrefabInstance: {fileID: 8721581044859344203}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &130907770 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 375012835461975117, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
+  m_PrefabInstance: {fileID: 4833556569504845687}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &130907774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130907770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326b8965fa98c844387a54adff15da2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ParentCanvas: {fileID: 1419459314}
+  MenuCanvas: {fileID: 1207461931}
+  PauseCanvas: {fileID: 8721581044859344204}
+  GameCanvas: {fileID: 113870969}
+  CrossHairCanvas: {fileID: 1996017376}
 --- !u!1 &154987201
 GameObject:
   m_ObjectHideFlags: 0
@@ -94391,7 +94413,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 375012835461975117, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 130907774}
   m_SourcePrefab: {fileID: 100100000, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
 --- !u!1001 &4982471455051073949
 PrefabInstance:
@@ -94465,6 +94490,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1978471637655604388, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_Name
       value: Player

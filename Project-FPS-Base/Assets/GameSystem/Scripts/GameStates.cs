@@ -13,23 +13,23 @@ namespace Assets.GameSystem.Scripts
 
     public class MenuState : IGameState
     {
-        private readonly GameManager _gameManager;
-        public MenuState(GameManager gameManager)
+        private readonly CanvasManager _canvasManager;
+        public MenuState(CanvasManager canvasManager)
         {
-            _gameManager = gameManager;
+            _canvasManager = canvasManager;
         }
 
         public void OnEnter()
         {
             Pause();
-            _gameManager.MenuCanvas.SetActive(true);
+            _canvasManager.MenuCanvas.SetActive(true);
             Debug.Log(Time.timeScale);
         }
         public void OnUpdate() { }
         public void OnExit()
         {
             ResumeGame();
-            _gameManager.MenuCanvas.SetActive(false);
+            _canvasManager.MenuCanvas.SetActive(false);
         }
 
         public void Pause()
@@ -48,10 +48,12 @@ namespace Assets.GameSystem.Scripts
         private readonly GameManager _gameManager;
         private readonly GameInputsManager _gameInputManager;
         private readonly ScoreManager _scoreManager;
+        private readonly CanvasManager _canvasManager;
 
-        public PlayingState(GameManager gameManager, GameInputsManager gameInputsManager, ScoreManager scoreManager)
+        public PlayingState(GameManager gameManager, GameInputsManager gameInputsManager, ScoreManager scoreManager, CanvasManager canvasManager)
         {
             _gameManager = gameManager;
+            _canvasManager = canvasManager;
             _gameInputManager = gameInputsManager;
             _scoreManager = scoreManager;
         }
@@ -75,8 +77,8 @@ namespace Assets.GameSystem.Scripts
         {
             Time.timeScale = 0f;
             SetCursorState(false);
-            _gameManager.CrossHairCanvas.SetActive(false);
-            _gameManager.GameCanvas.SetActive(false);
+            _canvasManager.CrossHairCanvas.SetActive(false);
+            _canvasManager.GameCanvas.SetActive(false);
             _scoreManager.StopTimer();
         }
 
@@ -85,8 +87,8 @@ namespace Assets.GameSystem.Scripts
             Time.timeScale = 1f;
             SetCursorState(true);
             _gameInputManager.Escape = false;
-            _gameManager.CrossHairCanvas.SetActive(true);
-            _gameManager.GameCanvas.SetActive(true);
+            _canvasManager.CrossHairCanvas.SetActive(true);
+            _canvasManager.GameCanvas.SetActive(true);
             _scoreManager.StartTimer();
         }
 
@@ -100,10 +102,12 @@ namespace Assets.GameSystem.Scripts
     {
         private readonly GameManager _gameManager;
         private readonly GameInputsManager _gameInputManager;
-        public PausedState(GameManager gameManager, GameInputsManager gameInputsManager)
+        private readonly CanvasManager _canvasManager;
+        public PausedState(GameManager gameManager, GameInputsManager gameInputsManager, CanvasManager canvasManager)
         {
             _gameManager = gameManager;
             _gameInputManager = gameInputsManager;
+            _canvasManager = canvasManager;
         }
 
         public void OnEnter()
@@ -126,13 +130,13 @@ namespace Assets.GameSystem.Scripts
         public void Pause()
         {
             _gameInputManager.Escape = false;
-            _gameManager.PauseCanvas.SetActive(true);
+            _canvasManager.PauseCanvas.SetActive(true);
             Time.timeScale = 0f;
         }
 
         public void ResumeGame()
         {
-            _gameManager.PauseCanvas.SetActive(false);
+            _canvasManager.PauseCanvas.SetActive(false);
             Time.timeScale = 1f;
         }
     }
