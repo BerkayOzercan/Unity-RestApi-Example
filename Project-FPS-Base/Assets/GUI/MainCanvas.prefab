@@ -301,7 +301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &75476552193601291
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2106,11 +2106,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7437386339880862828, guid: c1e0c18a2808b244b90d861a3ac9ee47, type: 3}
       propertyPath: m_text
-      value: Time; 60:00
+      value: 'Time: 60:00'
       objectReference: {fileID: 0}
     - target: {fileID: 7437386339880862828, guid: c1e0c18a2808b244b90d861a3ac9ee47, type: 3}
       propertyPath: m_HorizontalAlignment
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

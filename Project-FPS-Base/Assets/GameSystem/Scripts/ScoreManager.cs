@@ -14,6 +14,14 @@ namespace Assets.GameSystem.Scripts
         public bool IsRunning { get; set; }
         public float Time { get; set; }
 
+        private CanvasManager _canvasManager = null;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _canvasManager = GetComponent<CanvasManager>();
+        }
+
         private void Update()
         {
             CountTime();
@@ -34,7 +42,8 @@ namespace Assets.GameSystem.Scripts
             if (IsRunning)
             {
                 Time += UnityEngine.Time.deltaTime;
-                Debug.Log("Time: " + Time);
+
+                _canvasManager.SetCounterText(Time.ToString());
             }
         }
 
