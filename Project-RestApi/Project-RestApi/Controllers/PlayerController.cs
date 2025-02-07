@@ -74,5 +74,19 @@ namespace Project_RestApi.Controllers
 
             return Ok(player);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var player = await _context.Players.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (player == null)
+                return NotFound();
+
+            _context.Players.Remove(player);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
     }
 }
