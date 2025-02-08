@@ -10,6 +10,7 @@ namespace Assets.GameSystem.Scripts
         public GameObject MenuCanvas = null;
         public GameObject PauseCanvas = null;
         public GameObject GameCanvas = null;
+        public GameObject GameWinCanvas = null;
         public GameObject CrossHairCanvas = null;
 
         [Header("Score Texts")]

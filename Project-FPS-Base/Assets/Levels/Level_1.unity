@@ -94490,6 +94490,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1419459314}
     - target: {fileID: 7692612056208834723, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
+      propertyPath: GameWinCanvas
+      value: 
+      objectReference: {fileID: 8721581044859344205}
+    - target: {fileID: 7692612056208834723, guid: 9d77fb1378d030047b182fea59d528ae, type: 3}
       propertyPath: _currencyText
       value: 
       objectReference: {fileID: 260330097}
@@ -94954,6 +94958,11 @@ PrefabInstance:
 --- !u!1 &8721581044859344204 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5555436287457517932, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
+  m_PrefabInstance: {fileID: 8721581044859344203}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8721581044859344205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7718404241523049175, guid: ce2d6949f678d4a488d6e718643e7780, type: 3}
   m_PrefabInstance: {fileID: 8721581044859344203}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8758395260905109758

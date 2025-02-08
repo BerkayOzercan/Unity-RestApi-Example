@@ -144,26 +144,29 @@ namespace Assets.GameSystem.Scripts
 
     public class GameWinState : IGameState
     {
+        private readonly CanvasManager _canvasManager;
+
+        public GameWinState(CanvasManager canvasManager)
+        {
+            _canvasManager = canvasManager;
+        }
+
         public void OnEnter()
         {
             Debug.Log("Game Win State!");
+            Pause();
         }
+        public void OnUpdate() { }
 
-        public void OnExit()
-        {
-        }
-
-        public void OnUpdate()
-        {
-        }
+        public void OnExit() { _canvasManager.GameWinCanvas.SetActive(false); }
 
         public void Pause()
         {
+            _canvasManager.GameWinCanvas.SetActive(true);
+            Time.timeScale = 0f;
         }
 
-        public void ResumeGame()
-        {
-        }
+        public void ResumeGame() { }
     }
 
     public class GameOverState : IGameState
