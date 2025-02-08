@@ -36,7 +36,7 @@ namespace Assets.GameSystem.Scripts
             }
             else
             {
-                Debug.LogWarning("No next level available!");
+                SceneManager.LoadScene(Random.Range(0, SceneManager.sceneCount));
             }
         }
 
