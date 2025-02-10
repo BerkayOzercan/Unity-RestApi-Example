@@ -4,8 +4,6 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     [SerializeField]
-    private float _point = 1f;
-    [SerializeField]
     private TargetType _targetType = TargetType.None;
 
     private Health _health = null;
@@ -33,7 +31,7 @@ public class Target : MonoBehaviour
 
     private void DestroyTarget()
     {
-
+        //Spawn collectables
     }
 
     private void OnEnable()

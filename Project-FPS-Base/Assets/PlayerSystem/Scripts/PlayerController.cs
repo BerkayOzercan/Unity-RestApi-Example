@@ -7,6 +7,14 @@ namespace Assets.PlayerSystem.Scripts
     {
         private GameManager _gameManager = null;
 
+        void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (hit.transform.TryGetComponent(out Collectable collectable))
+            {
+                collectable.Collect();
+            }
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out LevelPoint levelPoint))
