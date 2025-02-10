@@ -7,8 +7,8 @@ namespace Assets.GameSystem.Scripts
     {
         //Level Scores
         public float LevelTime { get; set; }
-        public int LevelCurreny { get; set; }
-        public int LevelBonus { get; set; }
+        public int LevelCurrency { get; set; }
+        public int LevelBonus { get; set; } = 1;
         private float _levelScore = 0f;
 
         //Level Timer
@@ -34,7 +34,7 @@ namespace Assets.GameSystem.Scripts
         /// <returns></returns>
         public float TotalLevelScore()
         {
-            _levelScore = (LevelCurreny + LevelTime) * LevelBonus;
+            _levelScore = (LevelCurrency + LevelTime) * LevelBonus;
             return _levelScore;
         }
 
@@ -47,6 +47,24 @@ namespace Assets.GameSystem.Scripts
             _levelScore += score;
         }
 
+        /// <summary>
+        /// Add currency amount
+        /// </summary>
+        /// <param name="amount"></param>
+        public void AddCurrency(int amount)
+        {
+            LevelCurrency += amount;
+        }
+
+        /// <summary>
+        /// Add Bonus
+        /// </summary>
+        /// <param name="amount"></param>
+        public void AddBonus(int amount)
+        {
+            LevelBonus = amount;
+        }
+
         private void CountTime()
         {
             if (IsRunning)
@@ -54,12 +72,15 @@ namespace Assets.GameSystem.Scripts
                 Time += UnityEngine.Time.deltaTime;
 
                 _canvasManager.SetCounterText(Math.Round(Time, 1).ToString());
+                _canvasManager.SetBonusText(LevelBonus.ToString());
+                _canvasManager.SetCurrencyText(LevelCurrency.ToString());
             }
         }
 
         public void StopTimer()
         {
             IsRunning = false;
+            LevelTime = Time;
         }
 
         public void StartTimer()

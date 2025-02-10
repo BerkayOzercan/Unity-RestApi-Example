@@ -43,7 +43,7 @@ namespace Assets.GameSystem.Scripts
         /// <param name="value"></param>
         public void SetBonusText(string value)
         {
-            _bonusText.text = value;
+            _bonusText.text = $"Bonus: {value}";
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Assets.GameSystem.Scripts
         /// <param name="value"></param>
         public void SetCurrencyText(string value)
         {
-            _currencyText.text = value;
+            _currencyText.text = $"Collects: {value}";
         }
     }
 }

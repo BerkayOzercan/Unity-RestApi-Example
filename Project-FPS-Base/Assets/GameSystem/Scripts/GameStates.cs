@@ -155,10 +155,10 @@ namespace Assets.GameSystem.Scripts
 
         public void OnEnter()
         {
-            string levelTotalScore = _scoreManager.TotalLevelScore().ToString();
             string levelBonus = _scoreManager.LevelBonus.ToString();
-            string levelCurrency = _scoreManager.LevelCurreny.ToString();
+            string levelCurrency = _scoreManager.LevelCurrency.ToString();
             string levelTime = _scoreManager.LevelTime.ToString();
+            string levelTotalScore = _scoreManager.TotalLevelScore().ToString();
 
             _canvasManager.SetTotalScore(levelTotalScore, levelBonus, levelCurrency, levelTime);
 
