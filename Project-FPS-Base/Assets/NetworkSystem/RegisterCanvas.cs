@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Assets.NetworkSystem.Register.Scripts
+namespace Assets.NetworkSystem
 {
     public class RegisterCanvas : MonoBehaviour
     {
@@ -11,10 +11,20 @@ namespace Assets.NetworkSystem.Register.Scripts
         [SerializeField]
         private TMP_InputField _password = null;
 
+        private NetworkManager _networkManager = null;
+
+        void Awake()
+        {
+            _networkManager = NetworkManager.Instance;
+        }
+
+        //Set to login button
         public void LogIn()
         {
             Debug.Log("Name: " + _nameInput.text);
             Debug.Log("Password: " + _password.text);
+
+            _networkManager.LogIn(_nameInput.text, _password.text);
         }
     }
 
