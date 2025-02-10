@@ -15,7 +15,7 @@ namespace Assets.GameSystem.Scripts
 
         [Header("Score Texts")]
         [SerializeField]
-        private TextMeshProUGUI _scoreText = null;
+        private TextMeshProUGUI _totalScoreText = null;
         [SerializeField]
         private TextMeshProUGUI _counterTimeText = null;
         [SerializeField]
@@ -27,13 +27,18 @@ namespace Assets.GameSystem.Scripts
         /// Set score
         /// </summary>
         /// <param name="value"></param>
-        public void SetScoreText(string value)
+        public void SetTotalScore(string totalScore, string bonus, string levelCurrency, string levelTime)
         {
-            _scoreText.text = value;
+            var scoreList = $"Level Score = {totalScore}\n" +
+                            $"Bonus = {bonus}\n" +
+                            $"Currency = {levelCurrency}\n" +
+                            $"Time = {levelTime}\n";
+
+            _totalScoreText.text = scoreList;
         }
 
         /// <summary>
-        /// Set bonus text
+        /// Set bonus text  
         /// </summary>
         /// <param name="value"></param>
         public void SetBonusText(string value)

@@ -6,9 +6,10 @@ namespace Assets.GameSystem.Scripts
     public class ScoreManager : Singleton<ScoreManager>
     {
         //Level Scores
-        public float LevelScore { get; set; }
         public float LevelTime { get; set; }
         public int LevelCurreny { get; set; }
+        public int LevelBonus { get; set; }
+        private float _levelScore = 0f;
 
         //Level Timer
         public bool IsRunning { get; set; }
@@ -28,12 +29,22 @@ namespace Assets.GameSystem.Scripts
         }
 
         /// <summary>
+        /// Get total level score
+        /// </summary>
+        /// <returns></returns>
+        public float TotalLevelScore()
+        {
+            _levelScore = (LevelCurreny + LevelTime) * LevelBonus;
+            return _levelScore;
+        }
+
+        /// <summary>
         /// Add point for current score
         /// </summary>
         /// <param name="score"></param>
         public void AddScore(float score)
         {
-            LevelScore += score;
+            _levelScore += score;
         }
 
         private void CountTime()

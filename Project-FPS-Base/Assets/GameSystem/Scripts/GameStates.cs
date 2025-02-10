@@ -145,15 +145,23 @@ namespace Assets.GameSystem.Scripts
     public class GameWinState : IGameState
     {
         private readonly CanvasManager _canvasManager;
+        private readonly ScoreManager _scoreManager;
 
-        public GameWinState(CanvasManager canvasManager)
+        public GameWinState(CanvasManager canvasManager, ScoreManager scoreManager)
         {
             _canvasManager = canvasManager;
+            _scoreManager = scoreManager;
         }
 
         public void OnEnter()
         {
-            Debug.Log("Game Win State!");
+            string levelTotalScore = _scoreManager.TotalLevelScore().ToString();
+            string levelBonus = _scoreManager.LevelBonus.ToString();
+            string levelCurrency = _scoreManager.LevelCurreny.ToString();
+            string levelTime = _scoreManager.LevelTime.ToString();
+
+            _canvasManager.SetTotalScore(levelTotalScore, levelBonus, levelCurrency, levelTime);
+
             Pause();
         }
         public void OnUpdate() { }
