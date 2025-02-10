@@ -8,7 +8,7 @@ namespace Assets.GameSystem.Scripts
         //Level Scores
         public float LevelTime { get; set; }
         public int LevelCurrency { get; set; }
-        public int LevelBonus { get; set; } = 1;
+        public int LevelBonus { get; set; } = 0;
         private float _levelScore = 0f;
         private int _bonus = 0;
 
@@ -37,7 +37,8 @@ namespace Assets.GameSystem.Scripts
         public float TotalLevelScore()
         {
             _levelScore = (LevelCurrency + LevelTime) * LevelBonus;
-            return _levelScore;
+            var result = (float)Math.Round(_levelScore, 2);
+            return result;
         }
 
         /// <summary>
@@ -69,15 +70,6 @@ namespace Assets.GameSystem.Scripts
         public void AddCurrency(int amount)
         {
             LevelCurrency += amount;
-        }
-
-        /// <summary>
-        /// Add Bonus
-        /// </summary>
-        /// <param name="amount"></param>
-        public void AddBonus(int amount)
-        {
-            LevelBonus = amount;
         }
 
         private void CountTime()
