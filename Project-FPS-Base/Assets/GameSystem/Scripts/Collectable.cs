@@ -13,6 +13,12 @@ namespace Assets.GameSystem.Scripts
         private void Start()
         {
             _scoreManager = ScoreManager.Instance;
+            Explode();
+        }
+
+        private void Update()
+        {
+            transform.GetChild(0).transform.Rotate(Vector3.forward * Time.deltaTime * 50f);
         }
 
         public void Collect()
@@ -23,6 +29,16 @@ namespace Assets.GameSystem.Scripts
                 _isCollect = true;
                 _scoreManager.AddCurrency(1);
                 Destroy(gameObject);
+            }
+        }
+
+        private void Explode()
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+
+            if (rb != null)
+            {
+                rb.AddExplosionForce(500f, transform.position, 5f);
             }
         }
     }
