@@ -10,12 +10,14 @@ namespace Assets.GameSystem.Scripts
         public int LevelCurrency { get; set; }
         public int LevelBonus { get; set; } = 1;
         private float _levelScore = 0f;
+        private int _bonus = 0;
 
         //Level Timer
         public bool IsRunning { get; set; }
         public float Time { get; set; }
 
         private CanvasManager _canvasManager = null;
+        private Target.TargetType _currentTargetType = Target.TargetType.None;
 
         protected override void Awake()
         {
@@ -42,9 +44,22 @@ namespace Assets.GameSystem.Scripts
         /// Add point for current score
         /// </summary>
         /// <param name="score"></param>
-        public void AddScore(float score)
+        public void AddBonus(Target.TargetType targetType)
         {
-            _levelScore += score;
+            if (_currentTargetType != targetType)
+            {
+                _currentTargetType = targetType;
+                _bonus = 1;
+            }
+            else if (_currentTargetType == targetType)
+            {
+                _bonus++;
+            }
+
+            if (_bonus > LevelBonus)
+            {
+                LevelBonus = _bonus;
+            }
         }
 
         /// <summary>
