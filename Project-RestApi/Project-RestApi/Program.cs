@@ -13,11 +13,8 @@ builder.Services.AddDbContext<GameDataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddAuthorization();
-builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
-builder.Services.AddIdentityCore<User>()
-    .AddEntityFrameworkStores<GameDataContext>()
-    .AddApiEndpoints();
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<GameDataContext>();
 
 builder.Services.AddSwaggerGen();
 
@@ -29,5 +26,4 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.MapControllers();
-app.MapIdentityApi<User>();
 app.Run();
