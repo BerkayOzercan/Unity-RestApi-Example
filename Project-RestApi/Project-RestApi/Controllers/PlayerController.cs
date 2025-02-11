@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project_RestApi.GameData;
@@ -44,10 +45,9 @@ namespace Project_RestApi.Controllers
 
             var newPlayer = new Player
             {
-                Name = player.Name,
+                UserName = player.UserName,
                 Rank = player.Rank,
-                Score = player.Score,
-                EMail = player.EMail
+                Score = player.Score
             };
 
             _context.Players.Add(newPlayer);
@@ -65,10 +65,9 @@ namespace Project_RestApi.Controllers
 
             if (player == null) return NotFound();
 
-            player.Name = updatedPlayer.Name;
+            player.UserName = updatedPlayer.UserName;
             player.Rank = updatedPlayer.Rank;
             player.Score = updatedPlayer.Score;
-            player.EMail = updatedPlayer.EMail;
 
             await _context.SaveChangesAsync();
 

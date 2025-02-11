@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_RestApi.GameData;
 
@@ -11,9 +12,11 @@ using Project_RestApi.GameData;
 namespace Project_RestApi.Migrations
 {
     [DbContext(typeof(GameDataContext))]
-    partial class GameDataContextModelSnapshot : ModelSnapshot
+    [Migration("20250210234115_IdentityTables")]
+    partial class IdentityTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
