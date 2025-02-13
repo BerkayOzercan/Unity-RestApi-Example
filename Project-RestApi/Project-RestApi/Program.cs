@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Project_RestApi.GameData;
-using Project_RestApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -12,9 +12,7 @@ builder.Services.AddDbContext<GameDataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
-builder.Services.AddIdentity<User, IdentityRole>()
-    .AddEntityFrameworkStores<GameDataContext>();
+builder.Services.AddIdentityApiEndpoints<IdentityUser>().AddEntityFrameworkStores<GameDataContext>();
 
 builder.Services.AddSwaggerGen();
 
@@ -26,4 +24,5 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.MapControllers();
+app.MapIdentityApi<IdentityUser>();
 app.Run();
