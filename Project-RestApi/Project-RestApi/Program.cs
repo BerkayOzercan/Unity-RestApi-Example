@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Project_RestApi.GameData;
+using Project_RestApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ builder.Services.AddDbContext<GameDataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddIdentityApiEndpoints<IdentityUser>().AddEntityFrameworkStores<GameDataContext>();
+builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<GameDataContext>();
 
 builder.Services.AddSwaggerGen();
 
