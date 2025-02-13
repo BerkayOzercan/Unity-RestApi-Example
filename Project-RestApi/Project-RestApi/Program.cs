@@ -58,8 +58,7 @@ builder.Services.AddDbContext<GameDataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddIdentity<User, IdentityRole>(options => { })
-.AddEntityFrameworkStores<GameDataContext>();
+builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<GameDataContext>();
 
 builder.Services.AddAuthentication(options =>
 {
