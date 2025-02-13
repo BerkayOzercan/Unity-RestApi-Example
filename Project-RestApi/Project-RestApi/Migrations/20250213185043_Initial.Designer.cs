@@ -12,7 +12,7 @@ using Project_RestApi.GameData;
 namespace Project_RestApi.Migrations
 {
     [DbContext(typeof(GameDataContext))]
-    [Migration("20250213024524_Initial")]
+    [Migration("20250213185043_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -50,6 +50,20 @@ namespace Project_RestApi.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1d53b4f6-5c91-4f23-8f7c-8c6c965d63aa",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "4e3a91b0-3b1f-4e56-a749-a2992e31452e",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
