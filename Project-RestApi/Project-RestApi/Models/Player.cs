@@ -9,5 +9,5 @@ public class Player
     public string? UserName { get; set; }
     public int Rank { get; set; }
     public decimal Score { get; set; }
-    public User? User { get; set; }
+    public string? UserId { get; set; }
 }

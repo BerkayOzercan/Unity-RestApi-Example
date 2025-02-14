@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -44,11 +45,14 @@ namespace Project_RestApi.Controllers
             if (player == null)
                 return BadRequest("Invalid player data");
 
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             var newPlayer = new Player
             {
                 UserName = player.UserName,
                 Rank = player.Rank,
-                Score = player.Score
+                Score = player.Score,
+                UserId = userId
             };
 
             _context.Players.Add(newPlayer);
