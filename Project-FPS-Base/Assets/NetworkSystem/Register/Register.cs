@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Text;
 using UnityEngine;
@@ -9,34 +10,34 @@ namespace Assets.NetworkSystem.Register.Scripts
     public class Register : MonoBehaviour
     {
         [SerializeField]
-        private string _name = string.Empty;
+        private string _name;
         [SerializeField]
-        private string _eMail = string.Empty;
+        private string _eMail;
         [SerializeField]
-        private string _password = string.Empty;
+        private string _password;
+
+        private User _newUser;
 
         void Start()
         {
-            //RegisterUser(_name, _eMail, _password);
-            StartCoroutine(RegisterRequest());
+            RegisterUser();
         }
 
-
-        // public void RegisterUser(string username, string eMail, string password)
-        // {
-        //     StartCoroutine(RegisterRequest(username, eMail, password));
-        // }
-
-        private IEnumerator RegisterRequest()
+        private void RegisterUser()
         {
-            //Need to convert Unity Json System
-            // this one is work
-            string jsonData = "{\"username\":\"newuser4444\",\"email\":\"newuser4444@example.com\",\"password\":\"P@ssword_4444\"}";
-            print(jsonData);
+            StartCoroutine(RegisterRequest(_name, _eMail, _password));
+        }
+
+        private IEnumerator RegisterRequest(string userName, string eMail, string password)
+        {
+            _newUser = new User { username = userName, email = eMail, password = password };
+            // Convert to JSON here
+            string userJson = JsonUtility.ToJson(_newUser);
+            Debug.Log(userJson);
 
             using (UnityWebRequest request = new UnityWebRequest("http://localhost:5251/api/Account/register", "POST"))
             {
-                byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
+                byte[] bodyRaw = Encoding.UTF8.GetBytes(userJson);
                 request.uploadHandler = new UploadHandlerRaw(bodyRaw);
                 request.downloadHandler = new DownloadHandlerBuffer();
                 request.SetRequestHeader("Content-Type", "application/json");
