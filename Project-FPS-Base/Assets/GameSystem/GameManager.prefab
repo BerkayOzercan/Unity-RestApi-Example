@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 585822594190500148}
   - component: {fileID: 7692612056208834723}
   - component: {fileID: 98928041575778583}
+  - component: {fileID: 3935644249277693256}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -76,8 +77,9 @@ MonoBehaviour:
   MenuCanvas: {fileID: 0}
   PauseCanvas: {fileID: 0}
   GameCanvas: {fileID: 0}
+  GameWinCanvas: {fileID: 0}
   CrossHairCanvas: {fileID: 0}
-  _scoreText: {fileID: 0}
+  _totalScoreText: {fileID: 0}
   _counterTimeText: {fileID: 0}
   _currencyText: {fileID: 0}
   _bonusText: {fileID: 0}
@@ -91,5 +93,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd8fa27282a512d4e9e3b71313d06898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3935644249277693256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375012835461975117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe692bd666e755a45813785230c13731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

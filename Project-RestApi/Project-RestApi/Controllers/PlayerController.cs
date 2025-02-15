@@ -7,7 +7,6 @@ using Project_RestApi.Models;
 
 namespace Project_RestApi.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PlayerController : ControllerBase

@@ -3457,6 +3457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1531932623043861107}
   - component: {fileID: 5606985236891901717}
+  - component: {fileID: 1053221804131703913}
   m_Layer: 5
   m_Name: RegisterCanvas
   m_TagString: Untagged
@@ -3500,6 +3501,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _nameInput: {fileID: 8468680857781647355}
   _password: {fileID: 1660779293656515243}
+--- !u!114 &1053221804131703913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4338248813291602837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b5396f152fa63249b994c553af8e840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _name: newuser2222
+  _eMail: newuser2222@example.com
+  _password: P@ssword_1111
 --- !u!1 &4625913163576640619
 GameObject:
   m_ObjectHideFlags: 0

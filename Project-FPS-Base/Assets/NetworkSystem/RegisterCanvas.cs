@@ -21,10 +21,6 @@ namespace Assets.NetworkSystem
         //Set to login button
         public void LogIn()
         {
-            Debug.Log("Name: " + _nameInput.text);
-            Debug.Log("Password: " + _password.text);
-
-            _networkManager.LogIn(_nameInput.text, _password.text);
         }
     }
 
