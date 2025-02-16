@@ -1,9 +1,8 @@
-using Assets.NetworkSystem.Register;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.NetworkSystem
+namespace Assets.NetworkSystem.Register.Scripts
 {
     public class RegisterCanvas : MonoBehaviour
     {
@@ -17,6 +16,14 @@ namespace Assets.NetworkSystem
         [SerializeField]
         private Button _switchSignInButton;
 
+        [Header("Respond PopUp")]
+        [SerializeField]
+        private TMP_Text _respondText;
+        [SerializeField]
+        private Button _boardCloseButton;
+        [SerializeField]
+        private GameObject _PopUpBoard;
+
         private Login _login;
 
         private void Awake()
@@ -28,6 +35,24 @@ namespace Assets.NetworkSystem
         {
             _logInButton.onClick.AddListener(LogIn);
             _switchSignInButton.onClick.AddListener(SwitchSignIn);
+            _boardCloseButton.onClick.AddListener(() => CloseMenu(_PopUpBoard, false));
+        }
+
+        public void ShowResultMessage(bool isSuccess)
+        {
+            _PopUpBoard.SetActive(true);
+
+            if (isSuccess)
+            {
+                Debug.Log(isSuccess);
+                _respondText.text = _login.ErrRespondMessage;
+                _PopUpBoard.SetActive(false);
+            }
+            else
+            {
+                Debug.Log(isSuccess);
+                _respondText.text = _login.ErrRespondMessage;
+            }
         }
 
         private void LogIn()
@@ -38,6 +63,21 @@ namespace Assets.NetworkSystem
         private void SwitchSignIn()
         {
             Debug.Log("Switch SignIn");
+        }
+
+        private void CloseMenu(GameObject obj, bool value)
+        {
+            obj.SetActive(value);
+        }
+
+        private void OnEnable()
+        {
+            _login.IsSuccess += ShowResultMessage;
+        }
+
+        private void OnDisable()
+        {
+            _login.IsSuccess -= ShowResultMessage;
         }
     }
 

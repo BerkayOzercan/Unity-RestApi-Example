@@ -1,14 +1,18 @@
+using System;
 using System.Collections;
 using System.Text;
-using Assets.NetworkSystem.Register.Scripts;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Assets.NetworkSystem.Register
+namespace Assets.NetworkSystem.Register.Scripts
 {
     public class Login : MonoBehaviour
     {
         private string _apiString = "http://localhost:5251/api/Account/login";
+        string responseJson;
+        public string ErrRespondMessage;
+
+        public Action<bool> IsSuccess;
 
         public void LogInUser(string name, string password)
         {
@@ -33,13 +37,18 @@ namespace Assets.NetworkSystem.Register
 
                 if (request.result == UnityWebRequest.Result.Success)
                 {
-                    string responseJson = request.downloadHandler.text;
-                    Debug.Log("Success: " + responseJson);
+                    ErrRespondMessage = "Response: " + request.downloadHandler.text;
+                    IsSuccess?.Invoke(true);
+                    responseJson = request.downloadHandler.text;
+                    // Debug.Log("Success: " + responseJson);
+
                 }
                 else
                 {
-                    Debug.LogError("Error: " + request.responseCode + " - " + request.error);
-                    Debug.LogError("Response: " + request.downloadHandler.text);
+                    ErrRespondMessage = "Response: " + request.downloadHandler.text;
+                    IsSuccess?.Invoke(false);
+                    // Debug.Log("Error: " + request.responseCode + " - " + request.error);
+                    // Debug.Log("Response: " + request.downloadHandler.text);
                 }
             }
         }
