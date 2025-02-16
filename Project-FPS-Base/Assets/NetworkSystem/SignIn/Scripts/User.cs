@@ -1,6 +1,6 @@
 using System;
 
-namespace Assets.NetworkSystem.Register.Scripts
+namespace Assets.NetworkSystem.SignIn.Scripts
 {
     [Serializable]
     public class User

@@ -3,20 +3,20 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace Assets.NetworkSystem.Register.Scripts
+namespace Assets.NetworkSystem.SignIn.Scripts
 {
     public class Login : MonoBehaviour
     {
         [SerializeField]
         private RespondPopUp _respondPopUp = null;
 
-        private RegisterCanvas _registerCanvas = null;
+        private LogInCanvas _logInCanvas = null;
 
         private string _apiString = "http://localhost:5251/api/Account/login";
         private string _responseJson = "";
         private string _authToken = "";
 
-        private void Awake() { _registerCanvas = GetComponent<RegisterCanvas>(); }
+        private void Awake() { _logInCanvas = GetComponent<LogInCanvas>(); }
 
         public void LogInUser(string name, string password)
         {
@@ -65,18 +65,18 @@ namespace Assets.NetworkSystem.Register.Scripts
 
         private void Respond(bool value, string text)
         {
-            var respondText = Instantiate(_respondPopUp, transform);
+            var respondText = Instantiate(_respondPopUp, transform.parent);
             respondText.SetMessage(value, text);
         }
 
         private void OnEnable()
         {
-            _registerCanvas.LogInAction += LogInUser;
+            _logInCanvas.LogInAction += LogInUser;
         }
 
         private void OnDisable()
         {
-            _registerCanvas.LogInAction -= LogInUser;
+            _logInCanvas.LogInAction -= LogInUser;
         }
     }
 }

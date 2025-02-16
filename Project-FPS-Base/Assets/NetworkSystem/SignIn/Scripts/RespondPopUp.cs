@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.NetworkSystem.Register
+namespace Assets.NetworkSystem.SignIn.Scripts
 {
     public class RespondPopUp : MonoBehaviour
     {

@@ -1,34 +1,29 @@
 using System.Collections;
 using System.Text;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.Networking;
 
-
-namespace Assets.NetworkSystem.Register.Scripts
+namespace Assets.NetworkSystem.SignIn.Scripts
 {
     public class Register : MonoBehaviour
     {
         private string _apiString = "http://localhost:5251/api/Account/register";
 
         [SerializeField]
-        private string _name;
-        [SerializeField]
-        private string _eMail;
-        [SerializeField]
-        private string _password;
+        private RespondPopUp _respondPopUp = null;
 
+        private RegisterCanvas _registerCanvas = null;
         private User _newUser;
         private string _authToken = "";
 
-        void Start()
+        private void Awake()
         {
-            RegisterUser();
+            _registerCanvas = GetComponent<RegisterCanvas>();
         }
 
-        private void RegisterUser()
+        private void RegisterUser(string name, string eMail, string password)
         {
-            StartCoroutine(RegisterRequest(_name, _eMail, _password));
+            StartCoroutine(RegisterRequest(name, eMail, password));
         }
 
         private IEnumerator RegisterRequest(string userName, string eMail, string password)
@@ -50,27 +45,36 @@ namespace Assets.NetworkSystem.Register.Scripts
                 if (request.result == UnityWebRequest.Result.Success)
                 {
                     string responseJson = request.downloadHandler.text;
-
                     // Try to extract token if the response contains one
                     TokenRespons tokenResponse = JsonUtility.FromJson<TokenRespons>(responseJson);
                     if (!string.IsNullOrEmpty(tokenResponse.token))
                     {
                         _authToken = tokenResponse.token;
                         NetworkManager.Instance.UserAccessToken = _authToken;
-                        Debug.Log("Token: " + _authToken);
-
-                        // PlayerPrefs.SetString("authToken", authToken); // Save token locally
-                        // PlayerPrefs.Save();
                     }
-
-                    Debug.Log("Success: " + responseJson);
+                    Respond(true, "Success!");
                 }
-                else
+                else if (request.result == UnityWebRequest.Result.ConnectionError)
                 {
-                    Debug.LogError("Error: " + request.responseCode + " - " + request.error);
-                    Debug.LogError("Response: " + request.downloadHandler.text);
+                    Respond(false, "Connection Error!");
                 }
+                else { Respond(false, request.downloadHandler.text); }
             }
+        }
+        private void Respond(bool value, string text)
+        {
+            var respondText = Instantiate(_respondPopUp, transform.parent);
+            respondText.SetMessage(value, text);
+        }
+
+        private void OnEnable()
+        {
+            _registerCanvas.RegisterAction += RegisterUser;
+        }
+
+        private void OnDisable()
+        {
+            _registerCanvas.RegisterAction -= RegisterUser;
         }
     }
 }
