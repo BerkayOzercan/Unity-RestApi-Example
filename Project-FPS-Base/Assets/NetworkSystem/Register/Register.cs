@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
 using System.Text;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -9,6 +9,8 @@ namespace Assets.NetworkSystem.Register.Scripts
 {
     public class Register : MonoBehaviour
     {
+        private string _apiString = "http://localhost:5251/api/Account/register";
+
         [SerializeField]
         private string _name;
         [SerializeField]
@@ -17,6 +19,7 @@ namespace Assets.NetworkSystem.Register.Scripts
         private string _password;
 
         private User _newUser;
+        private string _authToken = "";
 
         void Start()
         {
@@ -35,7 +38,7 @@ namespace Assets.NetworkSystem.Register.Scripts
             string userJson = JsonUtility.ToJson(_newUser);
             Debug.Log(userJson);
 
-            using (UnityWebRequest request = new UnityWebRequest("http://localhost:5251/api/Account/register", "POST"))
+            using (UnityWebRequest request = new UnityWebRequest(_apiString, "POST"))
             {
                 byte[] bodyRaw = Encoding.UTF8.GetBytes(userJson);
                 request.uploadHandler = new UploadHandlerRaw(bodyRaw);
@@ -47,6 +50,19 @@ namespace Assets.NetworkSystem.Register.Scripts
                 if (request.result == UnityWebRequest.Result.Success)
                 {
                     string responseJson = request.downloadHandler.text;
+
+                    // Try to extract token if the response contains one
+                    TokenRespons tokenResponse = JsonUtility.FromJson<TokenRespons>(responseJson);
+                    if (!string.IsNullOrEmpty(tokenResponse.token))
+                    {
+                        _authToken = tokenResponse.token;
+                        NetworkManager.Instance.UserAccessToken = _authToken;
+                        Debug.Log("Token: " + _authToken);
+
+                        // PlayerPrefs.SetString("authToken", authToken); // Save token locally
+                        // PlayerPrefs.Save();
+                    }
+
                     Debug.Log("Success: " + responseJson);
                 }
                 else

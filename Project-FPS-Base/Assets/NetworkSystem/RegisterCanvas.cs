@@ -15,6 +15,8 @@ namespace Assets.NetworkSystem.Register.Scripts
         private Button _logInButton;
         [SerializeField]
         private Button _switchSignInButton;
+        [SerializeField]
+        private GameObject _registerCanvas;
 
         [Header("Respond PopUp")]
         [SerializeField]
@@ -44,13 +46,12 @@ namespace Assets.NetworkSystem.Register.Scripts
 
             if (isSuccess)
             {
-                Debug.Log(isSuccess);
                 _respondText.text = _login.ErrRespondMessage;
                 _PopUpBoard.SetActive(false);
+                _registerCanvas.SetActive(false);
             }
             else
             {
-                Debug.Log(isSuccess);
                 _respondText.text = _login.ErrRespondMessage;
             }
         }

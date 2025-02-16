@@ -3941,6 +3941,7 @@ MonoBehaviour:
   _password: {fileID: 1660779293656515243}
   _logInButton: {fileID: 237314343024850378}
   _switchSignInButton: {fileID: 4185492058417953638}
+  _registerCanvas: {fileID: 4338248813291602837}
   _respondText: {fileID: 8359037437730192554}
   _boardCloseButton: {fileID: 8854511268627261401}
   _PopUpBoard: {fileID: 6996069202622452664}

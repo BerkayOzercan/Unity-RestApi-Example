@@ -6,12 +6,8 @@ namespace Assets.NetworkSystem
 {
     public class NetworkManager : Singleton<NetworkManager>
     {
-        private string _serverUrl = "http://localhost:5251/api";
-
-        public string GetServerUrl()
-        {
-            return _serverUrl;
-        }
+        private string _userAccessToken;
+        public string UserAccessToken { get { return _userAccessToken; } set { _userAccessToken = value; } }
     }
 }
 

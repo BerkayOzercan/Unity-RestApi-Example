@@ -9,7 +9,8 @@ namespace Assets.NetworkSystem.Register.Scripts
     public class Login : MonoBehaviour
     {
         private string _apiString = "http://localhost:5251/api/Account/login";
-        string responseJson;
+        private string _responseJson = "";
+        private string _authToken = "";
         public string ErrRespondMessage;
 
         public Action<bool> IsSuccess;
@@ -39,9 +40,28 @@ namespace Assets.NetworkSystem.Register.Scripts
                 {
                     ErrRespondMessage = "Response: " + request.downloadHandler.text;
                     IsSuccess?.Invoke(true);
-                    responseJson = request.downloadHandler.text;
+
+                    _responseJson = request.downloadHandler.text;
+
+                    // Try to extract token if the response contains one
+                    TokenRespons tokenResponse = JsonUtility.FromJson<TokenRespons>(_responseJson);
+                    if (!string.IsNullOrEmpty(tokenResponse.token))
+                    {
+                        _authToken = tokenResponse.token;
+                        NetworkManager.Instance.UserAccessToken = _authToken;
+                        Debug.Log("Token: " + _authToken);
+                        // PlayerPrefs.SetString("authToken", authToken); // Save token locally
+                        // PlayerPrefs.Save();
+                    }
                     // Debug.Log("Success: " + responseJson);
 
+                }
+                else if (request.result == UnityWebRequest.Result.ConnectionError)
+                {
+                    ErrRespondMessage = "Response: Connection Error";
+                    IsSuccess?.Invoke(false);
+                    // Debug.Log("Error: " + request.responseCode + " - " + request.error);
+                    // Debug.Log("Response: " + request.downloadHandler.text);
                 }
                 else
                 {

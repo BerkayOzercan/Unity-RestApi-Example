@@ -3,9 +3,9 @@ using System;
 namespace Assets.NetworkSystem.Register
 {
     [Serializable]
-    public class RegisterResponse
+    public class TokenRespons
     {
-        public string message;
+        public string token;
     }
 }
 
