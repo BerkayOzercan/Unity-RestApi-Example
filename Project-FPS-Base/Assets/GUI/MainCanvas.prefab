@@ -799,7 +799,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1531932623043861107}
-  - component: {fileID: 4299690278732220614}
+  - component: {fileID: 6895156578791118662}
   m_Layer: 5
   m_Name: SignInCanvas
   m_TagString: Untagged
@@ -829,7 +829,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4299690278732220614
+--- !u!114 &6895156578791118662
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -838,7 +838,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4338248813291602837}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24c29aaa9681ca34aab1d31ca987d2f5, type: 3}
+  m_Script: {fileID: 11500000, guid: db5ec64e29a974143917620fce7a85b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4625913163576640619
