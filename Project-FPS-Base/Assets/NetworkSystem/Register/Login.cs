@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Text;
 using Assets.NetworkSystem.Register.Scripts;
@@ -9,31 +8,21 @@ namespace Assets.NetworkSystem.Register
 {
     public class Login : MonoBehaviour
     {
-        [SerializeField]
-        private string _name;
-        [SerializeField]
-        private string _password;
+        private string _apiString = "http://localhost:5251/api/Account/login";
 
-        private User _newUser;
-
-        void Start()
+        public void LogInUser(string name, string password)
         {
-            LogInUser();
-        }
-
-        private void LogInUser()
-        {
-            StartCoroutine(LogInRequest(_name, _password));
+            StartCoroutine(LogInRequest(name, password));
         }
 
         private IEnumerator LogInRequest(string userName, string password)
         {
-            _newUser = new User { username = userName, password = password };
+            LoginUser _currentUser = new LoginUser { username = userName, password = password };
             // Convert to JSON here
-            string userJson = JsonUtility.ToJson(_newUser);
+            string userJson = JsonUtility.ToJson(_currentUser);
             Debug.Log(userJson);
 
-            using (UnityWebRequest request = new UnityWebRequest("http://localhost:5251/api/Account/login", "POST"))
+            using (UnityWebRequest request = new UnityWebRequest(_apiString, "POST"))
             {
                 byte[] bodyRaw = Encoding.UTF8.GetBytes(userJson);
                 request.uploadHandler = new UploadHandlerRaw(bodyRaw);

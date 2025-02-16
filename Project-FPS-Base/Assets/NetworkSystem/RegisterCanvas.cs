@@ -1,5 +1,7 @@
+using Assets.NetworkSystem.Register;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.NetworkSystem
 {
@@ -7,20 +9,35 @@ namespace Assets.NetworkSystem
     {
         [Header("Log In Menu")]
         [SerializeField]
-        private TMP_InputField _nameInput = null;
+        private TMP_InputField _nameInput;
         [SerializeField]
-        private TMP_InputField _password = null;
+        private TMP_InputField _password;
+        [SerializeField]
+        private Button _logInButton;
+        [SerializeField]
+        private Button _switchSignInButton;
 
-        private NetworkManager _networkManager = null;
+        private Login _login;
 
-        void Awake()
+        private void Awake()
         {
-            _networkManager = NetworkManager.Instance;
+            _login = GetComponent<Login>();
         }
 
-        //Set to login button
-        public void LogIn()
+        private void Start()
         {
+            _logInButton.onClick.AddListener(LogIn);
+            _switchSignInButton.onClick.AddListener(SwitchSignIn);
+        }
+
+        private void LogIn()
+        {
+            _login.LogInUser(_nameInput.text, _password.text);
+        }
+
+        private void SwitchSignIn()
+        {
+            Debug.Log("Switch SignIn");
         }
     }
 
