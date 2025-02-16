@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Text;
 using UnityEngine;
@@ -8,12 +7,16 @@ namespace Assets.NetworkSystem.Register.Scripts
 {
     public class Login : MonoBehaviour
     {
+        [SerializeField]
+        private RespondPopUp _respondPopUp = null;
+
+        private RegisterCanvas _registerCanvas = null;
+
         private string _apiString = "http://localhost:5251/api/Account/login";
         private string _responseJson = "";
         private string _authToken = "";
-        public string ErrRespondMessage;
 
-        public Action<bool> IsSuccess;
+        private void Awake() { _registerCanvas = GetComponent<RegisterCanvas>(); }
 
         public void LogInUser(string name, string password)
         {
@@ -38,39 +41,42 @@ namespace Assets.NetworkSystem.Register.Scripts
 
                 if (request.result == UnityWebRequest.Result.Success)
                 {
-                    ErrRespondMessage = "Response: " + request.downloadHandler.text;
-                    IsSuccess?.Invoke(true);
+                    Respond(true, "Success!");
 
                     _responseJson = request.downloadHandler.text;
-
                     // Try to extract token if the response contains one
                     TokenRespons tokenResponse = JsonUtility.FromJson<TokenRespons>(_responseJson);
                     if (!string.IsNullOrEmpty(tokenResponse.token))
                     {
                         _authToken = tokenResponse.token;
                         NetworkManager.Instance.UserAccessToken = _authToken;
-                        Debug.Log("Token: " + _authToken);
-                        // PlayerPrefs.SetString("authToken", authToken); // Save token locally
-                        // PlayerPrefs.Save();
                     }
-                    // Debug.Log("Success: " + responseJson);
-
                 }
                 else if (request.result == UnityWebRequest.Result.ConnectionError)
                 {
-                    ErrRespondMessage = "Response: Connection Error";
-                    IsSuccess?.Invoke(false);
-                    // Debug.Log("Error: " + request.responseCode + " - " + request.error);
-                    // Debug.Log("Response: " + request.downloadHandler.text);
+                    Respond(false, "Connection Error");
                 }
                 else
                 {
-                    ErrRespondMessage = "Response: " + request.downloadHandler.text;
-                    IsSuccess?.Invoke(false);
-                    // Debug.Log("Error: " + request.responseCode + " - " + request.error);
-                    // Debug.Log("Response: " + request.downloadHandler.text);
+                    Respond(false, request.downloadHandler.text);
                 }
             }
+        }
+
+        private void Respond(bool value, string text)
+        {
+            var respondText = Instantiate(_respondPopUp, transform);
+            respondText.SetMessage(value, text);
+        }
+
+        private void OnEnable()
+        {
+            _registerCanvas.LogInAction += LogInUser;
+        }
+
+        private void OnDisable()
+        {
+            _registerCanvas.LogInAction -= LogInUser;
         }
     }
 }
