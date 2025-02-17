@@ -54,15 +54,15 @@ namespace Assets.NetworkSystem.SignIn.Scripts
 
                     if (registerResponse != null)
                     {
-                        Debug.Log($"User Registered - ID: {registerResponse.id}, Username: {registerResponse.username}");
+                        Debug.Log($"User Registered - ID: {registerResponse.userId}, Username: {registerResponse.userName}");
 
                         _newPlayerData = new PlayerData
                         {
                             id = 0,
-                            username = registerResponse.username ?? "Unknown", // Prevent null values
+                            username = registerResponse.userName ?? "Unknown", // Prevent null values
                             rank = 0,
                             score = 0,
-                            userid = registerResponse.id
+                            userId = registerResponse.userId
                         };
                         NetworkManager.Instance.PlayerData = _newPlayerData;
 

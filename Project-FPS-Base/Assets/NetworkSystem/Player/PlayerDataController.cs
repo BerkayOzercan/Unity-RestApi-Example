@@ -29,7 +29,6 @@ namespace Assets.NetworkSystem.Player
 
         public void CreatePlayer()
         {
-            //Debug.Log("UserId= " + PlayerData().userid);
             StartCoroutine(CreatePlayerCoroutine(PlayerData()));
         }
 

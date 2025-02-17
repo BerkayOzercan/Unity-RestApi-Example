@@ -44,14 +44,12 @@ namespace Project_RestApi.Controllers
             if (player == null)
                 return BadRequest("Invalid player data");
 
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
             var newPlayer = new Player
             {
                 UserName = player.UserName,
                 Rank = player.Rank,
                 Score = player.Score,
-                UserId = userId
+                UserId = player.UserId
             };
 
             _context.Players.Add(newPlayer);

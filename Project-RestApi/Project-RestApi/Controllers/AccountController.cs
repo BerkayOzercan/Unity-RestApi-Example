@@ -49,8 +49,9 @@ namespace Project_RestApi.Controllers
                         return Ok(
                                 new NewUserDto
                                 {
-                                    UserName = gameUser.UserName ?? string.Empty,
-                                    Email = gameUser.Email ?? string.Empty,
+                                    UserId = gameUser.Id,
+                                    UserName = gameUser.UserName,
+                                    Email = gameUser.Email,
                                     Token = _tokenService.CreateToken(gameUser)
                                 }
                             );
@@ -78,15 +79,15 @@ namespace Project_RestApi.Controllers
 
             if (user == null) return Unauthorized("Invalid username!");
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password ?? string.Empty, false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
             if (!result.Succeeded) return Unauthorized("Username or password incorrect!");
 
             return Ok(
                 new NewUserDto
                 {
-                    UserName = user.UserName ?? string.Empty,
-                    Email = user.Email ?? string.Empty,
+                    UserName = user.UserName,
+                    Email = user.Email,
                     Token = _tokenService.CreateToken(user)
                 }
             );
