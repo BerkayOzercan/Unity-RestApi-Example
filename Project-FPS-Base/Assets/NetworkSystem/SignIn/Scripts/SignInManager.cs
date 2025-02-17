@@ -21,7 +21,7 @@ namespace Assets.NetworkSystem.SignIn.Scripts
             states = new Dictionary<SignInStates, ISignInState>
             {
                 { SignInStates.Register, new RegisterState(_register) },
-                { SignInStates.Login, new LoginState(_login) },
+                { SignInStates.Login, new LoginState(_login) }
             };
 
             ChangeState(SignInStates.Login);

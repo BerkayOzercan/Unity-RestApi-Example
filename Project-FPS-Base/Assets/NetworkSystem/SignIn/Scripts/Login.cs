@@ -12,7 +12,6 @@ namespace Assets.NetworkSystem.SignIn.Scripts
 
         private LogInCanvas _logInCanvas = null;
 
-
         private string _apiString = "http://localhost:5251/api/Account/login";
         private string _responseJson = "";
         private string _authToken = "";
