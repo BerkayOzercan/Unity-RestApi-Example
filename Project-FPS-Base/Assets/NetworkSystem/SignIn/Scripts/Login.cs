@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Text;
 using UnityEngine;
@@ -15,6 +16,9 @@ namespace Assets.NetworkSystem.SignIn.Scripts
         private string _apiString = "http://localhost:5251/api/Account/login";
         private string _responseJson = "";
         private string _authToken = "";
+
+        ///?/////?/////??///?//
+        public static Action<bool> IsLoginAccess;
 
         private void Awake() { _logInCanvas = GetComponent<LogInCanvas>(); }
 
@@ -48,8 +52,9 @@ namespace Assets.NetworkSystem.SignIn.Scripts
                     if (!string.IsNullOrEmpty(tokenResponse.token))
                     {
                         _authToken = tokenResponse.token;
-                        NetworkManager.Instance.UserAccessToken = _authToken;
+                        NetworkManager.Instance.UserAuthToken = _authToken;
                     }
+
                 }
                 else if (request.result == UnityWebRequest.Result.ConnectionError)
                 {

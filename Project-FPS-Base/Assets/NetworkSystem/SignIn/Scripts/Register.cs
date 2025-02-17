@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Text;
+using Assets.NetworkSystem.Player;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -14,7 +16,10 @@ namespace Assets.NetworkSystem.SignIn.Scripts
 
         private RegisterCanvas _registerCanvas = null;
         private User _newUser;
+        private PlayerData _newPlayerData;
         private string _authToken = "";
+
+        public static Action<PlayerData> OnNewPlayerData;
 
         private void Awake()
         {
@@ -50,8 +55,23 @@ namespace Assets.NetworkSystem.SignIn.Scripts
                     if (!string.IsNullOrEmpty(tokenResponse.token))
                     {
                         _authToken = tokenResponse.token;
-                        NetworkManager.Instance.UserAccessToken = _authToken;
+                        NetworkManager.Instance.UserAuthToken = _authToken;
                     }
+
+                    UserResponse userResponse = JsonUtility.FromJson<UserResponse>(responseJson);
+                    if (string.IsNullOrEmpty(userResponse.userid))
+                    {
+                        _newPlayerData = new PlayerData
+                        {
+                            username = userResponse.username,
+                            rank = 0,
+                            score = 0,
+                            userid = userResponse.userid
+                        };
+
+                        OnNewPlayerData?.Invoke(_newPlayerData);
+                    }
+
                     Respond(true, "Success!");
                 }
                 else if (request.result == UnityWebRequest.Result.ConnectionError)
@@ -59,6 +79,7 @@ namespace Assets.NetworkSystem.SignIn.Scripts
                     Respond(false, "Connection Error!");
                 }
                 else { Respond(false, request.downloadHandler.text); }
+
             }
         }
         private void Respond(bool value, string text)
