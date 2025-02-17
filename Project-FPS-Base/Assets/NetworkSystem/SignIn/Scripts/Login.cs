@@ -48,7 +48,7 @@ namespace Assets.NetworkSystem.SignIn.Scripts
                     Respond(true, "Success!");
                     _responseJson = request.downloadHandler.text;
                     // Try to extract token if the response contains one
-                    TokenRespons tokenResponse = JsonUtility.FromJson<TokenRespons>(_responseJson);
+                    RegisterResponse tokenResponse = JsonUtility.FromJson<RegisterResponse>(_responseJson);
                     if (!string.IsNullOrEmpty(tokenResponse.token))
                     {
                         _authToken = tokenResponse.token;

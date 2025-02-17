@@ -22,9 +22,15 @@ namespace Assets.NetworkSystem.Player
             return token;
         }
 
-        public void CreatePlayer(PlayerData playerData)
+        private PlayerData PlayerData()
         {
-            StartCoroutine(CreatePlayerCoroutine(playerData));
+            return NetworkManager.Instance.PlayerData;
+        }
+
+        public void CreatePlayer()
+        {
+            //Debug.Log("UserId= " + PlayerData().userid);
+            StartCoroutine(CreatePlayerCoroutine(PlayerData()));
         }
 
         public void GetPlayerById(int playerId)
@@ -39,7 +45,6 @@ namespace Assets.NetworkSystem.Player
 
         private IEnumerator CreatePlayerCoroutine(PlayerData playerData)
         {
-            Debug.Log("createPlayer");
             string json = JsonUtility.ToJson(playerData);
             UnityWebRequest request = new UnityWebRequest(apiUrl, "POST");
 
@@ -99,12 +104,12 @@ namespace Assets.NetworkSystem.Player
 
         void OnEnable()
         {
-            Register.OnNewPlayerData += CreatePlayer;
+            Register.OnUserRegistered += CreatePlayer;
         }
 
         void OnDisable()
         {
-            Register.OnNewPlayerData -= CreatePlayer;
+            Register.OnUserRegistered -= CreatePlayer;
         }
     }
 }

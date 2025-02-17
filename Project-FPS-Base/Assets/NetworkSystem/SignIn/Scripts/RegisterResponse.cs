@@ -3,10 +3,11 @@ using System;
 namespace Assets.NetworkSystem.SignIn.Scripts
 {
     [Serializable]
-    public class UserResponse
+    public class RegisterResponse
     {
-        public string userid;
+        public string id;
         public string username;
+        public string token;
     }
 }
 

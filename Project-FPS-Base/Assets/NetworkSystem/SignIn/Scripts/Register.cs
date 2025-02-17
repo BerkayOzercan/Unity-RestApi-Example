@@ -4,7 +4,6 @@ using System.Text;
 using Assets.NetworkSystem.Player;
 using UnityEngine;
 using UnityEngine.Networking;
-
 namespace Assets.NetworkSystem.SignIn.Scripts
 {
     public class Register : MonoBehaviour
@@ -19,7 +18,7 @@ namespace Assets.NetworkSystem.SignIn.Scripts
         private PlayerData _newPlayerData;
         private string _authToken = "";
 
-        public static Action<PlayerData> OnNewPlayerData;
+        public static Action OnUserRegistered;
 
         private void Awake()
         {
@@ -36,7 +35,6 @@ namespace Assets.NetworkSystem.SignIn.Scripts
             _newUser = new User { username = userName, email = eMail, password = password };
             // Convert to JSON here
             string userJson = JsonUtility.ToJson(_newUser);
-            Debug.Log(userJson);
 
             using (UnityWebRequest request = new UnityWebRequest(_apiString, "POST"))
             {
@@ -50,38 +48,43 @@ namespace Assets.NetworkSystem.SignIn.Scripts
                 if (request.result == UnityWebRequest.Result.Success)
                 {
                     string responseJson = request.downloadHandler.text;
-                    // Try to extract token if the response contains one
-                    TokenRespons tokenResponse = JsonUtility.FromJson<TokenRespons>(responseJson);
-                    if (!string.IsNullOrEmpty(tokenResponse.token))
-                    {
-                        _authToken = tokenResponse.token;
-                        NetworkManager.Instance.UserAuthToken = _authToken;
-                    }
+                    Debug.Log("Server Response: " + responseJson); // Debugging output
 
-                    UserResponse userResponse = JsonUtility.FromJson<UserResponse>(responseJson);
-                    if (string.IsNullOrEmpty(userResponse.userid))
+                    RegisterResponse registerResponse = JsonUtility.FromJson<RegisterResponse>(responseJson);
+
+                    if (registerResponse != null)
                     {
+                        Debug.Log($"User Registered - ID: {registerResponse.id}, Username: {registerResponse.username}");
+
                         _newPlayerData = new PlayerData
                         {
-                            username = userResponse.username,
+                            id = 0,
+                            username = registerResponse.username ?? "Unknown", // Prevent null values
                             rank = 0,
                             score = 0,
-                            userid = userResponse.userid
+                            userid = registerResponse.id
                         };
+                        NetworkManager.Instance.PlayerData = _newPlayerData;
 
-                        OnNewPlayerData?.Invoke(_newPlayerData);
+                        if (!string.IsNullOrEmpty(registerResponse.token))
+                        {
+                            _authToken = registerResponse.token;
+                            NetworkManager.Instance.UserAuthToken = _authToken;
+                            Debug.Log("Token Received: " + _authToken);
+                        }
+
+                        Respond(true, "Success!");
+                        OnUserRegistered?.Invoke();
                     }
-
-                    Respond(true, "Success!");
                 }
                 else if (request.result == UnityWebRequest.Result.ConnectionError)
                 {
                     Respond(false, "Connection Error!");
                 }
                 else { Respond(false, request.downloadHandler.text); }
-
             }
         }
+
         private void Respond(bool value, string text)
         {
             var respondText = Instantiate(_respondPopUp, transform.parent);
