@@ -14,6 +14,8 @@ namespace Assets.NetworkSystem.SignIn.Scripts
         private TMP_InputField _logInPassword;
         [SerializeField]
         private Button _logInButton;
+        [SerializeField]
+        private Button _registerButton;
 
         public Action<string, string> LogInAction;
 
@@ -21,6 +23,13 @@ namespace Assets.NetworkSystem.SignIn.Scripts
         {
             _logInButton.onClick.AddListener(() =>
                 LogInAction?.Invoke(_logInNameInput.text, _logInPassword.text));
+
+            _registerButton.onClick.AddListener(ChangeState);
+        }
+
+        private void ChangeState()
+        {
+            SignInManager.Instance.ChangeState(SignInStates.Register);
         }
     }
 }

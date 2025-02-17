@@ -12,6 +12,7 @@ namespace Assets.NetworkSystem.SignIn.Scripts
 
         private LogInCanvas _logInCanvas = null;
 
+
         private string _apiString = "http://localhost:5251/api/Account/login";
         private string _responseJson = "";
         private string _authToken = "";
@@ -42,7 +43,6 @@ namespace Assets.NetworkSystem.SignIn.Scripts
                 if (request.result == UnityWebRequest.Result.Success)
                 {
                     Respond(true, "Success!");
-
                     _responseJson = request.downloadHandler.text;
                     // Try to extract token if the response contains one
                     TokenRespons tokenResponse = JsonUtility.FromJson<TokenRespons>(_responseJson);

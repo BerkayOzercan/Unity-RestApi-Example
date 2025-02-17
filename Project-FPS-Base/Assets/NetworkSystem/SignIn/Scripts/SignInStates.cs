@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Assets.NetworkSystem.SignIn.Scripts
 {
@@ -11,31 +12,42 @@ namespace Assets.NetworkSystem.SignIn.Scripts
 
     public class RegisterState : ISignInState
     {
+        private readonly Register _register;
+        public RegisterState(Register register)
+        {
+            _register = register;
+        }
         public void OnEnter()
         {
+            _register.gameObject.SetActive(true);
         }
+
+        public void OnUpdate() { }
 
         public void OnExit()
         {
-        }
-
-        public void OnUpdate()
-        {
+            _register.gameObject.SetActive(false);
         }
     }
 
     public class LoginState : ISignInState
     {
+        private readonly Login _login;
+        public LoginState(Login login)
+        {
+            _login = login;
+        }
+
         public void OnEnter()
         {
+            _login.gameObject.SetActive(true);
         }
+
+        public void OnUpdate() { }
 
         public void OnExit()
         {
-        }
-
-        public void OnUpdate()
-        {
+            _login.gameObject.SetActive(false);
         }
     }
 
