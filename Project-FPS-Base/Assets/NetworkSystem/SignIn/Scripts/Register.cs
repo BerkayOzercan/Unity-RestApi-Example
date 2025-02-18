@@ -15,7 +15,6 @@ namespace Assets.NetworkSystem.SignIn.Scripts
 
         private RegisterCanvas _registerCanvas = null;
         private User _newUser;
-        private PlayerData _newPlayerData;
         private string _authToken = "";
 
         public static Action OnUserRegistered;
@@ -56,15 +55,12 @@ namespace Assets.NetworkSystem.SignIn.Scripts
                     {
                         Debug.Log($"User Registered - ID: {registerResponse.userId}, Username: {registerResponse.userName}");
 
-                        _newPlayerData = new PlayerData
+                        User _newUserData = new User
                         {
-                            id = 0,
+                            id = registerResponse.userId,
                             username = registerResponse.userName ?? "Unknown", // Prevent null values
-                            rank = 0,
-                            score = 0,
-                            userId = registerResponse.userId
                         };
-                        NetworkManager.Instance.PlayerData = _newPlayerData;
+                        NetworkManager.Instance.UserData = _newUserData;
 
                         if (!string.IsNullOrEmpty(registerResponse.token))
                         {

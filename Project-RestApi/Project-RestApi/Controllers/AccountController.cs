@@ -86,6 +86,7 @@ namespace Project_RestApi.Controllers
             return Ok(
                 new NewUserDto
                 {
+                    UserId = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
                     Token = _tokenService.CreateToken(user)

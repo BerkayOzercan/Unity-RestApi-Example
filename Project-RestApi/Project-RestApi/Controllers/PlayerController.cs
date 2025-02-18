@@ -1,12 +1,14 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project_RestApi.GameData;
+using Project_RestApi.Interfaces;
 using Project_RestApi.Models;
+using Project_RestApi.Services;
 
 namespace Project_RestApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PlayerController : ControllerBase
@@ -24,13 +26,13 @@ namespace Project_RestApi.Controllers
             return await _context.Players.ToListAsync();
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetById(string userId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var player = await _context.Players.FindAsync(id);
+            var player = await _context.Players.FirstOrDefaultAsync(p => p.UserId == userId); ;
 
             if (player == null)
                 return NotFound();
@@ -55,7 +57,7 @@ namespace Project_RestApi.Controllers
             _context.Players.Add(newPlayer);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetById), new { id = newPlayer.Id }, newPlayer);
+            return CreatedAtAction(nameof(GetById), new { userId = newPlayer.UserId }, newPlayer);
         }
 
         [HttpPut("{id}")]

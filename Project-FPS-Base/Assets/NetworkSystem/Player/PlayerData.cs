@@ -8,7 +8,7 @@ namespace Assets.NetworkSystem.Player
         public int id;
         public string username;
         public int rank;
-        public float score;
+        public decimal score;
         public string userId;
     }
 }

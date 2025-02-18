@@ -22,19 +22,27 @@ namespace Assets.NetworkSystem.Player
             return token;
         }
 
-        private PlayerData PlayerData()
+        private User UserData()
         {
-            return NetworkManager.Instance.PlayerData;
+            return NetworkManager.Instance.UserData;
         }
 
         public void CreatePlayer()
         {
-            StartCoroutine(CreatePlayerCoroutine(PlayerData()));
+            PlayerData newPlayer = new PlayerData
+            {
+                username = UserData().username,
+                rank = 0,
+                score = 0,
+                userId = UserData().id
+            };
+
+            StartCoroutine(CreatePlayerCoroutine(newPlayer));
         }
 
-        public void GetPlayerById(int playerId)
+        public void GetPlayerById(string userId)
         {
-            StartCoroutine(GetPlayerByIdCoroutine(playerId));
+            StartCoroutine(GetPlayerByIdCoroutine(userId));
         }
 
         public void UpdatePlayer(PlayerData player)
@@ -44,17 +52,17 @@ namespace Assets.NetworkSystem.Player
 
         private IEnumerator CreatePlayerCoroutine(PlayerData playerData)
         {
-            string json = JsonUtility.ToJson(playerData);
             UnityWebRequest request = new UnityWebRequest(apiUrl, "POST");
-
             request.SetRequestHeader("Authorization", "Bearer " + AccessToken());
+            string json = JsonUtility.ToJson(playerData);
+
 
             byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
             request.uploadHandler = new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
-
             yield return request.SendWebRequest();
+            Debug.Log(request.result);
 
             if (request.result == UnityWebRequest.Result.Success)
                 Debug.Log("Player created: " + request.downloadHandler.text);
@@ -62,9 +70,9 @@ namespace Assets.NetworkSystem.Player
                 Debug.LogError("Error: " + request.error);
         }
 
-        private IEnumerator GetPlayerByIdCoroutine(int playerId)
+        private IEnumerator GetPlayerByIdCoroutine(string userId)
         {
-            UnityWebRequest request = UnityWebRequest.Get(apiUrl + "/" + playerId);
+            UnityWebRequest request = UnityWebRequest.Get(apiUrl + "/" + userId);
 
             request.SetRequestHeader("Authorization", "Bearer " + AccessToken());
 

@@ -5,7 +5,7 @@ namespace Assets.NetworkSystem.SignIn.Scripts
     [Serializable]
     public class User
     {
-        public int id;
+        public string id;
         public string username;
         public string email;
         public string password;

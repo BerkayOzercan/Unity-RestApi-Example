@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Text;
+using Assets.NetworkSystem.Player;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -14,11 +15,12 @@ namespace Assets.NetworkSystem.SignIn.Scripts
         private LogInCanvas _logInCanvas = null;
 
         private string _apiString = "http://localhost:5251/api/Account/login";
-        private string _responseJson = "";
+
         private string _authToken = "";
+        private User _newUserData;
 
         ///?/////?/////??///?//
-        public static Action<bool> IsLoginAccess;
+        public static Action OnLoggedIn;
 
         private void Awake() { _logInCanvas = GetComponent<LogInCanvas>(); }
 
@@ -45,16 +47,34 @@ namespace Assets.NetworkSystem.SignIn.Scripts
 
                 if (request.result == UnityWebRequest.Result.Success)
                 {
-                    Respond(true, "Success!");
-                    _responseJson = request.downloadHandler.text;
+                    string _responseJson = request.downloadHandler.text;
                     // Try to extract token if the response contains one
-                    RegisterResponse tokenResponse = JsonUtility.FromJson<RegisterResponse>(_responseJson);
-                    if (!string.IsNullOrEmpty(tokenResponse.token))
-                    {
-                        _authToken = tokenResponse.token;
-                        NetworkManager.Instance.UserAuthToken = _authToken;
-                    }
+                    RegisterResponse registerResponse = JsonUtility.FromJson<RegisterResponse>(_responseJson);
 
+                    if (registerResponse != null)
+                    {
+                        Debug.Log("Server Response: " + _responseJson); // Debugging output
+
+                        Debug.Log($"User Registered - ID: {registerResponse.userId}, Username: {registerResponse.userName}");
+
+                        _newUserData = new User
+                        {
+                            id = registerResponse.userId,
+                            username = registerResponse.userName ?? "Unknown", // Prevent null values
+
+                        };
+                        NetworkManager.Instance.UserData = _newUserData;
+
+                        if (!string.IsNullOrEmpty(registerResponse.token))
+                        {
+                            _authToken = registerResponse.token;
+                            NetworkManager.Instance.UserAuthToken = _authToken;
+                        }
+
+
+                        OnLoggedIn?.Invoke();
+                        Respond(true, "Success!");
+                    }
                 }
                 else if (request.result == UnityWebRequest.Result.ConnectionError)
                 {
