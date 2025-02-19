@@ -40,6 +40,13 @@ namespace Assets.NetworkSystem.Player
             StartCoroutine(CreatePlayerCoroutine(newPlayer));
         }
 
+        private bool HasPlayer(PlayerData input)
+        {
+            // Check current player in data base or not
+            // PlayerData currentInput =
+            return false;
+        }
+
         public void GetPlayerById(string userId)
         {
             StartCoroutine(GetPlayerByIdCoroutine(userId));
