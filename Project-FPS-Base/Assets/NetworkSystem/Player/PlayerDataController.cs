@@ -40,16 +40,9 @@ namespace Assets.NetworkSystem.Player
             StartCoroutine(CreatePlayerCoroutine(newPlayer));
         }
 
-        private bool HasPlayer(PlayerData input)
+        public void SetPlayerData(string userId, string token)
         {
-            // Check current player in data base or not
-            // PlayerData currentInput =
-            return false;
-        }
-
-        public void GetPlayerById(string userId)
-        {
-            StartCoroutine(GetPlayerByIdCoroutine(userId));
+            StartCoroutine(GetPlayerByIdCoroutine(userId, token));
         }
 
         public void UpdatePlayer(PlayerData player)
@@ -77,18 +70,19 @@ namespace Assets.NetworkSystem.Player
                 Debug.LogError("Error: " + request.error);
         }
 
-        private IEnumerator GetPlayerByIdCoroutine(string userId)
+        private IEnumerator GetPlayerByIdCoroutine(string userId, string token)
         {
             UnityWebRequest request = UnityWebRequest.Get(apiUrl + "/" + userId);
 
-            request.SetRequestHeader("Authorization", "Bearer " + AccessToken());
+            request.SetRequestHeader("Authorization", "Bearer " + token);
 
             yield return request.SendWebRequest();
 
             if (request.result == UnityWebRequest.Result.Success)
             {
                 PlayerData player = JsonUtility.FromJson<PlayerData>(request.downloadHandler.text);
-                Debug.Log($"Player: {player.username}, Score: {player.score}");
+                Debug.Log("AccessToken = " + AccessToken());
+                Debug.Log("UserName = " + player.username);
             }
             else
             {
@@ -119,11 +113,14 @@ namespace Assets.NetworkSystem.Player
         void OnEnable()
         {
             Register.OnUserRegistered += CreatePlayer;
+            Login.OnLoggedIn += SetPlayerData;
         }
 
         void OnDisable()
         {
             Register.OnUserRegistered -= CreatePlayer;
+            Login.OnLoggedIn -= SetPlayerData;
+
         }
     }
 }

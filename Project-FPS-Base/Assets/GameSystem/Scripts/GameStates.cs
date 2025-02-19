@@ -24,7 +24,6 @@ namespace Assets.GameSystem.Scripts
         {
             Pause();
             _canvasManager.MenuCanvas.SetActive(true);
-            Debug.Log(Time.timeScale);
         }
         public void OnUpdate() { }
         public void OnExit()
