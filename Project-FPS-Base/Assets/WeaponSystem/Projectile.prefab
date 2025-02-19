@@ -116,7 +116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4560099205665595682
 Transform:
   m_ObjectHideFlags: 0
@@ -38071,6 +38071,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 534a43db4191712439849db9b5712290, type: 3}
       propertyPath: m_Name
       value: foamBulletB
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 534a43db4191712439849db9b5712290, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
