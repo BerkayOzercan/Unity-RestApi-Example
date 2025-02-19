@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326b8965fa98c844387a54adff15da2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LogInCanvas: {fileID: 0}
   ParentCanvas: {fileID: 0}
   MenuCanvas: {fileID: 0}
   PauseCanvas: {fileID: 0}
@@ -108,6 +109,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe692bd666e755a45813785230c13731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerData:
+    id: 0
+    userName: 
+    rank: 0
+    userId: 
+  _userData:
+    id: 
+    username: 
+    email: 
+    password: 
 --- !u!114 &7390659138768431519
 MonoBehaviour:
   m_ObjectHideFlags: 0
