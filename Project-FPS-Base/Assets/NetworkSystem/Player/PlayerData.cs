@@ -6,7 +6,7 @@ namespace Assets.NetworkSystem.Player
     public class PlayerData
     {
         public int id;
-        public string username;
+        public string userName;
         public int rank;
         public decimal score;
         public string userId;

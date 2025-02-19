@@ -31,7 +31,7 @@ namespace Assets.NetworkSystem.Player
         {
             PlayerData newPlayer = new PlayerData
             {
-                username = UserData().username,
+                userName = UserData().username,
                 rank = 0,
                 score = 0,
                 userId = UserData().id
@@ -81,8 +81,9 @@ namespace Assets.NetworkSystem.Player
             if (request.result == UnityWebRequest.Result.Success)
             {
                 PlayerData player = JsonUtility.FromJson<PlayerData>(request.downloadHandler.text);
+                NetworkManager.Instance.PlayerData = player;
                 Debug.Log("AccessToken = " + AccessToken());
-                Debug.Log("UserName = " + player.username);
+                Debug.Log("UserName = " + request.downloadHandler.text);
             }
             else
             {
@@ -113,13 +114,13 @@ namespace Assets.NetworkSystem.Player
         void OnEnable()
         {
             Register.OnUserRegistered += CreatePlayer;
-            Login.OnLoggedIn += SetPlayerData;
+            Login.LoggedPlayer += SetPlayerData;
         }
 
         void OnDisable()
         {
             Register.OnUserRegistered -= CreatePlayer;
-            Login.OnLoggedIn -= SetPlayerData;
+            Login.LoggedPlayer -= SetPlayerData;
 
         }
     }

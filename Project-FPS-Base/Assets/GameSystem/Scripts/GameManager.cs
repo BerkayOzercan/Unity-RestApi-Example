@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Assets.InputSystem;
+using Assets.NetworkSystem.SignIn.Scripts;
 using UnityEngine;
 
 namespace Assets.GameSystem.Scripts
@@ -26,6 +27,7 @@ namespace Assets.GameSystem.Scripts
 
             states = new Dictionary<GameStates, IGameState>
             {
+                { GameStates.LogIn, new LogInState(_canvasManager) },
                 { GameStates.Menu, new MenuState(_canvasManager) },
                 { GameStates.Playing, new PlayingState(this, _gameInputsManager, _scoreManager, _canvasManager) },
                 { GameStates.Paused, new PausedState(this, _gameInputsManager, _canvasManager) },
@@ -36,7 +38,7 @@ namespace Assets.GameSystem.Scripts
             if (_canvasManager.ParentCanvas.activeSelf == false)
                 _canvasManager.ParentCanvas.SetActive(true);
 
-            ChangeState(GameStates.Menu);
+            ChangeState(GameStates.LogIn);
         }
 
         private void Update()

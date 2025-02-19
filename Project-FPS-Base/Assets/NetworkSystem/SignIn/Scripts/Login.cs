@@ -19,7 +19,8 @@ namespace Assets.NetworkSystem.SignIn.Scripts
         private string _authToken = "";
         private User _newUserData;
 
-        public static Action<string, string> OnLoggedIn;
+        public static Action<string, string> LoggedPlayer;
+        public static Action LoggedIn;
 
         private void Awake() { _logInCanvas = GetComponent<LogInCanvas>(); }
 
@@ -72,7 +73,8 @@ namespace Assets.NetworkSystem.SignIn.Scripts
 
                         Respond(true, "Success!");
 
-                        OnLoggedIn?.Invoke(_newUserData.id, _authToken);
+                        LoggedPlayer?.Invoke(_newUserData.id, _authToken);
+                        LoggedIn?.Invoke();
                     }
                 }
                 else if (request.result == UnityWebRequest.Result.ConnectionError)

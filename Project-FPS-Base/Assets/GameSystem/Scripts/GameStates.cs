@@ -5,11 +5,43 @@ namespace Assets.GameSystem.Scripts
 {
     public enum GameStates
     {
+        LogIn,
         Menu,
         Playing,
         Paused,
         GameWin,
         GameOver
+    }
+
+    public class LogInState : IGameState
+    {
+        private readonly CanvasManager _canvasManager;
+        public LogInState(CanvasManager canvasManager)
+        {
+            _canvasManager = canvasManager;
+        }
+
+        public void OnEnter()
+        {
+            _canvasManager.LogInCanvas.SetActive(true);
+            Pause();
+        }
+        public void OnUpdate() { }
+        public void OnExit()
+        {
+            _canvasManager.LogInCanvas.SetActive(false);
+            ResumeGame();
+        }
+
+        public void Pause()
+        {
+            Time.timeScale = 0f;
+        }
+
+        public void ResumeGame()
+        {
+            Time.timeScale = 1f;
+        }
     }
 
     public class MenuState : IGameState
