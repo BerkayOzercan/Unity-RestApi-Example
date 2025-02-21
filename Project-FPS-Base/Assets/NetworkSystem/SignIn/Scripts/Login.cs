@@ -16,7 +16,6 @@ namespace Assets.NetworkSystem.SignIn.Scripts
 
         private string _apiString = "http://localhost:5251/api/Account/login";
 
-        private string _authToken = "";
         private User _newUserData;
 
         public static Action<string, string> LoggedPlayer;
@@ -32,9 +31,7 @@ namespace Assets.NetworkSystem.SignIn.Scripts
         private IEnumerator LogInRequest(string userName, string password)
         {
             LoginUser _currentUser = new LoginUser { username = userName, password = password };
-            // Convert to JSON here
             string userJson = JsonUtility.ToJson(_currentUser);
-            Debug.Log(userJson);
 
             using (UnityWebRequest request = new UnityWebRequest(_apiString, "POST"))
             {
@@ -53,27 +50,22 @@ namespace Assets.NetworkSystem.SignIn.Scripts
 
                     if (registerResponse != null)
                     {
-                        Debug.Log("Server Response: " + _responseJson); // Debugging output
-
-                        Debug.Log($"User Registered - ID: {registerResponse.userId}, Username: {registerResponse.userName}");
-
                         _newUserData = new User
                         {
                             id = registerResponse.userId,
-                            username = registerResponse.userName ?? "Unknown", // Prevent null values
+                            username = registerResponse.userName ?? "Unknown",
 
                         };
-                        NetworkManager.Instance.UserData = _newUserData;
+                        NetworkManager.Instance.SetUserData(_newUserData);
 
                         if (!string.IsNullOrEmpty(registerResponse.token))
                         {
-                            _authToken = registerResponse.token;
-                            NetworkManager.Instance.UserAuthToken = _authToken;
+                            NetworkManager.Instance.SetUserAuthToken(registerResponse.token);
                         }
 
                         Respond(true, "Success!");
 
-                        LoggedPlayer?.Invoke(_newUserData.id, _authToken);
+                        LoggedPlayer?.Invoke(_newUserData.id, registerResponse.token);
                         LoggedIn?.Invoke();
                     }
                 }

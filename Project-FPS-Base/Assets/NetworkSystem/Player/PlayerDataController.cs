@@ -12,7 +12,7 @@ namespace Assets.NetworkSystem.Player
 
         private string AccessToken()
         {
-            var token = NetworkManager.Instance.UserAuthToken;
+            var token = NetworkManager.Instance.GetUserAuthToken();
 
             if (token == string.Empty)
             {
@@ -24,7 +24,7 @@ namespace Assets.NetworkSystem.Player
 
         private User UserData()
         {
-            return NetworkManager.Instance.UserData;
+            return NetworkManager.Instance.GetUserData();
         }
 
         public void CreatePlayer()
@@ -62,8 +62,6 @@ namespace Assets.NetworkSystem.Player
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
             yield return request.SendWebRequest();
-            Debug.Log(request.result);
-
             if (request.result == UnityWebRequest.Result.Success)
                 Debug.Log("Player created: " + request.downloadHandler.text);
             else
@@ -80,10 +78,9 @@ namespace Assets.NetworkSystem.Player
 
             if (request.result == UnityWebRequest.Result.Success)
             {
-                PlayerData player = JsonUtility.FromJson<PlayerData>(request.downloadHandler.text);
-                NetworkManager.Instance.PlayerData = player;
+                PlayerData currentPlayer = JsonUtility.FromJson<PlayerData>(request.downloadHandler.text);
+                NetworkManager.Instance.SetPlayerData(currentPlayer);
                 Debug.Log("AccessToken = " + AccessToken());
-                Debug.Log("UserName = " + request.downloadHandler.text);
             }
             else
             {

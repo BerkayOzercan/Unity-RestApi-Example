@@ -15,7 +15,6 @@ namespace Assets.NetworkSystem.SignIn.Scripts
 
         private RegisterCanvas _registerCanvas = null;
         private User _newUser;
-        private string _authToken = "";
 
         public static Action OnUserRegistered;
 
@@ -32,7 +31,6 @@ namespace Assets.NetworkSystem.SignIn.Scripts
         private IEnumerator RegisterRequest(string userName, string eMail, string password)
         {
             _newUser = new User { username = userName, email = eMail, password = password };
-            // Convert to JSON here
             string userJson = JsonUtility.ToJson(_newUser);
 
             using (UnityWebRequest request = new UnityWebRequest(_apiString, "POST"))
@@ -47,26 +45,20 @@ namespace Assets.NetworkSystem.SignIn.Scripts
                 if (request.result == UnityWebRequest.Result.Success)
                 {
                     string responseJson = request.downloadHandler.text;
-                    Debug.Log("Server Response: " + responseJson); // Debugging output
-
                     RegisterResponse registerResponse = JsonUtility.FromJson<RegisterResponse>(responseJson);
 
                     if (registerResponse != null)
                     {
-                        Debug.Log($"User Registered - ID: {registerResponse.userId}, Username: {registerResponse.userName}");
-
                         User _newUserData = new User
                         {
                             id = registerResponse.userId,
-                            username = registerResponse.userName ?? "Unknown", // Prevent null values
+                            username = registerResponse.userName ?? "Unknown",
                         };
-                        NetworkManager.Instance.UserData = _newUserData;
+                        NetworkManager.Instance.SetUserData(_newUserData);
 
                         if (!string.IsNullOrEmpty(registerResponse.token))
                         {
-                            _authToken = registerResponse.token;
-                            NetworkManager.Instance.UserAuthToken = _authToken;
-                            Debug.Log("Token Received: " + _authToken);
+                            NetworkManager.Instance.SetUserAuthToken(registerResponse.token);
                         }
 
                         Respond(true, "Success!");

@@ -8,34 +8,53 @@ namespace Assets.NetworkSystem
 {
     public class NetworkManager : Singleton<NetworkManager>
     {
-        [SerializeField]
-        private PlayerData _playerData;
-        [SerializeField]
-        private User _userData;
-        private string _userAuthToken;
-        public string UserAuthToken { get { return _userAuthToken; } set { _userAuthToken = value; } }
-        public PlayerData PlayerData { get { return _playerData; } set { _playerData = value; } }
-        public User UserData { get { return _userData; } set { _userData = value; } }
-
-        protected override void Awake()
-        {
-            base.Awake();
-        }
-
         public void SetUserData(User user)
         {
-            PlayerPrefs.SetString("id", user.id);
-            PlayerPrefs.SetString("name", user.username);
+            PlayerPrefs.SetString("userId", user.id);
+            PlayerPrefs.SetString("userName", user.username);
         }
 
         public User GetUserData()
         {
             User newUserData = new User
             {
-                id = PlayerPrefs.GetString("id"),
-                username = PlayerPrefs.GetString("name")
+                id = PlayerPrefs.GetString("userId"),
+                username = PlayerPrefs.GetString("userName")
             };
             return newUserData;
+        }
+
+        public void SetUserAuthToken(string token)
+        {
+            PlayerPrefs.SetString("userAuthToken", token);
+        }
+
+        public string GetUserAuthToken()
+        {
+            return PlayerPrefs.GetString("userAuthToken");
+        }
+
+        public void SetPlayerData(PlayerData playerData)
+        {
+            PlayerPrefs.SetInt("playerId", playerData.id);
+            PlayerPrefs.SetString("playerName", playerData.userName);
+            PlayerPrefs.SetInt("playerRank", playerData.rank);
+            PlayerPrefs.SetFloat("playerScore", (float)playerData.score);
+            PlayerPrefs.SetString("playerUserId", playerData.userId);
+        }
+
+        public PlayerData GetPLayerData()
+        {
+            PlayerData newPlayerData = new PlayerData
+            {
+                id = PlayerPrefs.GetInt("playerId"),
+                userName = PlayerPrefs.GetString("playerName"),
+                rank = PlayerPrefs.GetInt("playerRank"),
+                score = (decimal)PlayerPrefs.GetFloat("playerScore"),
+                userId = PlayerPrefs.GetString("playerUserId")
+            };
+
+            return newPlayerData;
         }
 
         private void OnPlayerLoggedIn()
