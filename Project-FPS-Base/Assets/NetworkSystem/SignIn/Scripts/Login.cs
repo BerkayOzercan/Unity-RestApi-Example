@@ -45,7 +45,6 @@ namespace Assets.NetworkSystem.SignIn.Scripts
                 if (request.result == UnityWebRequest.Result.Success)
                 {
                     string _responseJson = request.downloadHandler.text;
-                    // Try to extract token if the response contains one
                     RegisterResponse registerResponse = JsonUtility.FromJson<RegisterResponse>(_responseJson);
 
                     if (registerResponse != null)

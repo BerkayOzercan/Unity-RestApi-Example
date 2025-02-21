@@ -80,7 +80,6 @@ namespace Assets.NetworkSystem.Player
             {
                 PlayerData currentPlayer = JsonUtility.FromJson<PlayerData>(request.downloadHandler.text);
                 NetworkManager.Instance.SetPlayerData(currentPlayer);
-                Debug.Log("AccessToken = " + AccessToken());
             }
             else
             {
