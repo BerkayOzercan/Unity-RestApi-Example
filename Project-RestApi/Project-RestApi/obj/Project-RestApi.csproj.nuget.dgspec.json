@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\berka\\desktop\\Unity-RestApi-Example\\Project-RestApi\\Project-RestApi\\Project-RestApi.csproj": {}
+    "C:\\Users\\berka\\Desktop\\Unity-RestApi-Example\\Project-RestApi\\Project-RestApi\\Project-RestApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\berka\\desktop\\Unity-RestApi-Example\\Project-RestApi\\Project-RestApi\\Project-RestApi.csproj": {
+    "C:\\Users\\berka\\Desktop\\Unity-RestApi-Example\\Project-RestApi\\Project-RestApi\\Project-RestApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\berka\\desktop\\Unity-RestApi-Example\\Project-RestApi\\Project-RestApi\\Project-RestApi.csproj",
+        "projectUniqueName": "C:\\Users\\berka\\Desktop\\Unity-RestApi-Example\\Project-RestApi\\Project-RestApi\\Project-RestApi.csproj",
         "projectName": "Project-RestApi",
-        "projectPath": "C:\\Users\\berka\\desktop\\Unity-RestApi-Example\\Project-RestApi\\Project-RestApi\\Project-RestApi.csproj",
+        "projectPath": "C:\\Users\\berka\\Desktop\\Unity-RestApi-Example\\Project-RestApi\\Project-RestApi\\Project-RestApi.csproj",
         "packagesPath": "C:\\Users\\berka\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\berka\\desktop\\Unity-RestApi-Example\\Project-RestApi\\Project-RestApi\\obj\\",
+        "outputPath": "C:\\Users\\berka\\Desktop\\Unity-RestApi-Example\\Project-RestApi\\Project-RestApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

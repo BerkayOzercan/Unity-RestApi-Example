@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f8f9ac98bd66040affdd628600790e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsOnline: 1
   _gameInputsManager: {fileID: 0}
 --- !u!114 &585822594190500148
 MonoBehaviour:

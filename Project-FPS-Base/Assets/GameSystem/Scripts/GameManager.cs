@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Assets.InputSystem;
+using Assets.NetworkSystem;
 using Assets.NetworkSystem.SignIn.Scripts;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Assets.GameSystem.Scripts
 {
     public class GameManager : Singleton<GameManager>
     {
+
         [Header("Managers")]
         [SerializeField]
         private GameInputsManager _gameInputsManager;
@@ -38,7 +40,10 @@ namespace Assets.GameSystem.Scripts
             if (_canvasManager.ParentCanvas.activeSelf == false)
                 _canvasManager.ParentCanvas.SetActive(true);
 
-            ChangeState(GameStates.LogIn);
+            if (!NetworkManager.Instance.IsLoggedIn())
+                ChangeState(GameStates.LogIn);
+            else
+                ChangeState(GameStates.Menu);
         }
 
         private void Update()
