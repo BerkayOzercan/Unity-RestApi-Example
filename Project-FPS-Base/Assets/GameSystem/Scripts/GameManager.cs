@@ -22,7 +22,13 @@ namespace Assets.GameSystem.Scripts
         private IGameState currentState;
         private Dictionary<GameStates, IGameState> states;
 
+        public static Action<bool> OnPlayin;
         public static Action<bool> OnGameWin;
+        public static Action<bool> OnGameOnver;
+        public static Action<bool> OnGamePause;
+        public static Action<bool> OnMenuState;
+        public static Action<bool> OnLogInState;
+
 
         protected override void Awake()
         {
@@ -34,7 +40,7 @@ namespace Assets.GameSystem.Scripts
             states = new Dictionary<GameStates, IGameState>
             {
                 { GameStates.LogIn, new LogInState(_canvasManager) },
-                { GameStates.Menu, new MenuState(_canvasManager) },
+                { GameStates.Menu, new MenuState(OnMenuState) },
                 { GameStates.Playing, new PlayingState(this, _gameInputsManager, _scoreManager, _canvasManager) },
                 { GameStates.Paused, new PausedState(this, _gameInputsManager, _canvasManager) },
                 {GameStates.GameWin, new GameWinState(OnGameWin)},
@@ -47,7 +53,6 @@ namespace Assets.GameSystem.Scripts
             if (_offlineGame)
             {
                 ChangeState(GameStates.Menu);
-
             }
             else
             {
@@ -56,7 +61,6 @@ namespace Assets.GameSystem.Scripts
                 else
                     ChangeState(GameStates.Menu);
             }
-
         }
 
         private void Update()

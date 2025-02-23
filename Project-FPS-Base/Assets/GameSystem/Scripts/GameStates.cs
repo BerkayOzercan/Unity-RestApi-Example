@@ -47,33 +47,15 @@ namespace Assets.GameSystem.Scripts
 
     public class MenuState : IGameState
     {
-        private readonly CanvasManager _canvasManager;
-        public MenuState(CanvasManager canvasManager)
-        {
-            _canvasManager = canvasManager;
-        }
+        private Action<bool> _onMenuState;
 
-        public void OnEnter()
-        {
-            Pause();
-            _canvasManager.MenuCanvas.SetActive(true);
-        }
+        public MenuState(Action<bool> OnMenuState) { _onMenuState = OnMenuState; }
+
+        public void OnEnter() { _onMenuState?.Invoke(true); Pause(); }
         public void OnUpdate() { }
-        public void OnExit()
-        {
-            ResumeGame();
-            _canvasManager.MenuCanvas.SetActive(false);
-        }
-
-        public void Pause()
-        {
-            Time.timeScale = 0f;
-        }
-
-        public void ResumeGame()
-        {
-            Time.timeScale = 1f;
-        }
+        public void OnExit() { _onMenuState?.Invoke(false); ResumeGame(); }
+        public void Pause() { Time.timeScale = 0f; }
+        public void ResumeGame() { Time.timeScale = 1f; }
     }
 
     public class PlayingState : IGameState

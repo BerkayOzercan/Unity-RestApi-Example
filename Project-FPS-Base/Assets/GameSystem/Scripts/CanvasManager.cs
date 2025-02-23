@@ -24,6 +24,14 @@ namespace Assets.GameSystem.Scripts
         [SerializeField]
         private TextMeshProUGUI _bonusText = null;
 
+        void OnMenuState(bool value)
+        {
+            if (value)
+                MenuCanvas.SetActive(true);
+            else
+                MenuCanvas.SetActive(false);
+        }
+
         void OnGameWin(bool value)
         {
             if (value)
@@ -76,11 +84,13 @@ namespace Assets.GameSystem.Scripts
         void OnEnable()
         {
             GameManager.OnGameWin += OnGameWin;
+            GameManager.OnMenuState += OnMenuState;
         }
 
         void OnDisable()
         {
             GameManager.OnGameWin -= OnGameWin;
+            GameManager.OnMenuState -= OnMenuState;
         }
     }
 }
