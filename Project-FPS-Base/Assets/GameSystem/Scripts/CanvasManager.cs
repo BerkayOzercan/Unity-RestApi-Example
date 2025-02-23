@@ -24,16 +24,24 @@ namespace Assets.GameSystem.Scripts
         [SerializeField]
         private TextMeshProUGUI _bonusText = null;
 
-        /// <summary>
-        /// Set score
-        /// </summary>
-        /// <param name="value"></param>
-        public void SetTotalScore(string totalScore, string bonus, string levelCurrency, string levelTime)
+        void OnGameWin(bool value)
         {
-            var scoreList = $"Level Score = {totalScore}\n" +
-                            $"Bonus = {bonus}\n" +
-                            $"Currency = {levelCurrency}\n" +
-                            $"Time = {levelTime}\n";
+            if (value)
+            {
+                SetTotalScore(ScoreManager.Instance);
+                GameWinCanvas.SetActive(true);
+            }
+            else
+                GameWinCanvas.SetActive(false);
+
+        }
+
+        void SetTotalScore(ScoreManager scoreManager)
+        {
+            var scoreList = $"Level Score = {scoreManager.GetLevelScore()}\n" +
+                            $"Bonus = {scoreManager.LevelBonus}\n" +
+                            $"Currency = {scoreManager.LevelCurrency}\n" +
+                            $"Time = {scoreManager.Time}\n";
 
             _totalScoreText.text = scoreList;
         }
@@ -63,6 +71,16 @@ namespace Assets.GameSystem.Scripts
         public void SetCurrencyText(string value)
         {
             _currencyText.text = $"Collects: {value}";
+        }
+
+        void OnEnable()
+        {
+            GameManager.OnGameWin += OnGameWin;
+        }
+
+        void OnDisable()
+        {
+            GameManager.OnGameWin -= OnGameWin;
         }
     }
 }

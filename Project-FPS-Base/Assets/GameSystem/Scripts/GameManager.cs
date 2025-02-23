@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Assets.InputSystem;
 using Assets.NetworkSystem;
@@ -14,9 +15,14 @@ namespace Assets.GameSystem.Scripts
         private ScoreManager _scoreManager = null;
         private CanvasManager _canvasManager = null;
 
+        [Header("Set Game Offline")]
+        [SerializeField]
+        private bool _offlineGame = false;
 
         private IGameState currentState;
         private Dictionary<GameStates, IGameState> states;
+
+        public static Action<bool> OnGameWin;
 
         protected override void Awake()
         {
@@ -31,17 +37,26 @@ namespace Assets.GameSystem.Scripts
                 { GameStates.Menu, new MenuState(_canvasManager) },
                 { GameStates.Playing, new PlayingState(this, _gameInputsManager, _scoreManager, _canvasManager) },
                 { GameStates.Paused, new PausedState(this, _gameInputsManager, _canvasManager) },
-                {GameStates.GameWin, new GameWinState(_canvasManager, _scoreManager)},
+                {GameStates.GameWin, new GameWinState(OnGameWin)},
                 { GameStates.GameOver, new GameOverState() }
             };
 
             if (_canvasManager.ParentCanvas.activeSelf == false)
                 _canvasManager.ParentCanvas.SetActive(true);
 
-            if (!NetworkManager.Instance.IsLoggedIn())
-                ChangeState(GameStates.LogIn);
-            else
+            if (_offlineGame)
+            {
                 ChangeState(GameStates.Menu);
+
+            }
+            else
+            {
+                if (!NetworkManager.Instance.IsLoggedIn())
+                    ChangeState(GameStates.LogIn);
+                else
+                    ChangeState(GameStates.Menu);
+            }
+
         }
 
         private void Update()

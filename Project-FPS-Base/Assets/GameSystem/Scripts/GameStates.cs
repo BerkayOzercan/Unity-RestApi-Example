@@ -1,3 +1,4 @@
+using System;
 using Assets.InputSystem;
 using UnityEngine;
 
@@ -175,35 +176,17 @@ namespace Assets.GameSystem.Scripts
 
     public class GameWinState : IGameState
     {
-        private readonly CanvasManager _canvasManager;
-        private readonly ScoreManager _scoreManager;
+        private readonly Action<bool> _onGameWin;
 
-        public GameWinState(CanvasManager canvasManager, ScoreManager scoreManager)
-        {
-            _canvasManager = canvasManager;
-            _scoreManager = scoreManager;
-        }
+        public GameWinState(Action<bool> onGameWin) { _onGameWin = onGameWin; }
 
-        public void OnEnter()
-        {
-            string levelBonus = _scoreManager.LevelBonus.ToString();
-            string levelCurrency = _scoreManager.LevelCurrency.ToString();
-            string levelTime = _scoreManager.LevelTime.ToString();
-            string levelTotalScore = _scoreManager.TotalLevelScore().ToString();
+        public void OnEnter() { _onGameWin?.Invoke(true); Pause(); }
 
-            _canvasManager.SetTotalScore(levelTotalScore, levelBonus, levelCurrency, levelTime);
-
-            Pause();
-        }
         public void OnUpdate() { }
 
-        public void OnExit() { _canvasManager.GameWinCanvas.SetActive(false); }
+        public void OnExit() { _onGameWin?.Invoke(false); }
 
-        public void Pause()
-        {
-            _canvasManager.GameWinCanvas.SetActive(true);
-            Time.timeScale = 0f;
-        }
+        public void Pause() { Time.timeScale = 0f; }
 
         public void ResumeGame() { }
     }

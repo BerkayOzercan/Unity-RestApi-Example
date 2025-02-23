@@ -49,8 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f8f9ac98bd66040affdd628600790e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsOnline: 1
   _gameInputsManager: {fileID: 0}
+  _offlineGame: 1
 --- !u!114 &585822594190500148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,16 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe692bd666e755a45813785230c13731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerData:
-    id: 0
-    userName: 
-    rank: 0
-    userId: 
-  _userData:
-    id: 
-    username: 
-    email: 
-    password: 
 --- !u!114 &7390659138768431519
 MonoBehaviour:
   m_ObjectHideFlags: 0

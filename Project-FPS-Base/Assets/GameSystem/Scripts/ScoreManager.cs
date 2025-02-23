@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 namespace Assets.GameSystem.Scripts
 {
@@ -9,7 +8,6 @@ namespace Assets.GameSystem.Scripts
         public float LevelTime { get; set; }
         public int LevelCurrency { get; set; }
         public int LevelBonus { get; set; } = 0;
-        private float _levelScore = 0f;
         private int _bonus = 0;
 
         //Level Timer
@@ -30,15 +28,10 @@ namespace Assets.GameSystem.Scripts
             CountTime();
         }
 
-        /// <summary>
-        /// Get total level score
-        /// </summary>
-        /// <returns></returns>
-        public float TotalLevelScore()
+        public float GetLevelScore()
         {
-            _levelScore = (LevelCurrency + LevelTime) * LevelBonus;
-            var result = (float)Math.Round(_levelScore, 2);
-            return result;
+            var score = (LevelCurrency + LevelTime) * LevelBonus;
+            return (float)Math.Round(score, 2);
         }
 
         /// <summary>
