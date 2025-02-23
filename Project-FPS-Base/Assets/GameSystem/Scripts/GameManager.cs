@@ -22,13 +22,12 @@ namespace Assets.GameSystem.Scripts
         private IGameState currentState;
         private Dictionary<GameStates, IGameState> states;
 
-        public static Action<bool> OnPlayin;
+        public static Action<bool> OnPlayingState;
         public static Action<bool> OnGameWin;
         public static Action<bool> OnGameOnver;
         public static Action<bool> OnGamePause;
         public static Action<bool> OnMenuState;
         public static Action<bool> OnLogInState;
-
 
         protected override void Awake()
         {
@@ -41,10 +40,10 @@ namespace Assets.GameSystem.Scripts
             {
                 { GameStates.LogIn, new LogInState(_canvasManager) },
                 { GameStates.Menu, new MenuState(OnMenuState) },
-                { GameStates.Playing, new PlayingState(this, _gameInputsManager, _scoreManager, _canvasManager) },
-                { GameStates.Paused, new PausedState(this, _gameInputsManager, _canvasManager) },
+                { GameStates.Playing, new PlayingState(this, _gameInputsManager, OnPlayingState) },
+                { GameStates.Paused, new PausedState(this, _gameInputsManager, OnGamePause) },
                 {GameStates.GameWin, new GameWinState(OnGameWin)},
-                { GameStates.GameOver, new GameOverState() }
+                { GameStates.GameOver, new GameOverState(OnGameOnver) }
             };
 
             if (_canvasManager.ParentCanvas.activeSelf == false)

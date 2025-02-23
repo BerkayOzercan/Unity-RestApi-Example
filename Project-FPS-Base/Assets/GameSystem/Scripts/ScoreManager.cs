@@ -77,6 +77,14 @@ namespace Assets.GameSystem.Scripts
             }
         }
 
+        void OnPlaying(bool value)
+        {
+            if (value)
+                StartTimer();
+            else
+                StopTimer();
+        }
+
         public void StopTimer()
         {
             IsRunning = false;
@@ -88,9 +96,14 @@ namespace Assets.GameSystem.Scripts
             IsRunning = true;
         }
 
-        public void ResetTimer()
+        void OnEnable()
         {
-            Time = 0f;
+            GameManager.OnPlayingState += OnPlaying;
+        }
+
+        void OnDisable()
+        {
+            GameManager.OnPlayingState -= OnPlaying;
         }
     }
 }

@@ -45,6 +45,7 @@ namespace Assets.GameSystem.Scripts
         }
     }
 
+    #region MenuState
     public class MenuState : IGameState
     {
         private Action<bool> _onMenuState;
@@ -57,25 +58,25 @@ namespace Assets.GameSystem.Scripts
         public void Pause() { Time.timeScale = 0f; }
         public void ResumeGame() { Time.timeScale = 1f; }
     }
+    #endregion
 
+    #region PlayingState
     public class PlayingState : IGameState
     {
         private readonly GameManager _gameManager;
         private readonly GameInputsManager _gameInputManager;
-        private readonly ScoreManager _scoreManager;
-        private readonly CanvasManager _canvasManager;
+        private readonly Action<bool> _onPLaying;
 
-        public PlayingState(GameManager gameManager, GameInputsManager gameInputsManager, ScoreManager scoreManager, CanvasManager canvasManager)
+        public PlayingState(GameManager gameManager, GameInputsManager gameInputsManager, Action<bool> onPlaying)
         {
             _gameManager = gameManager;
-            _canvasManager = canvasManager;
             _gameInputManager = gameInputsManager;
-            _scoreManager = scoreManager;
+            _onPLaying = onPlaying;
         }
 
         public void OnEnter()
         {
-            Debug.Log("Playing State");
+            _onPLaying?.Invoke(true);
             ResumeGame();
         }
         public void OnUpdate()
@@ -92,9 +93,7 @@ namespace Assets.GameSystem.Scripts
         {
             Time.timeScale = 0f;
             SetCursorState(false);
-            _canvasManager.CrossHairCanvas.SetActive(false);
-            _canvasManager.GameCanvas.SetActive(false);
-            _scoreManager.StopTimer();
+            _onPLaying?.Invoke(false);
         }
 
         public void ResumeGame()
@@ -102,9 +101,6 @@ namespace Assets.GameSystem.Scripts
             Time.timeScale = 1f;
             SetCursorState(true);
             _gameInputManager.Escape = false;
-            _canvasManager.CrossHairCanvas.SetActive(true);
-            _canvasManager.GameCanvas.SetActive(true);
-            _scoreManager.StartTimer();
         }
 
         private void SetCursorState(bool newState)
@@ -112,24 +108,27 @@ namespace Assets.GameSystem.Scripts
             Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
         }
     }
+    #endregion
+
 
     public class PausedState : IGameState
     {
         private readonly GameManager _gameManager;
         private readonly GameInputsManager _gameInputManager;
-        private readonly CanvasManager _canvasManager;
-        public PausedState(GameManager gameManager, GameInputsManager gameInputsManager, CanvasManager canvasManager)
+        private readonly Action<bool> _onPause;
+        public PausedState(GameManager gameManager, GameInputsManager gameInputsManager, Action<bool> onPause)
         {
             _gameManager = gameManager;
             _gameInputManager = gameInputsManager;
-            _canvasManager = canvasManager;
+            _onPause = onPause;
         }
 
         public void OnEnter()
         {
-            Debug.Log("PauseState");
+            _onPause?.Invoke(true);
             Pause();
         }
+
         public void OnUpdate()
         {
             if (_gameInputManager == null) return;
@@ -138,56 +137,50 @@ namespace Assets.GameSystem.Scripts
                 _gameManager.ChangeState(GameStates.Playing);
             }
         }
+
         public void OnExit()
         {
+            _onPause?.Invoke(false);
             ResumeGame();
         }
         public void Pause()
         {
             _gameInputManager.Escape = false;
-            _canvasManager.PauseCanvas.SetActive(true);
             Time.timeScale = 0f;
         }
 
         public void ResumeGame()
         {
-            _canvasManager.PauseCanvas.SetActive(false);
             Time.timeScale = 1f;
         }
     }
 
+    #region GameWinState
     public class GameWinState : IGameState
     {
         private readonly Action<bool> _onGameWin;
-
         public GameWinState(Action<bool> onGameWin) { _onGameWin = onGameWin; }
 
         public void OnEnter() { _onGameWin?.Invoke(true); Pause(); }
-
         public void OnUpdate() { }
-
         public void OnExit() { _onGameWin?.Invoke(false); }
-
         public void Pause() { Time.timeScale = 0f; }
-
         public void ResumeGame() { }
     }
+    #endregion
 
+    #region GameOverState
     public class GameOverState : IGameState
     {
-        public void OnEnter() => Debug.Log("Entered Game Over State");
-        public void OnUpdate() { /* Handle game over logic */ }
-        public void OnExit() => Debug.Log("Exited Game Over State");
-        public void Pause()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ResumeGame()
-        {
-            throw new System.NotImplementedException();
-        }
+        private readonly Action<bool> _onGameOver;
+        public GameOverState(Action<bool> onGameOver) { _onGameOver = onGameOver; }
+        public void OnEnter() { _onGameOver?.Invoke(true); }
+        public void OnUpdate() { }
+        public void OnExit() { _onGameOver?.Invoke(false); }
+        public void Pause() { }
+        public void ResumeGame() { }
     }
+    #endregion
 }
 
 

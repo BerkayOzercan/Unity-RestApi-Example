@@ -24,6 +24,20 @@ namespace Assets.GameSystem.Scripts
         [SerializeField]
         private TextMeshProUGUI _bonusText = null;
 
+        void OnPlayingState(bool value)
+        {
+            if (value)
+            {
+                GameCanvas.SetActive(true);
+                CrossHairCanvas.SetActive(true);
+            }
+            else
+            {
+                GameCanvas.SetActive(false);
+                CrossHairCanvas.SetActive(false);
+            }
+        }
+
         void OnMenuState(bool value)
         {
             if (value)
@@ -42,6 +56,14 @@ namespace Assets.GameSystem.Scripts
             else
                 GameWinCanvas.SetActive(false);
 
+        }
+
+        void OnGamePause(bool value)
+        {
+            if (value)
+                PauseCanvas.SetActive(true);
+            else
+                PauseCanvas.SetActive(false);
         }
 
         void SetTotalScore(ScoreManager scoreManager)
@@ -85,12 +107,16 @@ namespace Assets.GameSystem.Scripts
         {
             GameManager.OnGameWin += OnGameWin;
             GameManager.OnMenuState += OnMenuState;
+            GameManager.OnPlayingState += OnPlayingState;
+            GameManager.OnGamePause += OnGamePause;
         }
 
         void OnDisable()
         {
             GameManager.OnGameWin -= OnGameWin;
             GameManager.OnMenuState -= OnMenuState;
+            GameManager.OnPlayingState -= OnPlayingState;
+            GameManager.OnGamePause -= OnGamePause;
         }
     }
 }
