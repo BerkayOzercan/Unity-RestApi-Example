@@ -20,7 +20,7 @@ namespace Assets.GameSystem.Scripts
         protected override void Awake()
         {
             base.Awake();
-            _canvasManager = GetComponent<CanvasManager>();
+            _canvasManager = CanvasManager.Instance;
         }
 
         private void Update()

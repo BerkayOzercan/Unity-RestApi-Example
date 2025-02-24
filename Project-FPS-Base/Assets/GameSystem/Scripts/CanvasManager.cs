@@ -7,12 +7,10 @@ namespace Assets.GameSystem.Scripts
     {
         [Header("Canvases")]
         public GameObject LogInCanvas = null;
-        public GameObject ParentCanvas = null;
-        public GameObject MenuCanvas = null;
+        public GameObject StartCanvas = null;
         public GameObject PauseCanvas = null;
         public GameObject GameCanvas = null;
         public GameObject WinCanvas = null;
-        public GameObject CrossHairCanvas = null;
 
         [Header("Score Texts")]
         [SerializeField]
@@ -27,21 +25,19 @@ namespace Assets.GameSystem.Scripts
             if (value)
             {
                 GameCanvas.SetActive(true);
-                CrossHairCanvas.SetActive(true);
             }
             else
             {
                 GameCanvas.SetActive(false);
-                CrossHairCanvas.SetActive(false);
             }
         }
 
         void OnMenuState(bool value)
         {
             if (value)
-                MenuCanvas.SetActive(true);
+                StartCanvas.SetActive(true);
             else
-                MenuCanvas.SetActive(false);
+                StartCanvas.SetActive(false);
         }
 
         void OnGameWin(bool value)

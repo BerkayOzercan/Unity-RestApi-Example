@@ -19,17 +19,21 @@ namespace Assets.MenuSystem.Scripts
         private LevelManager _levelManager = null;
         private GameManager _gameManager = null;
         private ScoreManager _scoreManager = null;
+        private CanvasManager _canvasManager = null;
 
         void Awake()
         {
             _levelManager = LevelManager.Instance;
             _gameManager = GameManager.Instance;
             _scoreManager = ScoreManager.Instance;
+            _canvasManager = CanvasManager.Instance;
 
 
             _nextLevelBtn.onClick.AddListener(() => _levelManager.LoadNext());
             _restartLevelBtn.onClick.AddListener(() => _levelManager.Reload());
             _mainMenuBtn.onClick.AddListener(() => _gameManager.ChangeState(GameStates.Menu));
+
+            _canvasManager.WinCanvas = gameObject;
         }
 
         void Start()

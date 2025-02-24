@@ -43,9 +43,6 @@ namespace Assets.GameSystem.Scripts
                 { GameStates.GameOver, new GameOverState(OnGameOnver) }
             };
 
-            if (_canvasManager.ParentCanvas.activeSelf == false)
-                _canvasManager.ParentCanvas.SetActive(true);
-
             if (_offlineGame)
             {
                 ChangeState(GameStates.Menu);
@@ -78,14 +75,6 @@ namespace Assets.GameSystem.Scripts
         }
 
         /// <summary>
-        /// Set play game
-        /// </summary>
-        public void PlayGame()
-        {
-            ChangeState(GameStates.Playing);
-        }
-
-        /// <summary>
         /// Restart  current level
         /// </summary>
         public void RestartGame()
@@ -115,14 +104,6 @@ namespace Assets.GameSystem.Scripts
         public void GameOver()
         {
 
-        }
-
-        /// <summary>
-        /// Quitting Game
-        /// </summary>
-        public void QuitGame()
-        {
-            Application.Quit();
         }
     }
 }
