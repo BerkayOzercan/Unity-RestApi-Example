@@ -94,7 +94,7 @@ namespace Assets.GameSystem.Scripts
 
         private float LevelScore()
         {
-            var score = (LevelCurrency + LevelTime) * LevelBonus;
+            var score = (LevelCurrency - LevelTime) * LevelBonus;
             return (float)Math.Round(score, 2);
         }
 
