@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.PlayerSystem.Scripts
 {
-    public class PlayerController : MonoBehaviour
+    public class Player : MonoBehaviour
     {
     }
 }

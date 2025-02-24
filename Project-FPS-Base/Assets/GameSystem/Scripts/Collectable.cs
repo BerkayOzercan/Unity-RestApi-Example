@@ -23,7 +23,7 @@ namespace Assets.GameSystem.Scripts
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out PlayerController player))
+            if (other.TryGetComponent(out Player player))
             {
                 Collect();
             }
