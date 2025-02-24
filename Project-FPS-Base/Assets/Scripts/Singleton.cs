@@ -11,4 +11,13 @@ public class Singleton<T> : MonoBehaviour where T : Component
         else
             Destroy(gameObject);
     }
+
+    protected virtual void OnDestroy()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
 }
+

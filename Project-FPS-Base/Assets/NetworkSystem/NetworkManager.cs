@@ -60,7 +60,7 @@ namespace Assets.NetworkSystem
         private void OnPlayerLoggedIn()
         {
             var gameManager = GameManager.Instance;
-            gameManager.ChangeState(GameStates.Menu);
+            gameManager.ChangeState(GameStates.Start);
             SetLoggedIn(true);
         }
 

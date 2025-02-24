@@ -88,18 +88,18 @@ namespace Assets.GameSystem.Scripts
 
         void OnEnable()
         {
-            GameManager.OnGameWin += OnGameWin;
-            GameManager.OnMenuState += OnMenuState;
-            GameManager.OnPlayingState += OnPlayingState;
-            GameManager.OnGamePause += OnGamePause;
+            GameManager.OnWinState += OnGameWin;
+            GameManager.OnStartState += OnMenuState;
+            GameManager.OnPlayState += OnPlayingState;
+            GameManager.OnPauseState += OnGamePause;
         }
 
         void OnDisable()
         {
-            GameManager.OnGameWin -= OnGameWin;
-            GameManager.OnMenuState -= OnMenuState;
-            GameManager.OnPlayingState -= OnPlayingState;
-            GameManager.OnGamePause -= OnGamePause;
+            GameManager.OnWinState -= OnGameWin;
+            GameManager.OnStartState -= OnMenuState;
+            GameManager.OnPlayState -= OnPlayingState;
+            GameManager.OnPauseState -= OnGamePause;
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Assets.MenuSystem.Scripts
 {
-    public class WinCanvas : MonoBehaviour
+    public class WinCanvas : BaseCanvas
     {
         [SerializeField]
         private Button _nextLevelBtn = null;
@@ -16,28 +16,12 @@ namespace Assets.MenuSystem.Scripts
         [SerializeField]
         private TextMeshProUGUI _totalScoreText = null;
 
-        private LevelManager _levelManager = null;
-        private GameManager _gameManager = null;
-        private ScoreManager _scoreManager = null;
-        private CanvasManager _canvasManager = null;
-
-        void Awake()
-        {
-            _levelManager = LevelManager.Instance;
-            _gameManager = GameManager.Instance;
-            _scoreManager = ScoreManager.Instance;
-            _canvasManager = CanvasManager.Instance;
-
-
-            _nextLevelBtn.onClick.AddListener(() => _levelManager.LoadNext());
-            _restartLevelBtn.onClick.AddListener(() => _levelManager.Reload());
-            _mainMenuBtn.onClick.AddListener(() => _gameManager.ChangeState(GameStates.Menu));
-
-            _canvasManager.WinCanvas = gameObject;
-        }
-
         void Start()
         {
+            _nextLevelBtn.onClick.AddListener(() => _levelManager.LoadNext());
+            _restartLevelBtn.onClick.AddListener(() => _levelManager.Load());
+            _mainMenuBtn.onClick.AddListener(() => _gameManager.ChangeState(GameStates.Start));
+
             SetScore(_scoreManager);
         }
 

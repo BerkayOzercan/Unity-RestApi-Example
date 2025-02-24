@@ -5,58 +5,61 @@ namespace Assets.GameSystem.Scripts
 {
     public class LevelManager : Singleton<LevelManager>
     {
-        private int _currentLevel = 1;
+        private const string LEVEL_KEY = "level";
 
         /// <summary>
-        /// Load last level
+        /// Load the last saved level or default to level 1.
         /// </summary>
         public void Load()
         {
-            SceneManager.LoadScene(_currentLevel);
+            int savedLevel = PlayerPrefs.GetInt(LEVEL_KEY, 0);  // Default to 0 if not set
+            if (IsValidSceneIndex(savedLevel))
+            {
+                SceneManager.LoadScene(savedLevel);
+            }
+            else
+            {
+                Debug.LogWarning("Saved level is invalid. Loading first scene.");
+                PlayerPrefs.SetInt(LEVEL_KEY, 0);
+                SceneManager.LoadScene(0);
+            }
         }
 
         /// <summary>
-        /// Reload current level
-        /// </summary>
-        public void Reload()
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-        /// <summary>
-        /// Load next level
+        /// Load the next level if available.
         /// </summary>
         public void LoadNext()
         {
-            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-            _currentLevel += 1;
-            if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+            int currentLevel = PlayerPrefs.GetInt(LEVEL_KEY, 0);
+            int nextLevel = currentLevel + 1;
+
+            if (IsValidSceneIndex(nextLevel))
             {
-                SceneManager.LoadScene(nextSceneIndex);
+                PlayerPrefs.SetInt(LEVEL_KEY, nextLevel);
+                SceneManager.LoadScene(nextLevel);
             }
             else
             {
-                SceneManager.LoadScene(Random.Range(0, SceneManager.sceneCount));
+                Debug.Log("This is the last level. Cannot load next.");
             }
         }
 
         /// <summary>
-        /// Load previous level
+        /// Reset level progress to the first level.
         /// </summary>
-        public void LoadPrevious()
+        public void ResetProgress()
         {
-            int prevSceneIndex = SceneManager.GetActiveScene().buildIndex - 1;
-            _currentLevel -= 1;
+            PlayerPrefs.SetInt(LEVEL_KEY, 0);
+            Debug.Log("Progress reset. Starting from level 0.");
+            SceneManager.LoadScene(0);
+        }
 
-            if (prevSceneIndex >= 0)
-            {
-                SceneManager.LoadScene(prevSceneIndex);
-            }
-            else
-            {
-                Debug.LogWarning("No previous level available!");
-            }
+        /// <summary>
+        /// Check if the scene index is valid.
+        /// </summary>
+        private bool IsValidSceneIndex(int index)
+        {
+            return index >= 0 && index < SceneManager.sceneCountInBuildSettings;
         }
     }
 }
-

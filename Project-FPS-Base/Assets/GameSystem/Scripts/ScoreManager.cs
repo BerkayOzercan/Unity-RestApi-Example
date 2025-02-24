@@ -17,12 +17,6 @@ namespace Assets.GameSystem.Scripts
         private CanvasManager _canvasManager = null;
         private Target.TargetType _currentTargetType = Target.TargetType.None;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            _canvasManager = CanvasManager.Instance;
-        }
-
         private void Update()
         {
             CountTime();
@@ -69,6 +63,7 @@ namespace Assets.GameSystem.Scripts
         {
             if (IsRunning)
             {
+                _canvasManager = CanvasManager.Instance;
                 Time += UnityEngine.Time.deltaTime;
 
                 _canvasManager.SetCounterText(Math.Round(Time, 1).ToString());
@@ -98,12 +93,12 @@ namespace Assets.GameSystem.Scripts
 
         void OnEnable()
         {
-            GameManager.OnPlayingState += OnPlaying;
+            GameManager.OnPlayState += OnPlaying;
         }
 
         void OnDisable()
         {
-            GameManager.OnPlayingState -= OnPlaying;
+            GameManager.OnPlayState -= OnPlaying;
         }
     }
 }

@@ -7,11 +7,11 @@ namespace Assets.GameSystem.Scripts
     public enum GameStates
     {
         LogIn,
-        Menu,
-        Playing,
-        Paused,
-        GameWin,
-        GameOver
+        Start,
+        Play,
+        Pause,
+        Win,
+        Lose
     }
 
     public class LogInState : IGameState
@@ -46,13 +46,13 @@ namespace Assets.GameSystem.Scripts
     }
 
     #region MenuState
-    public class MenuState : IGameState
+    public class StartState : IGameState
     {
         private Action<bool> _onMenuState;
 
-        public MenuState(Action<bool> OnMenuState) { _onMenuState = OnMenuState; }
+        public StartState(Action<bool> OnMenuState) { _onMenuState = OnMenuState; }
 
-        public void OnEnter() { _onMenuState?.Invoke(true); Pause(); }
+        public void OnEnter() { _onMenuState?.Invoke(true); Pause(); Debug.Log("StartState"); }
         public void OnUpdate() { }
         public void OnExit() { _onMenuState?.Invoke(false); ResumeGame(); }
         public void Pause() { Time.timeScale = 0f; }
@@ -61,13 +61,13 @@ namespace Assets.GameSystem.Scripts
     #endregion
 
     #region PlayingState
-    public class PlayingState : IGameState
+    public class PlayState : IGameState
     {
         private readonly GameManager _gameManager;
         private readonly GameInputsManager _gameInputManager;
         private readonly Action<bool> _onPLaying;
 
-        public PlayingState(GameManager gameManager, GameInputsManager gameInputsManager, Action<bool> onPlaying)
+        public PlayState(GameManager gameManager, GameInputsManager gameInputsManager, Action<bool> onPlaying)
         {
             _gameManager = gameManager;
             _gameInputManager = gameInputsManager;
@@ -78,6 +78,7 @@ namespace Assets.GameSystem.Scripts
         {
             _onPLaying?.Invoke(true);
             ResumeGame();
+            Debug.Log("PlayingState");
         }
         public void OnUpdate()
         {
@@ -111,12 +112,12 @@ namespace Assets.GameSystem.Scripts
     #endregion
 
 
-    public class PausedState : IGameState
+    public class PauseState : IGameState
     {
         private readonly GameManager _gameManager;
         private readonly GameInputsManager _gameInputManager;
         private readonly Action<bool> _onPause;
-        public PausedState(GameManager gameManager, GameInputsManager gameInputsManager, Action<bool> onPause)
+        public PauseState(GameManager gameManager, GameInputsManager gameInputsManager, Action<bool> onPause)
         {
             _gameManager = gameManager;
             _gameInputManager = gameInputsManager;
@@ -127,6 +128,7 @@ namespace Assets.GameSystem.Scripts
         {
             _onPause?.Invoke(true);
             Pause();
+            Debug.Log("PausedState");
         }
 
         public void OnUpdate()
@@ -134,7 +136,7 @@ namespace Assets.GameSystem.Scripts
             if (_gameInputManager == null) return;
             if (_gameInputManager.Escape)
             {
-                _gameManager.ChangeState(GameStates.Playing);
+                _gameManager.ChangeState(GameStates.Play);
             }
         }
 
@@ -156,12 +158,12 @@ namespace Assets.GameSystem.Scripts
     }
 
     #region GameWinState
-    public class GameWinState : IGameState
+    public class WinState : IGameState
     {
         private readonly Action<bool> _onGameWin;
-        public GameWinState(Action<bool> onGameWin) { _onGameWin = onGameWin; }
+        public WinState(Action<bool> onGameWin) { _onGameWin = onGameWin; }
 
-        public void OnEnter() { _onGameWin?.Invoke(true); Pause(); }
+        public void OnEnter() { _onGameWin?.Invoke(true); Pause(); Debug.Log("WinState"); }
         public void OnUpdate() { }
         public void OnExit() { _onGameWin?.Invoke(false); }
         public void Pause() { Time.timeScale = 0f; }
@@ -170,10 +172,10 @@ namespace Assets.GameSystem.Scripts
     #endregion
 
     #region GameOverState
-    public class GameOverState : IGameState
+    public class LoseState : IGameState
     {
         private readonly Action<bool> _onGameOver;
-        public GameOverState(Action<bool> onGameOver) { _onGameOver = onGameOver; }
+        public LoseState(Action<bool> onGameOver) { _onGameOver = onGameOver; }
         public void OnEnter() { _onGameOver?.Invoke(true); }
         public void OnUpdate() { }
         public void OnExit() { _onGameOver?.Invoke(false); }

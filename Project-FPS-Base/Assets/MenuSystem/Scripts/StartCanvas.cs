@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Assets.MenuSystem.Scripts
 {
-    public class StartCanvas : MonoBehaviour
+    public class StartCanvas : BaseCanvas
     {
         [SerializeField]
         private Button _startBtn = null;
@@ -14,12 +14,11 @@ namespace Assets.MenuSystem.Scripts
         [SerializeField]
         private Button _quitBtn = null;
 
-        void Awake()
+        void Start()
         {
-            _startBtn.onClick.AddListener(() => GameManager.Instance.ChangeState(GameStates.Playing));
+            _startBtn.onClick.AddListener(() => _gameManager.ChangeState(GameStates.Play));
             _settingsBtn.onClick.AddListener(() => Debug.Log("Settings"));
             _quitBtn.onClick.AddListener(() => Application.Quit());
-
         }
     }
 }

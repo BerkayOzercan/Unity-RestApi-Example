@@ -18,47 +18,50 @@ namespace Assets.GameSystem.Scripts
         [SerializeField]
         private bool _offlineGame = false;
 
-        private IGameState currentState;
+        private IGameState _currentState;
         private Dictionary<GameStates, IGameState> states;
 
-        public static Action<bool> OnPlayingState;
-        public static Action<bool> OnGameWin;
-        public static Action<bool> OnGameOnver;
-        public static Action<bool> OnGamePause;
-        public static Action<bool> OnMenuState;
+        public static Action<bool> OnPlayState;
+        public static Action<bool> OnWinState;
+        public static Action<bool> OnLoseState;
+        public static Action<bool> OnPauseState;
+        public static Action<bool> OnStartState;
         public static Action<bool> OnLogInState;
 
         protected override void Awake()
         {
             base.Awake();
-            _canvasManager = GetComponent<CanvasManager>();
+            _canvasManager = CanvasManager.Instance;
 
             states = new Dictionary<GameStates, IGameState>
             {
                 { GameStates.LogIn, new LogInState(_canvasManager) },
-                { GameStates.Menu, new MenuState(OnMenuState) },
-                { GameStates.Playing, new PlayingState(this, _gameInputsManager, OnPlayingState) },
-                { GameStates.Paused, new PausedState(this, _gameInputsManager, OnGamePause) },
-                {GameStates.GameWin, new GameWinState(OnGameWin)},
-                { GameStates.GameOver, new GameOverState(OnGameOnver) }
+                { GameStates.Start, new StartState(OnStartState) },
+                { GameStates.Play, new PlayState(this, _gameInputsManager, OnPlayState) },
+                { GameStates.Pause, new PauseState(this, _gameInputsManager, OnPauseState) },
+                {GameStates.Win, new WinState(OnWinState)},
+                { GameStates.Lose, new LoseState(OnLoseState) }
             };
+        }
 
+        void Start()
+        {
             if (_offlineGame)
             {
-                ChangeState(GameStates.Menu);
+                ChangeState(GameStates.Start);
             }
             else
             {
                 if (!NetworkManager.Instance.IsLoggedIn())
                     ChangeState(GameStates.LogIn);
                 else
-                    ChangeState(GameStates.Menu);
+                    ChangeState(GameStates.Start);
             }
         }
 
         private void Update()
         {
-            currentState?.OnUpdate();
+            _currentState?.OnUpdate();
         }
 
         /// <summary>
@@ -67,19 +70,11 @@ namespace Assets.GameSystem.Scripts
         /// <param name="newState"></param>
         public void ChangeState(GameStates newState)
         {
-            if (currentState != null)
-                currentState.OnExit();
+            if (_currentState != null)
+                _currentState.OnExit();
 
-            currentState = states[newState];
-            currentState.OnEnter();
-        }
-
-        /// <summary>
-        /// Restart  current level
-        /// </summary>
-        public void RestartGame()
-        {
-            //Restart level from level manager
+            _currentState = states[newState];
+            _currentState.OnEnter();
         }
 
         /// <summary>
@@ -87,7 +82,7 @@ namespace Assets.GameSystem.Scripts
         /// </summary>
         public void PauseGame()
         {
-            ChangeState(GameStates.Paused);
+            ChangeState(GameStates.Pause);
         }
 
         /// <summary>
@@ -95,7 +90,7 @@ namespace Assets.GameSystem.Scripts
         /// </summary>
         public void GameWin()
         {
-            ChangeState(GameStates.GameWin);
+            ChangeState(GameStates.Win);
         }
 
         /// <summary>
