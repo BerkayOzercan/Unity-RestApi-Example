@@ -1,7 +1,8 @@
+using Assets.GameSystem.Scripts;
 using TMPro;
 using UnityEngine;
 
-namespace Assets.GameSystem.Scripts
+namespace Assets.MenuSystem.Scripts
 {
     public class CanvasManager : Singleton<CanvasManager>
     {

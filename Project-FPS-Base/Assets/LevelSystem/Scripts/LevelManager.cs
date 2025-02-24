@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Assets.GameSystem.Scripts
+namespace Assets.LevelSystem.Scripts
 {
     public class LevelManager : Singleton<LevelManager>
     {
