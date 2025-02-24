@@ -7,6 +7,11 @@ namespace Assets.LevelSystem.Scripts
     {
         private const string LEVEL_KEY = "level";
 
+        public void LoadMainMenu()
+        {
+            SceneManager.LoadScene("Menu");
+        }
+
         /// <summary>
         /// Load the last saved level or default to level 1.
         /// </summary>

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Text;
-using Assets.NetworkSystem.Player;
+using Assets.MenuSystem.Scripts;
 using UnityEngine;
 using UnityEngine.Networking;
 

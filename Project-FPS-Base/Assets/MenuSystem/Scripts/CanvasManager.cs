@@ -1,4 +1,5 @@
 using Assets.GameSystem.Scripts;
+using Assets.NetworkSystem.SignIn.Scripts;
 using TMPro;
 using UnityEngine;
 
@@ -13,27 +14,21 @@ namespace Assets.MenuSystem.Scripts
         public GameObject GameCanvas = null;
         public GameObject WinCanvas = null;
 
-        [Header("Score Texts")]
-        [SerializeField]
-        private TextMeshProUGUI _counterTimeText = null;
-        [SerializeField]
-        private TextMeshProUGUI _currencyText = null;
-        [SerializeField]
-        private TextMeshProUGUI _bonusText = null;
+        protected override void Awake()
+        {
+            base.Awake();
+        }
 
         void OnPlayingState(bool value)
         {
             if (value)
-            {
                 GameCanvas.SetActive(true);
-            }
             else
-            {
                 GameCanvas.SetActive(false);
-            }
+
         }
 
-        void OnMenuState(bool value)
+        void OnStartState(bool value)
         {
             if (value)
                 StartCanvas.SetActive(true);
@@ -41,18 +36,15 @@ namespace Assets.MenuSystem.Scripts
                 StartCanvas.SetActive(false);
         }
 
-        void OnGameWin(bool value)
+        void OnWinState(bool value)
         {
             if (value)
-            {
                 WinCanvas.SetActive(true);
-            }
             else
                 WinCanvas.SetActive(false);
-
         }
 
-        void OnGamePause(bool value)
+        void OnPauseState(bool value)
         {
             if (value)
                 PauseCanvas.SetActive(true);
@@ -60,47 +52,30 @@ namespace Assets.MenuSystem.Scripts
                 PauseCanvas.SetActive(false);
         }
 
-        /// <summary>
-        /// Set bonus text  
-        /// </summary>
-        /// <param name="value"></param>
-        public void SetBonusText(string value)
+        void OnLogInState(bool value)
         {
-            _bonusText.text = $"Bonus: {value}";
-        }
-
-        /// <summary>
-        /// Set counter time
-        /// </summary>
-        /// <param name="value"></param>
-        public void SetCounterText(string value)
-        {
-            _counterTimeText.text = $"Time: {value}";
-        }
-
-        /// <summary>
-        /// Set currency
-        /// </summary>
-        /// <param name="value"></param>
-        public void SetCurrencyText(string value)
-        {
-            _currencyText.text = $"Collects: {value}";
+            if (value)
+                LogInCanvas.SetActive(true);
+            else
+                LogInCanvas.SetActive(false);
         }
 
         void OnEnable()
         {
-            GameManager.OnWinState += OnGameWin;
-            GameManager.OnStartState += OnMenuState;
+            GameManager.OnWinState += OnWinState;
+            GameManager.OnStartState += OnStartState;
             GameManager.OnPlayState += OnPlayingState;
-            GameManager.OnPauseState += OnGamePause;
+            GameManager.OnPauseState += OnPauseState;
+            GameManager.OnLogInState += OnLogInState;
         }
 
         void OnDisable()
         {
-            GameManager.OnWinState -= OnGameWin;
-            GameManager.OnStartState -= OnMenuState;
+            GameManager.OnWinState -= OnWinState;
+            GameManager.OnStartState -= OnStartState;
             GameManager.OnPlayState -= OnPlayingState;
-            GameManager.OnPauseState -= OnGamePause;
+            GameManager.OnPauseState -= OnPauseState;
+            GameManager.OnLogInState -= OnLogInState;
         }
     }
 }

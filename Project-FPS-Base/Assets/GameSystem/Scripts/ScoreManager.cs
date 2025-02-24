@@ -15,12 +15,12 @@ namespace Assets.GameSystem.Scripts
         public bool IsRunning { get; set; }
         public float Time { get; set; }
 
-        private CanvasManager _canvasManager = null;
         private Target.TargetType _currentTargetType = Target.TargetType.None;
+        public static Action<ScoreDto> GetScoreAction;
 
         private void Update()
         {
-            CountTime();
+            UpdateData();
         }
 
         public float GetLevelScore()
@@ -60,16 +60,20 @@ namespace Assets.GameSystem.Scripts
             LevelCurrency += amount;
         }
 
-        private void CountTime()
+        private void UpdateData()
         {
             if (IsRunning)
             {
-                _canvasManager = CanvasManager.Instance;
                 Time += UnityEngine.Time.deltaTime;
 
-                _canvasManager.SetCounterText(Math.Round(Time, 1).ToString());
-                _canvasManager.SetBonusText(LevelBonus.ToString());
-                _canvasManager.SetCurrencyText(LevelCurrency.ToString());
+                ScoreDto Score = new ScoreDto
+                {
+                    Time = Time,
+                    Bonus = _bonus,
+                    Currency = LevelCurrency
+                };
+
+                GetScoreAction?.Invoke(Score);
             }
         }
 

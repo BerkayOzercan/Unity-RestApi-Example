@@ -36,7 +36,7 @@ namespace Assets.GameSystem.Scripts
 
             states = new Dictionary<GameStates, IGameState>
             {
-                { GameStates.LogIn, new LogInState(_canvasManager) },
+                { GameStates.LogIn, new LogInState(OnLogInState) },
                 { GameStates.Start, new StartState(OnStartState) },
                 { GameStates.Play, new PlayState(this, _gameInputsManager, OnPlayState) },
                 { GameStates.Pause, new PauseState(this, _gameInputsManager, OnPauseState) },

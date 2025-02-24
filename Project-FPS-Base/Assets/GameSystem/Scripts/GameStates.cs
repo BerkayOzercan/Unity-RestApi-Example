@@ -17,21 +17,21 @@ namespace Assets.GameSystem.Scripts
 
     public class LogInState : IGameState
     {
-        private readonly CanvasManager _canvasManager;
-        public LogInState(CanvasManager canvasManager)
+        private readonly Action<bool> _onLogInState;
+        public LogInState(Action<bool> onLogInState)
         {
-            _canvasManager = canvasManager;
+            _onLogInState = onLogInState;
         }
 
         public void OnEnter()
         {
-            _canvasManager.LogInCanvas.SetActive(true);
+            _onLogInState?.Invoke(true);
             Pause();
         }
         public void OnUpdate() { }
         public void OnExit()
         {
-            _canvasManager.LogInCanvas.SetActive(false);
+            _onLogInState?.Invoke(false);
             ResumeGame();
         }
 
