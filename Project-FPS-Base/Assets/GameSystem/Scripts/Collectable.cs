@@ -21,6 +21,14 @@ namespace Assets.GameSystem.Scripts
             transform.GetChild(0).transform.Rotate(Vector3.forward * Time.deltaTime * 50f);
         }
 
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out PlayerController player))
+            {
+                Collect();
+            }
+        }
+
         public void Collect()
         {
             if (_isCollect) return;
@@ -38,7 +46,7 @@ namespace Assets.GameSystem.Scripts
 
             if (rb != null)
             {
-                rb.AddExplosionForce(500f, transform.position, 5f);
+                rb.AddExplosionForce(250f, transform.position, 2.5f);
             }
         }
     }

@@ -12,7 +12,6 @@ namespace Assets.GameSystem.Scripts
         [Header("Managers")]
         [SerializeField]
         private GameInputsManager _gameInputsManager;
-        private ScoreManager _scoreManager = null;
         private CanvasManager _canvasManager = null;
 
         [Header("Set Game Offline")]
@@ -32,8 +31,6 @@ namespace Assets.GameSystem.Scripts
         protected override void Awake()
         {
             base.Awake();
-
-            _scoreManager = GetComponent<ScoreManager>();
             _canvasManager = GetComponent<CanvasManager>();
 
             states = new Dictionary<GameStates, IGameState>

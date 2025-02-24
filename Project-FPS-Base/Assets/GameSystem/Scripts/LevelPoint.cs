@@ -1,4 +1,5 @@
 using System;
+using Assets.PlayerSystem.Scripts;
 using UnityEngine;
 
 namespace Assets.GameSystem.Scripts
@@ -7,6 +8,22 @@ namespace Assets.GameSystem.Scripts
     {
         [SerializeField]
         public PointTypes PointType = PointTypes.Start;
+
+        private GameManager _gameManager = null;
+
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out PlayerController player))
+            {
+                if (PointType == PointTypes.End)
+                {
+                    _gameManager = GameManager.Instance;
+
+                    _gameManager.GameWin();
+                }
+            }
+        }
     }
 
     public enum PointTypes

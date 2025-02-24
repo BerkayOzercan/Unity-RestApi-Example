@@ -7,6 +7,8 @@ public class Target : MonoBehaviour
     private TargetType _targetType = TargetType.None;
     [SerializeField]
     private Collectable _collectable = null;
+    [SerializeField]
+    private int _collectableAmount = 2;
 
     private Health _health = null;
     private ScoreManager _scoreManager = null;
@@ -33,8 +35,7 @@ public class Target : MonoBehaviour
 
     private void DestroyTarget()
     {
-        //Spawn collectables
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < _collectableAmount; i++)
         {
             Instantiate(_collectable, transform.position, Quaternion.identity);
         }
