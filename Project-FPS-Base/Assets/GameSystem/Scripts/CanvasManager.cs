@@ -11,12 +11,10 @@ namespace Assets.GameSystem.Scripts
         public GameObject MenuCanvas = null;
         public GameObject PauseCanvas = null;
         public GameObject GameCanvas = null;
-        public GameObject GameWinCanvas = null;
+        public GameObject WinCanvas = null;
         public GameObject CrossHairCanvas = null;
 
         [Header("Score Texts")]
-        [SerializeField]
-        private TextMeshProUGUI _totalScoreText = null;
         [SerializeField]
         private TextMeshProUGUI _counterTimeText = null;
         [SerializeField]
@@ -50,11 +48,10 @@ namespace Assets.GameSystem.Scripts
         {
             if (value)
             {
-                SetTotalScore(ScoreManager.Instance);
-                GameWinCanvas.SetActive(true);
+                WinCanvas.SetActive(true);
             }
             else
-                GameWinCanvas.SetActive(false);
+                WinCanvas.SetActive(false);
 
         }
 
@@ -64,16 +61,6 @@ namespace Assets.GameSystem.Scripts
                 PauseCanvas.SetActive(true);
             else
                 PauseCanvas.SetActive(false);
-        }
-
-        void SetTotalScore(ScoreManager scoreManager)
-        {
-            var scoreList = $"Level Score = {scoreManager.GetLevelScore()}\n" +
-                            $"Bonus = {scoreManager.LevelBonus}\n" +
-                            $"Currency = {scoreManager.LevelCurrency}\n" +
-                            $"Time = {scoreManager.Time}\n";
-
-            _totalScoreText.text = scoreList;
         }
 
         /// <summary>

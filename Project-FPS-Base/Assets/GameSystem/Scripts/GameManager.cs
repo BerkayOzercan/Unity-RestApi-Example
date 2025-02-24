@@ -78,14 +78,6 @@ namespace Assets.GameSystem.Scripts
         }
 
         /// <summary>
-        /// Get main menu
-        /// </summary>
-        public void MainMenu()
-        {
-            ChangeState(GameStates.Menu);
-        }
-
-        /// <summary>
         /// Set play game
         /// </summary>
         public void PlayGame()
