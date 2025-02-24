@@ -1,5 +1,7 @@
 using System;
 using Assets.MenuSystem.Scripts;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.GameSystem.Scripts
 {
@@ -23,10 +25,18 @@ namespace Assets.GameSystem.Scripts
             UpdateData();
         }
 
-        public float GetLevelScore()
+        /// <summary>
+        /// Get level best score
+        /// </summary>
+        /// <returns></returns>
+        private float GetLevelScore()
         {
-            var score = (LevelCurrency + LevelTime) * LevelBonus;
-            return (float)Math.Round(score, 2);
+            string level = SceneManager.GetActiveScene().name;
+            if (PlayerPrefs.HasKey(level))
+            {
+                return PlayerPrefs.GetFloat(level);
+            }
+            return 0;
         }
 
         /// <summary>
@@ -66,23 +76,52 @@ namespace Assets.GameSystem.Scripts
             {
                 Time += UnityEngine.Time.deltaTime;
 
-                ScoreDto Score = new ScoreDto
-                {
-                    Time = Time,
-                    Bonus = _bonus,
-                    Currency = LevelCurrency
-                };
-
-                GetScoreAction?.Invoke(Score);
+                GetScoreAction?.Invoke(GetScoreData());
             }
         }
 
-        void OnPlaying(bool value)
+        public ScoreDto GetScoreData()
+        {
+            ScoreDto Score = new ScoreDto
+            {
+                Time = Time,
+                Bonus = _bonus,
+                Currency = LevelCurrency,
+                LevelScore = LevelScore()
+            };
+            return Score;
+        }
+
+        private float LevelScore()
+        {
+            var score = (LevelCurrency + LevelTime) * LevelBonus;
+            return (float)Math.Round(score, 2);
+        }
+
+        private void SaveLevelScore(string level, float levelScore)
+        {
+            if (PlayerPrefs.HasKey(level))
+            {
+                if (PlayerPrefs.GetFloat(level) < levelScore)
+                {
+                    PlayerPrefs.SetFloat(level, levelScore);
+                }
+            }
+        }
+
+
+        void OnPlayState(bool value)
         {
             if (value)
                 StartTimer();
             else
                 StopTimer();
+        }
+
+        void OnWinState(bool value)
+        {
+            if (value)
+                SaveLevelScore(SceneManager.GetActiveScene().name, LevelScore());
         }
 
         public void StopTimer()
@@ -98,12 +137,14 @@ namespace Assets.GameSystem.Scripts
 
         void OnEnable()
         {
-            GameManager.OnPlayState += OnPlaying;
+            GameManager.OnPlayState += OnPlayState;
+            GameManager.OnWinState += OnWinState;
         }
 
         void OnDisable()
         {
-            GameManager.OnPlayState -= OnPlaying;
+            GameManager.OnPlayState -= OnPlayState;
+            GameManager.OnWinState -= OnWinState;
         }
     }
 }

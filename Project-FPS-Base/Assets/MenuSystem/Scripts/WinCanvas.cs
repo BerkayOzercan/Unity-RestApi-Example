@@ -22,15 +22,15 @@ namespace Assets.MenuSystem.Scripts
             _restartLevelBtn.onClick.AddListener(() => _levelManager.Load());
             _mainMenuBtn.onClick.AddListener(() => _gameManager.ChangeState(GameStates.Start));
 
-            SetScore(_scoreManager);
+            SetScore(_scoreManager.GetScoreData());
         }
 
-        void SetScore(ScoreManager scoreManager)
+        void SetScore(ScoreDto score)
         {
-            var scoreList = $"Level Score = {scoreManager.GetLevelScore()}\n" +
-                            $"Bonus = {scoreManager.LevelBonus}\n" +
-                            $"Currency = {scoreManager.LevelCurrency}\n" +
-                            $"Time = {scoreManager.Time}\n";
+            var scoreList = $"Level Score = {score.LevelScore}\n" +
+                            $"Bonus = {score.Bonus}\n" +
+                            $"Currency = {score.Currency}\n" +
+                            $"Time = {score.Time}\n";
 
             _totalScoreText.text = scoreList;
         }

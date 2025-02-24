@@ -1,6 +1,4 @@
 using Assets.GameSystem.Scripts;
-using Assets.NetworkSystem.SignIn.Scripts;
-using TMPro;
 using UnityEngine;
 
 namespace Assets.MenuSystem.Scripts
@@ -14,10 +12,6 @@ namespace Assets.MenuSystem.Scripts
         public GameObject GameCanvas = null;
         public GameObject WinCanvas = null;
 
-        protected override void Awake()
-        {
-            base.Awake();
-        }
 
         void OnPlayingState(bool value)
         {

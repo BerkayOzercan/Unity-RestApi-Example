@@ -7,6 +7,7 @@ namespace Assets.GameSystem.Scripts
         public float Time { get; set; }
         public int Currency { get; set; }
         public int Bonus { get; set; }
+        public float LevelScore { get; set; }
     }
 }
 
