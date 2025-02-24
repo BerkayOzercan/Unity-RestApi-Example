@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using Assets.GameSystem.Scripts;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.MenuSystem.Scripts
 {
@@ -32,6 +34,9 @@ namespace Assets.MenuSystem.Scripts
                 var player = Instantiate(_boardListItem, _listParent);
                 player.text = $"{players[i].Rank} {players[i].Name} {players[i].Score}";
             }
+            // Force layout update
+            Canvas.ForceUpdateCanvases();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_listParent.GetComponent<RectTransform>());
         }
     }
 }
