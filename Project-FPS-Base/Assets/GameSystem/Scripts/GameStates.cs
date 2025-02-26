@@ -1,14 +1,11 @@
 using System;
 using Assets.InputSystem;
-using Assets.MenuSystem.Scripts;
 using UnityEngine;
 
 namespace Assets.GameSystem.Scripts
 {
     public enum GameStates
     {
-        LogIn,
-        Start,
         Play,
         Pause,
         Win,
@@ -45,21 +42,6 @@ namespace Assets.GameSystem.Scripts
             Time.timeScale = 1f;
         }
     }
-
-    #region MenuState
-    public class StartState : IGameState
-    {
-        private Action<bool> _onMenuState;
-
-        public StartState(Action<bool> OnMenuState) { _onMenuState = OnMenuState; }
-
-        public void OnEnter() { _onMenuState?.Invoke(true); Pause(); Debug.Log("StartState"); }
-        public void OnUpdate() { }
-        public void OnExit() { _onMenuState?.Invoke(false); ResumeGame(); }
-        public void Pause() { Time.timeScale = 0f; }
-        public void ResumeGame() { Time.timeScale = 1f; }
-    }
-    #endregion
 
     #region PlayingState
     public class PlayState : IGameState

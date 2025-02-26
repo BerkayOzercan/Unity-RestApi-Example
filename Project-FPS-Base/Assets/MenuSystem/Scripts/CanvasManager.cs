@@ -7,7 +7,6 @@ namespace Assets.MenuSystem.Scripts
     {
         [Header("Canvases")]
         public GameObject LogInCanvas = null;
-        public GameObject StartCanvas = null;
         public GameObject PauseCanvas = null;
         public GameObject GameCanvas = null;
         public GameObject WinCanvas = null;
@@ -20,14 +19,6 @@ namespace Assets.MenuSystem.Scripts
             else
                 GameCanvas.SetActive(false);
 
-        }
-
-        void OnStartState(bool value)
-        {
-            if (value)
-                StartCanvas.SetActive(true);
-            else
-                StartCanvas.SetActive(false);
         }
 
         void OnWinState(bool value)
@@ -57,19 +48,15 @@ namespace Assets.MenuSystem.Scripts
         void OnEnable()
         {
             GameManager.OnWinState += OnWinState;
-            GameManager.OnStartState += OnStartState;
             GameManager.OnPlayState += OnPlayingState;
             GameManager.OnPauseState += OnPauseState;
-            GameManager.OnLogInState += OnLogInState;
         }
 
         void OnDisable()
         {
             GameManager.OnWinState -= OnWinState;
-            GameManager.OnStartState -= OnStartState;
             GameManager.OnPlayState -= OnPlayingState;
             GameManager.OnPauseState -= OnPauseState;
-            GameManager.OnLogInState -= OnLogInState;
         }
     }
 }

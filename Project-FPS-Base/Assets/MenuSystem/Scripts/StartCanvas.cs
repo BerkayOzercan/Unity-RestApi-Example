@@ -1,10 +1,11 @@
 using Assets.GameSystem.Scripts;
+using Assets.LevelSystem.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.MenuSystem.Scripts
 {
-    public class StartCanvas : BaseCanvas
+    public class StartCanvas : MonoBehaviour
     {
         [SerializeField]
         private Button _startBtn = null;
@@ -15,7 +16,7 @@ namespace Assets.MenuSystem.Scripts
 
         void Start()
         {
-            _startBtn.onClick.AddListener(() => _gameManager.ChangeState(GameStates.Play));
+            _startBtn.onClick.AddListener(() => LevelManager.Instance.Load());
             _settingsBtn.onClick.AddListener(() => Debug.Log("Settings"));
             _quitBtn.onClick.AddListener(() => Application.Quit());
         }

@@ -1,21 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Assets.InputSystem;
-using Assets.MenuSystem.Scripts;
-using Assets.NetworkSystem;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Assets.GameSystem.Scripts
 {
     public class GameManager : Singleton<GameManager>
     {
         GameInputsManager _gameInputsManager;
-        CanvasManager _canvasManager;
-
-        [Header("Set Game Offline")]
-        [SerializeField]
-        bool _offlineGame = false;
 
         IGameState _currentState;
         Dictionary<GameStates, IGameState> states;
@@ -24,19 +15,14 @@ namespace Assets.GameSystem.Scripts
         public static Action<bool> OnWinState;
         public static Action<bool> OnLoseState;
         public static Action<bool> OnPauseState;
-        public static Action<bool> OnStartState;
-        public static Action<bool> OnLogInState;
 
         protected override void Awake()
         {
             base.Awake();
-            _canvasManager = CanvasManager.Instance;
             _gameInputsManager = GameInputsManager.Instance;
 
             states = new Dictionary<GameStates, IGameState>
             {
-                { GameStates.LogIn, new LogInState(OnLogInState) },
-                { GameStates.Start, new StartState(OnStartState) },
                 { GameStates.Play, new PlayState(this, _gameInputsManager, OnPlayState) },
                 { GameStates.Pause, new PauseState(this, _gameInputsManager, OnPauseState) },
                 {GameStates.Win, new WinState(OnWinState)},
@@ -46,18 +32,7 @@ namespace Assets.GameSystem.Scripts
 
         void Start()
         {
-            if (SceneManager.GetActiveScene().name != "StartMenu") return;
-            if (_offlineGame)
-            {
-                ChangeState(GameStates.Start);
-            }
-            else
-            {
-                if (!NetworkManager.Instance.IsLoggedIn())
-                    ChangeState(GameStates.LogIn);
-                else
-                    ChangeState(GameStates.Start);
-            }
+            ChangeState(GameStates.Play);
         }
 
         private void Update()

@@ -20,7 +20,7 @@ namespace Assets.MenuSystem.Scripts
         {
             _nextLevelBtn.onClick.AddListener(() => _levelManager.LoadNext());
             _restartLevelBtn.onClick.AddListener(() => Debug.Log("RestartLevel"));
-            _mainMenuBtn.onClick.AddListener(() => _gameManager.ChangeState(GameStates.Start));
+            _mainMenuBtn.onClick.AddListener(() => Debug.Log("StartCanvas"));
 
             SetScore(_scoreManager.GetScoreData());
         }

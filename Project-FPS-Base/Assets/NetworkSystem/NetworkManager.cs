@@ -59,8 +59,7 @@ namespace Assets.NetworkSystem
 
         private void OnPlayerLoggedIn()
         {
-            var gameManager = GameManager.Instance;
-            gameManager.ChangeState(GameStates.Start);
+            Debug.Log("Player Logged In!");
             SetLoggedIn(true);
         }
 
