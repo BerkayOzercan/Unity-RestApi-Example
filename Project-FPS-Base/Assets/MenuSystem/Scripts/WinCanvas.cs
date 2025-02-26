@@ -1,28 +1,30 @@
 using Assets.GameSystem.Scripts;
+using Assets.LevelSystem.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.MenuSystem.Scripts
 {
-    public class WinCanvas : BaseCanvas
+    public class WinCanvas : MonoBehaviour
     {
         [SerializeField]
-        private Button _nextLevelBtn = null;
+        Button _nextLevelBtn = null;
         [SerializeField]
-        private Button _restartLevelBtn = null;
+        Button _restartLevelBtn = null;
         [SerializeField]
-        private Button _mainMenuBtn = null;
+        Button _mainMenuBtn = null;
         [SerializeField]
-        private TextMeshProUGUI _totalScoreText = null;
+        TextMeshProUGUI _totalScoreText = null;
 
         void Start()
         {
-            _nextLevelBtn.onClick.AddListener(() => _levelManager.LoadNext());
+
+            _nextLevelBtn.onClick.AddListener(() => LevelManager.Instance.LoadNext());
             _restartLevelBtn.onClick.AddListener(() => Debug.Log("RestartLevel"));
             _mainMenuBtn.onClick.AddListener(() => Debug.Log("StartCanvas"));
 
-            SetScore(_scoreManager.GetScoreData());
+            SetScore(ScoreManager.Instance.GetScoreData());
         }
 
         void SetScore(ScoreDto score)

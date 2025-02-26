@@ -1,21 +1,20 @@
-using System;
 using Assets.GameSystem.Scripts;
 using TMPro;
 using UnityEngine;
 
 namespace Assets.MenuSystem.Scripts
 {
-    public class GameCanvas : BaseCanvas
+    public class GameCanvas : MonoBehaviour
     {
         [SerializeField]
-        private TextMeshProUGUI _counterTimeText = null;
+        TextMeshProUGUI _counterTimeText = null;
         [SerializeField]
-        private TextMeshProUGUI _currencyText = null;
+        TextMeshProUGUI _currencyText = null;
         [SerializeField]
-        private TextMeshProUGUI _bonusText = null;
+        TextMeshProUGUI _bonusText = null;
 
 
-        private void GetScoreData(ScoreDto scoreDto)
+        void GetScoreData(ScoreDto scoreDto)
         {
             _bonusText.text = $"Bonus: {scoreDto.Bonus}";
             _counterTimeText.text = $"Time: {scoreDto.Time}";

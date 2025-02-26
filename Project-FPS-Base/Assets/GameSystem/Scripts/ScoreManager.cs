@@ -1,5 +1,4 @@
 using System;
-using Assets.MenuSystem.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,26 +16,12 @@ namespace Assets.GameSystem.Scripts
         public bool IsRunning { get; set; }
         public float Time { get; set; }
 
-        private Target.TargetType _currentTargetType = Target.TargetType.None;
         public static Action<ScoreDto> GetScoreAction;
+        Target.TargetType _currentTargetType = Target.TargetType.None;
 
-        private void Update()
+        void Update()
         {
             UpdateData();
-        }
-
-        /// <summary>
-        /// Get level best score
-        /// </summary>
-        /// <returns></returns>
-        private float GetLevelScore()
-        {
-            string level = SceneManager.GetActiveScene().name;
-            if (PlayerPrefs.HasKey(level))
-            {
-                return PlayerPrefs.GetFloat(level);
-            }
-            return 0;
         }
 
         /// <summary>
@@ -70,7 +55,7 @@ namespace Assets.GameSystem.Scripts
             LevelCurrency += amount;
         }
 
-        private void UpdateData()
+        void UpdateData()
         {
             if (IsRunning)
             {
@@ -92,13 +77,13 @@ namespace Assets.GameSystem.Scripts
             return Score;
         }
 
-        private float LevelScore()
+        float LevelScore()
         {
             var score = (LevelCurrency - LevelTime) * LevelBonus;
             return (float)Math.Round(score, 2);
         }
 
-        private void SaveLevelScore(string level, float levelScore)
+        void SaveLevelScore(string level, float levelScore)
         {
             if (PlayerPrefs.HasKey(level))
             {
