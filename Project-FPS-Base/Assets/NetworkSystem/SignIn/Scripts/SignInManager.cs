@@ -13,6 +13,9 @@ namespace Assets.NetworkSystem.SignIn.Scripts
         [SerializeField]
         private StartCanvas _start = null;
 
+        [SerializeField]
+        private bool _isOnline = false;
+
         private Dictionary<SignInStates, ISignInState> states;
         private ISignInState currentState;
 
@@ -33,10 +36,15 @@ namespace Assets.NetworkSystem.SignIn.Scripts
 
         private void Start()
         {
-            if (IsLoggedIn())
-                ChangeState(SignInStates.Start);
-            else
-                ChangeState(SignInStates.Login);
+            if (_isOnline)
+            {
+                if (IsLoggedIn())
+                    ChangeState(SignInStates.Start);
+                else
+                    ChangeState(SignInStates.Login);
+            }
+            else ChangeState(SignInStates.Start);
+            
         }
 
         public void ChangeState(SignInStates newState)
