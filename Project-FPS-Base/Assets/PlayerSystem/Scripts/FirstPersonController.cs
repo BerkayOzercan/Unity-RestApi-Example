@@ -1,15 +1,9 @@
 ﻿using Assets.InputSystem;
 using UnityEngine;
-#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
-#endif
 
 namespace Assets.PlayerSystem.Scripts
 {
-	[RequireComponent(typeof(CharacterController))]
-#if ENABLE_INPUT_SYSTEM
-	[RequireComponent(typeof(PlayerInput))]
-#endif
 	public class FirstPersonController : MonoBehaviour
 	{
 		[Header("Player")]
@@ -99,9 +93,9 @@ namespace Assets.PlayerSystem.Scripts
 		private void Start()
 		{
 			_controller = GetComponent<CharacterController>();
-			_input = GetComponent<GameInputsManager>();
+			_input = GameInputsManager.Instance;
 #if ENABLE_INPUT_SYSTEM
-			_playerInput = GetComponent<PlayerInput>();
+			_playerInput = _input.PlayerInput;
 #else
 			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
 #endif

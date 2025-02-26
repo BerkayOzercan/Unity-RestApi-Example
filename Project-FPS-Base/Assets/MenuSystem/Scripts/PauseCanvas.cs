@@ -19,7 +19,7 @@ namespace Assets.MenuSystem.Scripts
         void Start()
         {
             _resumeBtn.onClick.AddListener(() => _gameManager.ChangeState(GameStates.Play));
-            _restartBtn.onClick.AddListener(() => _levelManager.Load());
+            _restartBtn.onClick.AddListener(() => Debug.Log("restart Level"));
             _settingsBtn.onClick.AddListener(() => Debug.Log("Settings"));
             _startMenuBtn.onClick.AddListener(() => _gameManager.ChangeState(GameStates.Start));
         }

@@ -5,19 +5,24 @@ namespace Assets.WeaponSystem.Scripts
 {
 	public class Gun : MonoBehaviour
 	{
-		[SerializeField] private Projectile _projectile = null;
-		[SerializeField] private Transform _projectileSpawnPoint = null;
-		[SerializeField] private GameInputsManager _inputs = null;
+		[SerializeField] Projectile _projectile = null;
+		[SerializeField] Transform _projectileSpawnPoint = null;
 
-		private float _fireRate = 0.25f;
-		private float _nextFireTime = 0f;
+		GameInputsManager _inputs;
+		float _fireRate = 0.25f;
+		float _nextFireTime = 0f;
 
-		private void Update()
+		void Start()
+		{
+			_inputs = GameInputsManager.Instance;
+		}
+
+		void Update()
 		{
 			Fire();
 		}
 
-		private Vector3 RaycastShoot()
+		Vector3 RaycastShoot()
 		{
 			Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
 			RaycastHit hit;
@@ -32,9 +37,9 @@ namespace Assets.WeaponSystem.Scripts
 			return hit.point;
 		}
 
-		private void Fire()
+		void Fire()
 		{
-			if (_inputs.Fire && Time.time >= _nextFireTime) // Left Mouse Button
+			if (_inputs.Fire && Time.time >= _nextFireTime)
 			{
 				Shoot();
 				_nextFireTime = Time.time + _fireRate;
@@ -45,7 +50,7 @@ namespace Assets.WeaponSystem.Scripts
 			}
 		}
 
-		private void Shoot()
+		void Shoot()
 		{
 			if (RaycastShoot() != Vector3.zero)
 			{

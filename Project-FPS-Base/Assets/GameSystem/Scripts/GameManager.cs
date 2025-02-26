@@ -4,23 +4,21 @@ using Assets.InputSystem;
 using Assets.MenuSystem.Scripts;
 using Assets.NetworkSystem;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.GameSystem.Scripts
 {
     public class GameManager : Singleton<GameManager>
     {
-
-        [Header("Managers")]
-        [SerializeField]
-        private GameInputsManager _gameInputsManager;
-        private CanvasManager _canvasManager = null;
+        GameInputsManager _gameInputsManager;
+        CanvasManager _canvasManager;
 
         [Header("Set Game Offline")]
         [SerializeField]
-        private bool _offlineGame = false;
+        bool _offlineGame = false;
 
-        private IGameState _currentState;
-        private Dictionary<GameStates, IGameState> states;
+        IGameState _currentState;
+        Dictionary<GameStates, IGameState> states;
 
         public static Action<bool> OnPlayState;
         public static Action<bool> OnWinState;
@@ -33,6 +31,7 @@ namespace Assets.GameSystem.Scripts
         {
             base.Awake();
             _canvasManager = CanvasManager.Instance;
+            _gameInputsManager = GameInputsManager.Instance;
 
             states = new Dictionary<GameStates, IGameState>
             {
@@ -47,6 +46,7 @@ namespace Assets.GameSystem.Scripts
 
         void Start()
         {
+            if (SceneManager.GetActiveScene().name != "StartMenu") return;
             if (_offlineGame)
             {
                 ChangeState(GameStates.Start);

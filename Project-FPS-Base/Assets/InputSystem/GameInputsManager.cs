@@ -1,8 +1,5 @@
-using Assets.GameSystem.Scripts;
 using UnityEngine;
-#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
-#endif
 
 namespace Assets.InputSystem
 {
@@ -22,6 +19,8 @@ namespace Assets.InputSystem
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
+
+		public PlayerInput PlayerInput;
 
 #if ENABLE_INPUT_SYSTEM
 		public void OnMove(InputValue value)

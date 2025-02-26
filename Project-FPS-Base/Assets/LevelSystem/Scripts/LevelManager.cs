@@ -1,3 +1,4 @@
+using Assets.GameSystem.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,26 +8,29 @@ namespace Assets.LevelSystem.Scripts
     {
         private const string LEVEL_KEY = "level";
 
-        public void LoadMainMenu()
+        public void LoadStartMenu()
         {
-            SceneManager.LoadScene("Menu");
+            SceneManager.LoadScene("StartMenu");
         }
 
         /// <summary>
         /// Load the last saved level or default to level 1.
         /// </summary>
-        public void Load()
+        public void Load(bool value)
         {
-            int savedLevel = PlayerPrefs.GetInt(LEVEL_KEY, 0);  // Default to 0 if not set
-            if (IsValidSceneIndex(savedLevel))
+            if (value)
             {
-                SceneManager.LoadScene(savedLevel);
-            }
-            else
-            {
-                Debug.LogWarning("Saved level is invalid. Loading first scene.");
-                PlayerPrefs.SetInt(LEVEL_KEY, 0);
-                SceneManager.LoadScene(0);
+                int savedLevel = PlayerPrefs.GetInt(LEVEL_KEY);
+                if (IsValidSceneIndex(savedLevel))
+                {
+                    SceneManager.LoadScene(savedLevel);
+                }
+                else
+                {
+                    Debug.LogWarning("Saved level is invalid. Loading first scene.");
+                    PlayerPrefs.SetInt(LEVEL_KEY, 0);
+                    SceneManager.LoadScene(0);
+                }
             }
         }
 
@@ -65,6 +69,16 @@ namespace Assets.LevelSystem.Scripts
         private bool IsValidSceneIndex(int index)
         {
             return index >= 0 && index < SceneManager.sceneCountInBuildSettings;
+        }
+
+        void OnEnable()
+        {
+            GameManager.OnPlayState += Load;
+        }
+
+        void OnDisable()
+        {
+            GameManager.OnPlayState -= Load;
         }
     }
 }
