@@ -1,10 +1,13 @@
+using Assets.MenuSystem.Scripts;
+
 namespace Assets.NetworkSystem.SignIn.Scripts
 {
     public enum SignInStates
     {
         None,
         Register,
-        Login
+        Login,
+        Start
     }
 
     public class RegisterState : ISignInState
@@ -18,8 +21,6 @@ namespace Assets.NetworkSystem.SignIn.Scripts
         {
             _register.gameObject.SetActive(true);
         }
-
-        public void OnUpdate() { }
 
         public void OnExit()
         {
@@ -40,18 +41,34 @@ namespace Assets.NetworkSystem.SignIn.Scripts
             _login.gameObject.SetActive(true);
         }
 
-        public void OnUpdate() { }
-
         public void OnExit()
         {
             _login.gameObject.SetActive(false);
         }
     }
 
+    public class StartState : ISignInState
+    {
+        private readonly StartCanvas _start;
+        public StartState(StartCanvas start)
+        {
+            _start = start;
+        }
+
+        public void OnEnter()
+        {
+            _start.gameObject.SetActive(true);
+        }
+
+        public void OnExit()
+        {
+            _start.gameObject.SetActive(false);
+        }
+    }
+
     public interface ISignInState
     {
         void OnEnter();
-        void OnUpdate();
         void OnExit();
     }
 }

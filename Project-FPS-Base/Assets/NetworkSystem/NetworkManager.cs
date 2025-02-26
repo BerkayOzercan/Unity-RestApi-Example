@@ -1,5 +1,3 @@
-using System.Collections;
-using Assets.GameSystem.Scripts;
 using Assets.NetworkSystem.Player;
 using Assets.NetworkSystem.SignIn.Scripts;
 using UnityEngine;
@@ -55,49 +53,6 @@ namespace Assets.NetworkSystem
             };
 
             return newPlayerData;
-        }
-
-        private void OnPlayerLoggedIn()
-        {
-            Debug.Log("Player Logged In!");
-            SetLoggedIn(true);
-        }
-
-        private void SetLoggedIn(bool value)
-        {
-            if (value == true)
-            {
-                PlayerPrefs.SetInt("loggedIn", 1);
-            }
-            else
-            {
-                PlayerPrefs.SetInt("loggedIn", 0);
-            }
-        }
-
-        public bool IsLoggedIn()
-        {
-            return PlayerPrefs.GetInt("loggedIn") == 1;
-        }
-
-        private void OnApplicationQuiting()
-        {
-            SetLoggedIn(false);
-        }
-
-        void OnEnable()
-        {
-            Register.OnUserRegistered += OnPlayerLoggedIn;
-            Login.LoggedIn += OnPlayerLoggedIn;
-            Application.quitting += OnApplicationQuiting;
-        }
-
-        void OnDisable()
-        {
-            Register.OnUserRegistered -= OnPlayerLoggedIn;
-            Login.LoggedIn -= OnPlayerLoggedIn;
-            Application.quitting -= OnApplicationQuiting;
-
         }
     }
 }
