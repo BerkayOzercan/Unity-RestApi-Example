@@ -8,6 +8,13 @@ namespace Assets.LevelSystem.Scripts
     {
         const string LEVEL_KEY = "Level";
 
+        void Start()
+        {
+            // int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            // int currentLevelIndex = PlayerPrefs.GetInt(LEVEL_KEY);
+
+        }
+
         public void LoadStartMenu()
         {
             SceneManager.LoadScene(0);
@@ -24,6 +31,7 @@ namespace Assets.LevelSystem.Scripts
             else
             {
                 SceneManager.LoadScene(PlayerPrefs.GetInt(LEVEL_KEY));
+                Debug.Log("On Load" + SceneManager.GetActiveScene().name);
             }
         }
 
@@ -31,7 +39,8 @@ namespace Assets.LevelSystem.Scripts
         {
             int currentLevel = PlayerPrefs.GetInt(LEVEL_KEY);
             int nextLevel = currentLevel + 1;
-            if (SceneManager.GetActiveScene().buildIndex == nextLevel)
+            Debug.Log(nextLevel);
+            if (SceneManager.GetActiveScene().buildIndex < nextLevel)
             {
                 PlayerPrefs.SetInt(LEVEL_KEY, nextLevel);
                 SceneManager.LoadScene(nextLevel);
