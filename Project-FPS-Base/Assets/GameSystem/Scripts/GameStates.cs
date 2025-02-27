@@ -12,48 +12,15 @@ namespace Assets.GameSystem.Scripts
         Lose
     }
 
-    public class LogInState : IGameState
-    {
-        private readonly Action<bool> _onLogInState;
-        public LogInState(Action<bool> onLogInState)
-        {
-            _onLogInState = onLogInState;
-        }
-
-        public void OnEnter()
-        {
-            _onLogInState?.Invoke(true);
-            Pause();
-        }
-        public void OnUpdate() { }
-        public void OnExit()
-        {
-            _onLogInState?.Invoke(false);
-            ResumeGame();
-        }
-
-        public void Pause()
-        {
-            Time.timeScale = 0f;
-        }
-
-        public void ResumeGame()
-        {
-            Time.timeScale = 1f;
-        }
-    }
-
     #region PlayingState
     public class PlayState : IGameState
     {
         private readonly GameManager _gameManager;
-        private readonly GameInputsManager _gameInputManager;
         private readonly Action<bool> _onPLaying;
 
-        public PlayState(GameManager gameManager, GameInputsManager gameInputsManager, Action<bool> onPlaying)
+        public PlayState(GameManager gameManager, Action<bool> onPlaying)
         {
             _gameManager = gameManager;
-            _gameInputManager = gameInputsManager;
             _onPLaying = onPlaying;
         }
 
@@ -65,7 +32,7 @@ namespace Assets.GameSystem.Scripts
         }
         public void OnUpdate()
         {
-            if (_gameInputManager.Escape)
+            if (_gameManager.IsPause)
                 _gameManager.PauseGame();
         }
 
@@ -84,7 +51,6 @@ namespace Assets.GameSystem.Scripts
         {
             Time.timeScale = 1f;
             SetCursorState(true);
-            _gameInputManager.Escape = false;
         }
 
         private void SetCursorState(bool newState)
@@ -98,12 +64,10 @@ namespace Assets.GameSystem.Scripts
     public class PauseState : IGameState
     {
         private readonly GameManager _gameManager;
-        private readonly GameInputsManager _gameInputManager;
         private readonly Action<bool> _onPause;
-        public PauseState(GameManager gameManager, GameInputsManager gameInputsManager, Action<bool> onPause)
+        public PauseState(GameManager gameManager, Action<bool> onPause)
         {
             _gameManager = gameManager;
-            _gameInputManager = gameInputsManager;
             _onPause = onPause;
         }
 
@@ -116,8 +80,7 @@ namespace Assets.GameSystem.Scripts
 
         public void OnUpdate()
         {
-            if (_gameInputManager == null) return;
-            if (_gameInputManager.Escape)
+            if (_gameManager.IsPause == false)
             {
                 _gameManager.ChangeState(GameStates.Play);
             }
@@ -130,7 +93,6 @@ namespace Assets.GameSystem.Scripts
         }
         public void Pause()
         {
-            _gameInputManager.Escape = false;
             Time.timeScale = 0f;
         }
 

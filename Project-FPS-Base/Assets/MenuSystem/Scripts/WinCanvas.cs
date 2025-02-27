@@ -19,10 +19,10 @@ namespace Assets.MenuSystem.Scripts
 
         void Start()
         {
-
-            _nextLevelBtn.onClick.AddListener(() => LevelManager.Instance.LoadNext());
-            _restartLevelBtn.onClick.AddListener(() => Debug.Log("RestartLevel"));
-            _mainMenuBtn.onClick.AddListener(() => Debug.Log("StartCanvas"));
+            var levelManager = LevelManager.Instance;
+            _nextLevelBtn.onClick.AddListener(() => levelManager.LoadNext());
+            _restartLevelBtn.onClick.AddListener(() => levelManager.Load());
+            _mainMenuBtn.onClick.AddListener(() => levelManager.LoadStartMenu());
 
             SetScore(ScoreManager.Instance.GetScoreData());
         }

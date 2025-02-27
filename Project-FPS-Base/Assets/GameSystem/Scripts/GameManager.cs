@@ -1,30 +1,31 @@
 using System;
 using System.Collections.Generic;
 using Assets.InputSystem;
+using UnityEngine;
 
 namespace Assets.GameSystem.Scripts
 {
     public class GameManager : Singleton<GameManager>
     {
-        GameInputsManager _gameInputsManager;
-
         IGameState _currentState;
         Dictionary<GameStates, IGameState> states;
+
+        public bool IsPause { get; set; }
 
         public static Action<bool> OnPlayState;
         public static Action<bool> OnWinState;
         public static Action<bool> OnLoseState;
         public static Action<bool> OnPauseState;
 
+
         protected override void Awake()
         {
             base.Awake();
-            _gameInputsManager = GameInputsManager.Instance;
 
             states = new Dictionary<GameStates, IGameState>
             {
-                { GameStates.Play, new PlayState(this, _gameInputsManager, OnPlayState) },
-                { GameStates.Pause, new PauseState(this, _gameInputsManager, OnPauseState) },
+                { GameStates.Play, new PlayState(this, OnPlayState) },
+                { GameStates.Pause, new PauseState(this, OnPauseState) },
                 {GameStates.Win, new WinState(OnWinState)},
                 { GameStates.Lose, new LoseState(OnLoseState) }
             };
@@ -69,12 +70,22 @@ namespace Assets.GameSystem.Scripts
             ChangeState(GameStates.Win);
         }
 
-        /// <summary>
-        /// Set Game Over
-        /// </summary>
-        public void GameOver()
+        void OnPause()
         {
+            if (IsPause == false)
+                IsPause = true;
+            else
+                IsPause = false;
+        }
 
+        void OnEnable()
+        {
+            GameInputsManager.OnPause += OnPause;
+        }
+
+        void OnDisable()
+        {
+            GameInputsManager.OnPause -= OnPause;
         }
     }
 }

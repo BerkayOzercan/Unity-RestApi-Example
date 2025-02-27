@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,7 +12,6 @@ namespace Assets.InputSystem
 		public bool Jump;
 		public bool Sprint;
 		public bool Fire;
-		public bool Escape { get; set; }
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -21,6 +21,7 @@ namespace Assets.InputSystem
 		public bool cursorInputForLook = true;
 
 		public PlayerInput PlayerInput;
+		public static Action OnPause;
 
 #if ENABLE_INPUT_SYSTEM
 		public void OnMove(InputValue value)
@@ -85,7 +86,7 @@ namespace Assets.InputSystem
 
 		public void EscapeInput(bool isEsc)
 		{
-			Escape = isEsc;
+			OnPause?.Invoke();
 		}
 	}
 

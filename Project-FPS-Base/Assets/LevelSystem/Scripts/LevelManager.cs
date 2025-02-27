@@ -27,22 +27,17 @@ namespace Assets.LevelSystem.Scripts
             }
         }
 
-        /// <summary>
-        /// Load the next level if available.
-        /// </summary>
         public void LoadNext()
         {
-            // string savedLevel = PlayerPrefs.GetString(LEVEL_KEY);
-
-            // if (PlayerPrefs.HasKey(savedLevel))
-            // {
-            //     PlayerPrefs.SetInt(LEVEL_KEY, nextLevel);
-            //     SceneManager.LoadScene(nextLevel);
-            // }
-            // else
-            // {
-            //     Debug.Log("This is the last level. Cannot load next.");
-            // }
+            int currentLevel = PlayerPrefs.GetInt(LEVEL_KEY);
+            int nextLevel = currentLevel + 1;
+            if (SceneManager.GetActiveScene().buildIndex == nextLevel)
+            {
+                PlayerPrefs.SetInt(LEVEL_KEY, nextLevel);
+                SceneManager.LoadScene(nextLevel);
+            }
+            else
+                SceneManager.LoadScene(1);
         }
     }
 }
