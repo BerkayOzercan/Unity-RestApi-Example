@@ -1,4 +1,4 @@
-using Assets.GameSystem.Scripts;
+using Assets.PlayerSystem.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,47 +6,40 @@ namespace Assets.LevelSystem.Scripts
 {
     public class LevelManager : Singleton<LevelManager>
     {
-        const string LEVEL_KEY = "Level";
+        const string LAST_SCENE = "Level";
+        const string START_MENU = "StartMenu";
 
         void Start()
         {
-            // int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            // int currentLevelIndex = PlayerPrefs.GetInt(LEVEL_KEY);
-
+            if (PlayerPrefs.GetString(LAST_SCENE) == string.Empty)
+            {
+                SetScene(1);
+                Debug.Log("GET LEVEL IS EMPTY");
+            }
         }
 
         public void LoadStartMenu()
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(START_MENU);
         }
 
         public void Load()
         {
-            int savedLevel = PlayerPrefs.GetInt(LEVEL_KEY);
-            if (savedLevel <= 0)
+            if (PlayerPrefs.HasKey(LAST_SCENE))
             {
-                PlayerPrefs.SetInt(LEVEL_KEY, 1);
-                SceneManager.LoadScene(savedLevel);
-            }
-            else
-            {
-                SceneManager.LoadScene(PlayerPrefs.GetInt(LEVEL_KEY));
-                Debug.Log("On Load" + SceneManager.GetActiveScene().name);
+                string lastScene = PlayerPrefs.GetString(LAST_SCENE);
+                if (lastScene != START_MENU)
+                {
+                    SceneManager.LoadScene(lastScene);
+                    Debug.Log("Game Loaded: " + lastScene);
+                    return;
+                }
             }
         }
 
-        public void LoadNext()
+        void SetScene(int value)
         {
-            int currentLevel = PlayerPrefs.GetInt(LEVEL_KEY);
-            int nextLevel = currentLevel + 1;
-            Debug.Log(nextLevel);
-            if (SceneManager.GetActiveScene().buildIndex < nextLevel)
-            {
-                PlayerPrefs.SetInt(LEVEL_KEY, nextLevel);
-                SceneManager.LoadScene(nextLevel);
-            }
-            else
-                SceneManager.LoadScene(1);
+            PlayerPrefs.SetString(LAST_SCENE, $"Level {value}");
         }
     }
 }

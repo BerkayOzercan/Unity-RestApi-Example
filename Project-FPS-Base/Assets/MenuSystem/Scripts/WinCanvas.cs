@@ -20,7 +20,7 @@ namespace Assets.MenuSystem.Scripts
         void Start()
         {
             var levelManager = LevelManager.Instance;
-            _nextLevelBtn.onClick.AddListener(() => levelManager.LoadNext());
+            _nextLevelBtn.onClick.AddListener(() => Debug.Log("Load Next Level"));
             _restartLevelBtn.onClick.AddListener(() => levelManager.Load());
             _mainMenuBtn.onClick.AddListener(() => levelManager.LoadStartMenu());
 

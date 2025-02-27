@@ -6,7 +6,6 @@ namespace Assets.MenuSystem.Scripts
     public class CanvasManager : Singleton<CanvasManager>
     {
         [Header("Canvases")]
-        public GameObject LogInCanvas = null;
         public GameObject PauseCanvas = null;
         public GameObject GameCanvas = null;
         public GameObject WinCanvas = null;
@@ -35,14 +34,6 @@ namespace Assets.MenuSystem.Scripts
                 PauseCanvas.SetActive(true);
             else
                 PauseCanvas.SetActive(false);
-        }
-
-        void OnLogInState(bool value)
-        {
-            if (value)
-                LogInCanvas.SetActive(true);
-            else
-                LogInCanvas.SetActive(false);
         }
 
         void OnEnable()
