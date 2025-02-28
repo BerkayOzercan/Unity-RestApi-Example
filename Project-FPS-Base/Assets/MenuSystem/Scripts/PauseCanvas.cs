@@ -18,7 +18,7 @@ namespace Assets.MenuSystem.Scripts
 
         void Start()
         {
-            _resumeBtn.onClick.AddListener(() => GameManager.Instance.ChangeState(GameStates.Play));
+            _resumeBtn.onClick.AddListener(() => GameManager.Instance.IsPause = false);
             _restartBtn.onClick.AddListener(() => Debug.Log("restart Level"));
             _settingsBtn.onClick.AddListener(() => Debug.Log("Settings"));
             _startMenuBtn.onClick.AddListener(() => LevelManager.Instance.LoadStartMenu());
