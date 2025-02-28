@@ -1,4 +1,5 @@
 using System;
+using Assets.LevelSystem.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +11,7 @@ namespace Assets.GameSystem.Scripts
         public float LevelTime { get; set; }
         public int LevelCurrency { get; set; }
         public int LevelBonus { get; set; } = 0;
-        private int _bonus = 0;
+        int _bonus = 0;
 
         //Level Timer
         public bool IsRunning { get; set; }
@@ -18,6 +19,11 @@ namespace Assets.GameSystem.Scripts
 
         public static Action<ScoreDto> GetScoreAction;
         Target.TargetType _currentTargetType = Target.TargetType.None;
+
+        void Start()
+        {
+            GetTotalScore();
+        }
 
         void Update()
         {
@@ -79,12 +85,13 @@ namespace Assets.GameSystem.Scripts
 
         float LevelScore()
         {
-            var score = (LevelCurrency - LevelTime) * LevelBonus;
+            var score = (LevelCurrency + LevelTime) * LevelBonus;
             return (float)Math.Round(score, 2);
         }
-
+        // TODO "Need refactor"
         void SaveLevelScore(string level, float levelScore)
         {
+            if (level == "StartMenu") return;
             if (PlayerPrefs.HasKey(level))
             {
                 if (PlayerPrefs.GetFloat(level) < levelScore)
@@ -92,6 +99,19 @@ namespace Assets.GameSystem.Scripts
                     PlayerPrefs.SetFloat(level, levelScore);
                 }
             }
+        }
+
+        float GetTotalScore()
+        {
+            float _totalScore = 0;
+
+            int totalLevel = LevelManager.Instance.GetLengthOfLevels();
+            for (int i = 1; i < totalLevel; i++)
+            {
+                _totalScore += PlayerPrefs.GetFloat("Level " + i);
+            }
+            Debug.Log("Total score " + _totalScore);
+            return _totalScore;
         }
 
 
