@@ -1,5 +1,5 @@
 using Assets.GameSystem.Scripts;
-using Assets.LevelSystem.Scripts;
+using Assets.GameSceneManager.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +16,7 @@ namespace Assets.MenuSystem.Scripts
 
         void Start()
         {
-            _startBtn.onClick.AddListener(() => LevelManager.Instance.Load());
+            _startBtn.onClick.AddListener(() => GameSceneManager.Scripts.GameSceneManager.Instance.Load());
             _settingsBtn.onClick.AddListener(() => Debug.Log("Settings"));
             _quitBtn.onClick.AddListener(() => Application.Quit());
         }

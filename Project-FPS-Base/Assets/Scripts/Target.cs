@@ -11,7 +11,7 @@ public class Target : MonoBehaviour
     private int _collectableAmount = 2;
 
     private Health _health = null;
-    private ScoreManager _scoreManager = null;
+    private LevelManager _levelManager = null;
 
     private void Awake()
     {
@@ -20,14 +20,14 @@ public class Target : MonoBehaviour
 
     private void Start()
     {
-        _scoreManager = ScoreManager.Instance;
+        _levelManager = LevelManager.Instance;
     }
 
     private void IsDie(bool isDie)
     {
         if (isDie)
         {
-            _scoreManager.AddBonus(_targetType);
+            _levelManager.AddBonus(_targetType);
             DestroyTarget();
             Destroy(gameObject);
         }

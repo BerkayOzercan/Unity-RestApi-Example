@@ -1,5 +1,5 @@
 using Assets.GameSystem.Scripts;
-using Assets.LevelSystem.Scripts;
+using Assets.GameSceneManager.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,20 +19,22 @@ namespace Assets.MenuSystem.Scripts
 
         void Start()
         {
-            var levelManager = LevelManager.Instance;
+            var levelManager = GameSceneManager.Scripts.GameSceneManager.Instance;
             _nextLevelBtn.onClick.AddListener(() => Debug.Log("Load Next Level"));
             _restartLevelBtn.onClick.AddListener(() => levelManager.Load());
             _mainMenuBtn.onClick.AddListener(() => levelManager.LoadStartMenu());
 
-            SetScore(ScoreManager.Instance.GetScoreData());
+            SetScore(LevelManager.Instance);
         }
 
-        void SetScore(ScoreDto score)
+        void SetScore(LevelManager levelManager)
         {
-            var scoreList = $"Level Score = {score.LevelScore}\n" +
-                            $"Bonus = {score.Bonus}\n" +
-                            $"Currency = {score.Currency}\n" +
-                            $"Time = {score.Time}\n";
+            LevelEntities levelEntities = levelManager.GetEntitiesData();
+
+            var scoreList = $"Level Score = {levelManager.GetScore()}\n" +
+                            $"Bonus = {levelEntities.Bonus}\n" +
+                            $"Currency = {levelEntities.Currency}\n" +
+                            $"Time = {levelManager.Time}\n";
 
             _totalScoreText.text = scoreList;
         }
