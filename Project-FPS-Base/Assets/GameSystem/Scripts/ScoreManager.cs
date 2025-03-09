@@ -11,7 +11,7 @@ namespace Assets.GameSystem.Scripts
 
         public void AddScore()
         {
-            scoreData.levelDatas.Add(LevelManager.Instance.GetLevelData());
+            scoreData.levelDatas.Add(LevelManager.Instance.LevelData());
             SaveScores();
         }
 
