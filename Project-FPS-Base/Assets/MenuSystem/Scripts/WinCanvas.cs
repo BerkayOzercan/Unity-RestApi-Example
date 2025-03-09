@@ -20,8 +20,8 @@ namespace Assets.MenuSystem.Scripts
         void Start()
         {
             var levelManager = LevelManager.Instance;
-            _nextLevelBtn.onClick.AddListener(() => Debug.Log("Load Next Level"));
-            _restartLevelBtn.onClick.AddListener(() => levelManager.Load());
+            _nextLevelBtn.onClick.AddListener(() => levelManager.Next());
+            _restartLevelBtn.onClick.AddListener(() => levelManager.Restart());
             _mainMenuBtn.onClick.AddListener(() => levelManager.LoadStartMenu());
 
             SetScore(ScoreManager.Instance);

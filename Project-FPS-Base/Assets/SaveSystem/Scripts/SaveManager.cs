@@ -18,13 +18,9 @@ namespace Assets.SaveSystem.Scripts
             _dataService.Save(gameData);
         }
 
-        GameData GetGameData(string gameName)
+        public GameData GetGameData()
         {
-            GameData gameData = ScoreManager.Instance.GameData();
-
-            gameData = _dataService.Load(gameName);
-
-            return gameData;
+            return ScoreManager.Instance.GameData();
         }
 
         void OnEnable()

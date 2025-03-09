@@ -1,3 +1,4 @@
+using Assets.SaveSystem.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,63 +6,26 @@ namespace Assets.LevelSystem.Scripts
 {
     public class LevelManager : Singleton<LevelManager>
     {
-        const string LAST_SCENE = "Level";
-        const string START_MENU = "StartMenu";
-
-        void Start()
-        {
-            if (PlayerPrefs.GetString(LAST_SCENE) == string.Empty)
-            {
-                SetScene(1);
-                Debug.Log("GET LEVEL IS EMPTY");
-            }
-        }
-
         public void LoadStartMenu()
         {
-            SceneManager.LoadScene(START_MENU);
+            SceneManager.LoadScene("StartMenu");
         }
 
-        public void Load()
+        public void Load(string name)
         {
-            if (PlayerPrefs.HasKey(LAST_SCENE))
-            {
-                string lastScene = PlayerPrefs.GetString(LAST_SCENE);
-                if (lastScene != START_MENU)
-                {
-                    SceneManager.LoadScene(lastScene);
-                    Debug.Log("Game Loaded: " + lastScene);
-                    return;
-                }
-            }
+            SceneManager.LoadScene(name);
         }
 
-        /// <summary>
-        /// Return Length of Levels
-        /// </summary>
-        /// <returns></returns>
-        /// TODO Refator 
-        public int GetLengthOfLevels()
+        public void Next()
         {
-            // var levelText = PlayerPrefs.GetString(LAST_SCENE);
-            // char firstNum, secondNum;
-            // if (levelText.Length >= 8)
-            // {
-            //     firstNum = levelText[6];
-            //     secondNum = levelText[7];
-            //     return int.Parse(firstNum.ToString() + secondNum.ToString());
-            // }
-            // else if (levelText.Length >= 7)
-            // {
-            //     firstNum = levelText[6];
-            //     return int.Parse(firstNum.ToString());
-            // }
-            return SceneManager.sceneCountInBuildSettings - 1;
+            int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
+            SceneManager.LoadScene(nextScene);
         }
 
-        void SetScene(int value)
+        public void Restart()
         {
-            PlayerPrefs.SetString(LAST_SCENE, $"Level{value}");
+            string activeScene = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(activeScene);
         }
     }
 }
