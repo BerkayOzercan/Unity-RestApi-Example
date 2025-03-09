@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Assets.GameSceneManager.Scripts
+namespace Assets.LevelSystem.Scripts
 {
-    public class GameSceneManager : Singleton<GameSceneManager>
+    public class LevelManager : Singleton<LevelManager>
     {
         const string LAST_SCENE = "Level";
         const string START_MENU = "StartMenu";

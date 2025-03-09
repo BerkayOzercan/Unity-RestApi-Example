@@ -1,8 +1,6 @@
-using System;
-
 namespace Assets.GameSystem.Scripts
 {
-    public class LevelEntities
+    public class ScoreEntities
     {
         public float Time;
         public int Currency;

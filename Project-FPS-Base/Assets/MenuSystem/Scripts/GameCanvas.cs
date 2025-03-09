@@ -14,7 +14,7 @@ namespace Assets.MenuSystem.Scripts
         TextMeshProUGUI _bonusText = null;
 
 
-        void GetScoreData(LevelEntities scoreDto)
+        void GetScoreData(ScoreEntities scoreDto)
         {
             _bonusText.text = $"Bonus: {scoreDto.Bonus}";
             _counterTimeText.text = $"Time: {scoreDto.Time}";
@@ -23,12 +23,12 @@ namespace Assets.MenuSystem.Scripts
 
         void OnEnable()
         {
-            LevelManager.GetScoreAction += GetScoreData;
+            ScoreManager.GetScoreAction += GetScoreData;
         }
 
         void OnDisable()
         {
-            LevelManager.GetScoreAction -= GetScoreData;
+            ScoreManager.GetScoreAction -= GetScoreData;
         }
     }
 }

@@ -1,5 +1,5 @@
 using Assets.GameSystem.Scripts;
-using Assets.GameSceneManager.Scripts;
+using Assets.LevelSystem.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +21,7 @@ namespace Assets.MenuSystem.Scripts
             _resumeBtn.onClick.AddListener(() => GameManager.Instance.IsPause = false);
             _restartBtn.onClick.AddListener(() => Debug.Log("restart Level"));
             _settingsBtn.onClick.AddListener(() => Debug.Log("Settings"));
-            _startMenuBtn.onClick.AddListener(() => GameSceneManager.Scripts.GameSceneManager.Instance.LoadStartMenu());
+            _startMenuBtn.onClick.AddListener(() => LevelManager.Instance.LoadStartMenu());
         }
     }
 }

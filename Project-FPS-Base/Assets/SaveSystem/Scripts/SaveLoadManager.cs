@@ -16,13 +16,13 @@ namespace Assets.SaveSystem.Scripts
 
         void SaveGame()
         {
-            GameData gameData = LevelManager.Instance.GameData();
+            GameData gameData = ScoreManager.Instance.GameData();
             _dataService.Save(gameData);
         }
 
         void LoadGame(string gameName)
         {
-            GameData gameData = LevelManager.Instance.GameData();
+            GameData gameData = ScoreManager.Instance.GameData();
 
             gameData = _dataService.Load(gameName);
 

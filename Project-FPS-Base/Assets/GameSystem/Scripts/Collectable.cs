@@ -7,12 +7,12 @@ namespace Assets.GameSystem.Scripts
     {
         public CollectableTypes CollectableTypes = CollectableTypes.None;
 
-        private LevelManager _levelManager = null;
+        private ScoreManager _scoreManager = null;
         private bool _isCollect = false;
 
         private void Start()
         {
-            _levelManager = LevelManager.Instance;
+            _scoreManager = ScoreManager.Instance;
             Explode();
         }
 
@@ -35,7 +35,7 @@ namespace Assets.GameSystem.Scripts
             if (CollectableTypes == CollectableTypes.Coin)
             {
                 _isCollect = true;
-                _levelManager.AddCurrency(1);
+                _scoreManager.AddCurrency(1);
                 Destroy(gameObject);
             }
         }
