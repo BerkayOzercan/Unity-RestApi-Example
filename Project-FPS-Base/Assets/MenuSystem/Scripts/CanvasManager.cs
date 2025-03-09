@@ -20,12 +20,9 @@ namespace Assets.MenuSystem.Scripts
 
         }
 
-        void OnWinState(bool value)
+        void OnWinState()
         {
-            if (value)
-                WinCanvas.SetActive(true);
-            else
-                WinCanvas.SetActive(false);
+            WinCanvas.SetActive(true);
         }
 
         void OnPauseState(bool value)

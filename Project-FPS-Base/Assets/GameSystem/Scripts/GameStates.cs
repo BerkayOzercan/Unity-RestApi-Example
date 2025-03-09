@@ -105,12 +105,12 @@ namespace Assets.GameSystem.Scripts
     #region GameWinState
     public class WinState : IGameState
     {
-        private readonly Action<bool> _onGameWin;
-        public WinState(Action<bool> onGameWin) { _onGameWin = onGameWin; }
+        private readonly Action _onGameWin;
+        public WinState(Action onGameWin) { _onGameWin = onGameWin; }
 
-        public void OnEnter() { _onGameWin?.Invoke(true); Pause(); Debug.Log("WinState"); }
+        public void OnEnter() { _onGameWin?.Invoke(); Pause(); Debug.Log("WinState"); }
         public void OnUpdate() { }
-        public void OnExit() { _onGameWin?.Invoke(false); }
+        public void OnExit() { _onGameWin?.Invoke(); }
         public void Pause() { Time.timeScale = 0f; }
         public void ResumeGame() { }
     }

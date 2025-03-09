@@ -13,7 +13,7 @@ namespace Assets.GameSystem.Scripts
         public bool IsPause { get; set; }
 
         public static Action<bool> OnPlayState;
-        public static Action<bool> OnWinState;
+        public static Action OnWinState;
         public static Action<bool> OnLoseState;
         public static Action<bool> OnPauseState;
 

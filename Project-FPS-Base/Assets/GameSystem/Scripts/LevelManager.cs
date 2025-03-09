@@ -76,35 +76,9 @@ namespace Assets.GameSystem.Scripts
             return LevelCurrency + LevelBonus - (Time / 10f);
         }
 
-        public LevelData LevelData()
+        public GameData GameData()
         {
-            return new LevelData(SceneManager.GetActiveScene().name, GetScore());
-        }
-
-        void SaveData(bool value)
-        {
-            if (!value) return;
-            string path = Application.persistentDataPath + "/" + LevelData().Name;
-            string json = JsonUtility.ToJson(LevelData(), true);
-            File.WriteAllText(path, json);
-            Debug.Log("Saved to: " + path);
-        }
-
-        LevelData LoadData(string levelName)
-        {
-            string path = Application.persistentDataPath + "/" + levelName;
-            if (File.Exists(path))
-            {
-                string json = File.ReadAllText(path);
-                LevelData data = JsonUtility.FromJson<LevelData>(json);
-                Debug.Log("Loaded from: " + path);
-                return data;
-            }
-            else
-            {
-                Debug.LogWarning("Save file not found!");
-                return null;
-            }
+            return new GameData(SceneManager.GetActiveScene().name, GetScore());
         }
 
         void UpdateTime()
@@ -136,13 +110,11 @@ namespace Assets.GameSystem.Scripts
         void OnEnable()
         {
             GameManager.OnPlayState += OnPlayState;
-            GameManager.OnWinState += SaveData;
         }
 
         void OnDisable()
         {
             GameManager.OnPlayState -= OnPlayState;
-            GameManager.OnWinState -= SaveData;
         }
     }
 }
