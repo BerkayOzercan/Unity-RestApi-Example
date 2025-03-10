@@ -18,10 +18,11 @@ namespace Assets.MenuSystem.Scripts
 
         void Start()
         {
+            LevelManager levelManager = LevelManager.Instance;
             _resumeBtn.onClick.AddListener(() => GameManager.Instance.IsPause = false);
-            _restartBtn.onClick.AddListener(() => Debug.Log("restart Level"));
+            _restartBtn.onClick.AddListener(() => levelManager.Restart());
             _settingsBtn.onClick.AddListener(() => Debug.Log("Settings"));
-            _startMenuBtn.onClick.AddListener(() => LevelManager.Instance.LoadStartMenu());
+            _startMenuBtn.onClick.AddListener(() => levelManager.LoadStartMenu());
         }
     }
 }

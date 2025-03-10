@@ -46,6 +46,8 @@ namespace Assets.MenuSystem.Scripts
             GameManager.OnPlayState -= OnPlayingState;
             GameManager.OnPauseState -= OnPauseState;
         }
+
+
     }
 }
 
