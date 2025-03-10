@@ -80,6 +80,7 @@ namespace Assets.GameSystem.Scripts
 
         void OnEnable()
         {
+            Debug.Log("enable");
             GameInputsManager.OnPause += OnPause;
         }
 

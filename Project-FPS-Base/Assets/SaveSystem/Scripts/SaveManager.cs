@@ -1,8 +1,9 @@
 using Assets.GameSystem.Scripts;
+using Assets.Scripts;
 
 namespace Assets.SaveSystem.Scripts
 {
-    public class SaveManager : Singleton<SaveManager>
+    public class SaveManager : PersistentSingleton<SaveManager>
     {
         IDataService _dataService;
 

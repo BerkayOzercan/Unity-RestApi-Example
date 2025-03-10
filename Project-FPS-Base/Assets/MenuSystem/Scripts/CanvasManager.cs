@@ -3,13 +3,12 @@ using UnityEngine;
 
 namespace Assets.MenuSystem.Scripts
 {
-    public class CanvasManager : Singleton<CanvasManager>
+    public class CanvasManager : MonoBehaviour
     {
         [Header("Canvases")]
         public GameObject PauseCanvas = null;
         public GameObject GameCanvas = null;
         public GameObject WinCanvas = null;
-
 
         void OnPlayingState(bool value)
         {
@@ -27,10 +26,7 @@ namespace Assets.MenuSystem.Scripts
 
         void OnPauseState(bool value)
         {
-            if (value)
-                PauseCanvas.SetActive(true);
-            else
-                PauseCanvas.SetActive(false);
+            PauseCanvas.SetActive(value);
         }
 
         void OnEnable()
@@ -46,8 +42,6 @@ namespace Assets.MenuSystem.Scripts
             GameManager.OnPlayState -= OnPlayingState;
             GameManager.OnPauseState -= OnPauseState;
         }
-
-
     }
 }
 

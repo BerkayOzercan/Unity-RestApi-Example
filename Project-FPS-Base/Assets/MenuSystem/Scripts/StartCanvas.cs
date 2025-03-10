@@ -18,8 +18,7 @@ namespace Assets.MenuSystem.Scripts
 
         void Start()
         {
-            string level = SaveManager.Instance.GetGameData().Name;
-            _startBtn.onClick.AddListener(() => LevelManager.Instance.Load(level));
+            _startBtn.onClick.AddListener(() => LevelManager.Instance.Load("Level 1"));
             _settingsBtn.onClick.AddListener(() => Debug.Log("Settings"));
             _quitBtn.onClick.AddListener(() => Application.Quit());
         }
