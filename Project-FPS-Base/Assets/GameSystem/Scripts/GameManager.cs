@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Assets.InputSystem;
-using UnityEngine;
 
 namespace Assets.GameSystem.Scripts
 {
@@ -80,7 +79,6 @@ namespace Assets.GameSystem.Scripts
 
         void OnEnable()
         {
-            Debug.Log("enable");
             GameInputsManager.OnPause += OnPause;
         }
 
