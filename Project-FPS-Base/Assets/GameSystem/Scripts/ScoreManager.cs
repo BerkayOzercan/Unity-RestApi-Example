@@ -54,8 +54,7 @@ namespace Assets.GameSystem.Scripts
 
         void UpdateEntities()
         {
-            if (IsRunning)
-                GetScoreAction?.Invoke(GetEntitiesData());
+            GetScoreAction?.Invoke(GetEntitiesData());
         }
 
         public ScoreEntities GetEntitiesData()
@@ -81,9 +80,7 @@ namespace Assets.GameSystem.Scripts
 
         void UpdateTime()
         {
-            if (IsRunning)
-                Time += UnityEngine.Time.deltaTime;
-
+            Time += UnityEngine.Time.deltaTime;
         }
 
         void OnPlayState(bool value)

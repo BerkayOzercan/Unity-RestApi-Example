@@ -12,11 +12,7 @@ namespace Assets.MenuSystem.Scripts
 
         void OnPlayingState(bool value)
         {
-            if (value)
-                GameCanvas.SetActive(true);
-            else
-                GameCanvas.SetActive(false);
-
+            GameCanvas.SetActive(value);
         }
 
         void OnWinState()
