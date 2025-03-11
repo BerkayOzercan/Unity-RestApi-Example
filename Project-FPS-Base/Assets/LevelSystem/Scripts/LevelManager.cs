@@ -1,9 +1,8 @@
-using Assets.SaveSystem.Scripts;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.LevelSystem.Scripts
 {
+    // TODO refactor and implement save system
     public class LevelManager : Singleton<LevelManager>
     {
         public void LoadStartMenu()
