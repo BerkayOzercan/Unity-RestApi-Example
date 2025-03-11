@@ -61,7 +61,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -118,7 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 326b8965fa98c844387a54adff15da2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LogInCanvas: {fileID: 0}
   PauseCanvas: {fileID: 7158997354087423257}
   GameCanvas: {fileID: 8908249373538751471}
   WinCanvas: {fileID: 3179442794898204630}

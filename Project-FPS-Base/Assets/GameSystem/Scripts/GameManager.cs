@@ -25,7 +25,7 @@ namespace Assets.GameSystem.Scripts
             {
                 { GameStates.Play, new PlayState(this, OnPlayState) },
                 { GameStates.Pause, new PauseState(this, OnPauseState) },
-                {GameStates.Win, new WinState(OnWinState)},
+                { GameStates.Win, new WinState(OnWinState) },
                 { GameStates.Lose, new LoseState(OnLoseState) }
             };
         }
@@ -40,10 +40,6 @@ namespace Assets.GameSystem.Scripts
             _currentState?.OnUpdate();
         }
 
-        /// <summary>
-        /// Change game state
-        /// </summary>
-        /// <param name="newState"></param>
         public void ChangeState(GameStates newState)
         {
             if (_currentState != null)
@@ -53,21 +49,9 @@ namespace Assets.GameSystem.Scripts
             _currentState.OnEnter();
         }
 
-        /// <summary>
-        /// Set pause game
-        /// </summary>
-        public void PauseGame()
-        {
-            ChangeState(GameStates.Pause);
-        }
+        public void PauseGame() => ChangeState(GameStates.Pause);
 
-        /// <summary>
-        /// Set game win
-        /// </summary>
-        public void GameWin()
-        {
-            ChangeState(GameStates.Win);
-        }
+        public void GameWin() => ChangeState(GameStates.Win);
 
         void OnPause()
         {
