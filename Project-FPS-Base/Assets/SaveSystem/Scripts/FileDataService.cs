@@ -17,7 +17,6 @@ namespace Assets.SaveSystem.Scripts
             _serializer = serializer;
             _dataPath = Application.persistentDataPath;
             _fileExtension = ".json";
-            Debug.Log($"FileDataService initialized with path: {_dataPath}");
         }
 
         string GetPathToFile(string fileName)
